@@ -1,5 +1,5 @@
 /* drop databse if exsists */
-DROP DATABASE IF EXISTS `Steamer_DB`;
+DROP DATABASE IF EXISTS `project2`;
 /* create database */
-CREATE DATABASE `Steamer_DB`;
+CREATE DATABASE `project2`;
 /* use database */

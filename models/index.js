@@ -1,17 +1,17 @@
-const cpuinfo = require('./cpuinfo');
-const gpuinfo = require('./gpuinfo');
+const CpuInfo = require('./CpuInfo');
+const GpuInfo = require('./GpuInfo');
 const User = require('./user');
 
-User.hasOne(cpuinfo, {
+User.hasOne(CpuInfo, {
     foreignKey: 'user_id',
 });
 
-cpuinfo.belongsTo(User, {
+CpuInfo.belongsTo(User, {
     foreignKey: 'user_id',
     
 });
 
-gpuinfo.belongsTo(User,{
+GpuInfo.belongsTo(User,{
     foreignKey: 'user_id',
 });
 
@@ -19,4 +19,6 @@ gpuinfo.belongsTo(User,{
 
 
 
-module.exports = {User, gpuinfo, cpuinfo};
+
+
+module.exports = {User, GpuInfo, CpuInfo};
