@@ -7,7 +7,7 @@ const routes = require('./controllers');
 
 const sequelize = require('./config/connection');
 
-// TODO: Add a comment describing the functionality of this expression
+
 // initializes the session store
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 
 // const hbs = exphbs.create({ helpers });
 
-// TODO: Add a comment describing the functionality of this object
+
 // sets up the session and connects it to our Sequelize database
 const sess = {
   secret: '90m458thc2089qn7vytc230=x19-m-M98708CT&(*GHI%^&B',
@@ -28,7 +28,7 @@ const sess = {
   })
 };
 
-// TODO: Add a comment describing the functionality of this statement
+
 // tells the app to use the session
 app.use(session(sess));
 
