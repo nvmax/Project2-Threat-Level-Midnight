@@ -1,8 +1,4 @@
-// create seed data for gpu
-
-const { GpuInfo } = require("../models")
-
-const gpu = [
+[
     {
       "brand": "NVIDIA",
       "gpu": "GeForce RTX 3090 Ti",
@@ -4181,6 +4177,3 @@ const gpu = [
       }
   ]
 
-const gpuData = () => GpuInfo.bulkCreate(gpuInfo);
-
-module.exports = gpuData;

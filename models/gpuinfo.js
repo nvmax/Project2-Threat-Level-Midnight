@@ -1,13 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class gpuinfo extends Model {
-//   checkPassword(loginPw) {
-//     return bcrypt.compareSync(loginPw, this.password);
-//   }
-}
+class GpuInfo extends Model {}
 
-gpuinfo.init(
+
+GpuInfo.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,19 +24,19 @@ gpuinfo.init(
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    Type : {
+    type : {
         type: DataTypes.STRING,
         allowNull: true,
     },
-  
-    },
-    {
-    sequelize,
+    
+  },
+  {
+    sequelize: sequelize,
     timestamps: false,
     freezeTableName: true,
-    underscored: true,
-    modelName: 'gpuinfo',
+    // underscored: true,
+    modelName: 'gpuinfo'
   }
 );
 
-module.exports = gpuinfo;
+module.exports = GpuInfo;

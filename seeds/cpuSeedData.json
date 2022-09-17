@@ -1,8 +1,4 @@
-// create seed data for cpu 
-const { CpuInfo } = require('../models');
-
-
-const cpus = [
+ [
     {
       "cpu": "AMD Ryzen Threadripper PRO 5995WX",
       "benchmark": 108822,
@@ -13803,8 +13799,4 @@ const cpus = [
       "benchmark": 77,
       "category": "Desktop"
     }
-  ];
-
-const seedcpu = () => CpuInfo.bulkCreate(cpu);
-
-module.exports = seedcpu;
+  ]

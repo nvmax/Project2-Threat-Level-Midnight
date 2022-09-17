@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class Cpu extends Model {}
+class CpuInfo extends Model {}
 
-Cpu.init(
+CpuInfo.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -20,26 +20,18 @@ Cpu.init(
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        catagory: {
+        category: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: "user",
-                key: "id",
-            },
-        },
     },
+
     {
-        sequelize,
+        sequelize: sequelize,
         timestamps: false,
-        freezeTableName: true,
-        
+        freezeTableName: true,        
         modelName: 'cpuinfo'
     }
 );
 
-module.exports = Cpu;
+module.exports = CpuInfo;
