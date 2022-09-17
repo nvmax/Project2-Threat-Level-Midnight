@@ -3,10 +3,6 @@ const { User, GpuInfo, CpuInfo } = require('../../models');
 const bcrypt = require('bcrypt');
 
 
-
-
-
-
 // GET /api/users
 router.get('/', (req, res) => {
     // Access our User model and run .findAll() method)
@@ -41,9 +37,7 @@ router.get('/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
-            
-
-
+          
 
 // post route for new user
 router.post('/', async (req, res) => {
@@ -62,22 +56,26 @@ router.post('/', async (req, res) => {
     }
 });
 
-// update user info with cpu, gpu, ram, and hdd
-router.put('/:id', async (req, res) => {
-    try {
-        const userData = await User.update(req.body, {
-            where: {
-                id: req.params.id,
-            },
-        });
-        if (!userData) {
-            res.status(404).json({ message: 'No user found with this id!' });
+// put route for user
+router.put('/:id', (req, res) => {
+    // using sessions to check if the user is logged in
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbUserData => {
+        if (!dbUserData[0]) {
+            res.status(404).json({ message: 'No user found with this id' });
             return;
         }
-        res.status(200).json(userData);
-    } catch (err) {
+        res.json(dbUserData);
+    })
+    .catch(err => { 
+        console.log(err);
         res.status(500).json(err);
-    }
+    });
 });
 
 // delete user
