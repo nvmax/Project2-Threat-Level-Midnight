@@ -1,4 +1,4 @@
-/* drop databse if exsists */
+/* drop database if exists */
 DROP DATABASE IF EXISTS `project2`;
 /* create database */
 CREATE DATABASE `project2`;
