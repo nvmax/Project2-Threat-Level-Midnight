@@ -115,8 +115,29 @@
   transition: 500ms;
 }
 
-@media screen and (max-width: 768) {
+@media screen and (max-width: 768px) {
+  .login-main-container {
+    display: flex;
+    flex-direction: column;
+  }
+
   .login-left-container {
-    display: none;
+    width: 100%;
+    height: 30vh;
+  }
+
+  .login-left-container h2 {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  .login-left-container p {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  .login-right-container {
+    width: 100%;
+    height: 80vh;
   }
 }
