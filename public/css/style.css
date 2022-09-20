@@ -35,7 +35,6 @@ header {
     url('../images/desktop.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-size: cover;
     padding: 50px 0;
     margin: 0;
@@ -66,4 +65,18 @@ header h6 {
     font-size: 20px;
     position:absolute;
     bottom:0;
+}
+
+#mission {
+    width: 80%;
+    margin: 200px auto;
+    font-family: var(--RobotoFont);
+    font-size: 20px;
+    text-align: justify;
+}
+
+#mission h1 {
+    font-family: var(--AdventFont);
+    font-size: 40px;
+    margin: 10px 0;
 }
