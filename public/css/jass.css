@@ -1,0 +1,184 @@
+/* Reset by https://piccalil.li/blog/a-modern-css-reset/ */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Main layout containers */
+
+.main-container {
+  width: 100%;
+  display: flex;
+}
+
+/* Right container */
+
+.right-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 65%;
+}
+
+/* Left container */
+
+.left-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 35%;
+  height: 100vh;
+  background-color: rgba(30, 35, 42);
+  color: white;
+  text-align: center;
+}
+
+.left-container p {
+  font-size: 3em;
+}
+
+/* Form */
+
+.form-container {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-form-element h4 {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.main-form-element label {
+  display: flex;
+  align-self: center;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.main-form-element input {
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.password-constraint {
+  width: 100%;
+  font-size: 0.5em;
+}
+
+.btn-form {
+  width: 100%;
+  cursor: pointer;
+  padding: 13px 50px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  color: var(--primary-color);
+  background-size: 200% auto;
+  background-image: linear-gradient(
+    to right,
+    rgb(198, 198, 198) 0%,
+    rgb(156, 156, 156) 51%,
+    rgba(198, 198, 198) 100%
+  );
+  transition: 500ms;
+}
+
+.btn-form:hover {
+  background-position: right center;
+}
+
+.login-signup {
+  margin-top: 20px;
+}
+
+.signup-link {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 500px) {
+  .left-container {
+    display: none;
+  }
+}
