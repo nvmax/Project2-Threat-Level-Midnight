@@ -1,0 +1,69 @@
+:root {
+    --MainColor: rgba(10,26,57,1);
+    --AltColor: rgba(138,111,128,1);
+    --Neut1Color: rgba(194,181,177,1);
+    --Neut2Color: rgba(175,177,160,1);
+    --AdventFont: 'Advent Pro', sans-serif;
+    --RobotoFont: 'Roboto', sans-serif;
+}
+
+nav {
+    background-color: var(--MainColor);
+    text-align: right;
+    position: fixed;
+    top: 0px;
+    margin: 0;
+    padding: 10px 0;
+    width: 100%;
+    z-index: 999;
+}
+
+nav .link {
+    display: inline;
+    color: var(--Neut2Color);
+    letter-spacing: 1px;
+    font-family: var(--AdventFont);
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+header {
+    height: 100vh;
+    background-image: linear-gradient(to bottom,  rgba(0,0,0,0.7), rgba(255,255,255,0.4)), 
+    url('../images/desktop.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 50px 0;
+    margin: 0;
+}
+
+.flexCont {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+header h1 {
+    font-family: var(--AdventFont);
+    font-size: 70px;
+}
+
+header h2 {
+    font-family: var(--RobotoFont);
+    font-size: 25px;
+}
+
+header h6 {
+    cursor: pointer;
+    font-family: var(--AdventFont);
+    font-size: 20px;
+    position:absolute;
+    bottom:0;
+}
