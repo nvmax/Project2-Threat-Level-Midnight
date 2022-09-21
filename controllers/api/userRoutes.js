@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, GpuInfo, CpuInfo, Steam, UserGames } = require('../../models');
+const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require('../../models');
 const bcrypt = require('bcrypt');
 
 
@@ -16,14 +16,14 @@ router.get('/', (req, res) => {
     });
 });
 
-// GET /api/users/:id
+// GET /api/users/:id and steam info through steamuser table
 router.get('/:id', (req, res) => {
     User.findOne({
         attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
         },
-        include: [CpuInfo, GpuInfo, {model: Steam, through: UserGames, as: 'user_steams'}]
+        include: [{model: GpuInfo},{ model: CpuInfo}, {model: Steam,  Through: SteamUsers, as : 'steam_users'}]
     })
     .then(dbUserData => {
         if (!dbUserData) {
@@ -37,6 +37,8 @@ router.get('/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
+
+
           
 
 // post route for new user
