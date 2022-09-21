@@ -10,14 +10,9 @@
 /* Main page wrapper */
 
 .search-page-container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
-}
-
-.search-main-container {
-  width: 100vw;
-  height: 100vh;
 }
 
 /* Showcase search bar */
@@ -60,37 +55,165 @@
   border-radius: 0 5px 5px 0;
 }
 
+/* Card Header */
+
+.card-section-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Card */
 
-.card-container {
+.main-card-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  margin-top: 75px;
+  border: none;
+  margin-bottom: 200px;
+}
+
+.card-img-container {
+  margin: 10px;
+  border-radius: 5px;
+  background-color: rgba(245, 245, 245);
+  box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card {
-  position: relative;
-  width: 170px;
+  width: 200px;
   height: 250px;
   margin: 10px auto;
   background-position: center;
   background-size: cover;
+  border: none;
 }
 
 .card-title {
-  position: absolute;
-  bottom: 15px;
   margin: 0;
   width: 100%;
   text-align: center;
-  z-index: 100;
-  color: white;
+  color: black;
   font-weight: bold;
+  padding: 10px;
 }
 
 .card-img {
   max-width: 100%;
   display: block;
   object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+  .search-page-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+  }
+}
+
+/* No games found */
+
+.no-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+  .search-page-container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-page-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search-page-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-img-container {
+    width: 80%;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgba(245, 245, 245);
+    box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card {
+    width: 80%;
+    height: 300px;
+    margin: 10px auto;
+    background-position: center;
+    background-size: cover;
+    border: none;
+  }
+
+  .card-section-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+  }
+
+  .search-btn {
+    font-size: 0.7em;
+  }
 }
