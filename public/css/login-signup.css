@@ -1,0 +1,143 @@
+:root {
+  --MainColor: rgba(10, 26, 57, 1);
+  --AltColor: rgba(138, 111, 128, 1);
+  --Neut1Color: rgba(194, 181, 177, 1);
+  --Neut2Color: rgba(175, 177, 160, 1);
+  --AdventFont: 'Advent Pro', sans-serif;
+  --RobotoFont: 'Roboto', sans-serif;
+}
+
+/* Main layout container */
+
+.login-main-container {
+  width: 100%;
+  display: flex;
+}
+
+/* Right side main container */
+
+.login-right-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 65%;
+}
+
+/* Left side main container */
+
+.login-left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 35%;
+  height: 100vh;
+  background-color: var(--MainColor);
+  color: white;
+  text-align: center;
+}
+
+.login-left-header {
+  font-size: 2.5em;
+}
+
+.login-left-container p {
+  font-size: 1.2em;
+}
+
+.login-left-container a {
+  text-decoration: none;
+  color: black;
+}
+
+.login-btn {
+  width: 50%;
+  cursor: pointer;
+  padding: 13px 50px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background-color: var(--Neut2Color);
+}
+
+.login-btn:hover {
+  background-color: var(--Neut1Color);
+  transition: 500ms;
+}
+
+/* Login and signup form  */
+
+.login-form-container {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-main-form-element h4 {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.login-main-form-element label {
+  display: flex;
+  align-self: center;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.login-main-form-element input {
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.btn-form {
+  width: 100%;
+  cursor: pointer;
+  padding: 13px 50px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background-color: var(--Neut2Color);
+}
+
+.btn-form:hover {
+  background-color: var(--Neut1Color);
+  transition: 500ms;
+}
+
+@media screen and (max-width: 768px) {
+  .login-main-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login-left-container {
+    width: 100%;
+    height: 30vh;
+  }
+
+  .login-left-container h2 {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  .login-left-container p {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  .login-right-container {
+    width: 100%;
+    height: 80vh;
+  }
+}
