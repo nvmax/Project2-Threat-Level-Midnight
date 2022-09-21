@@ -108,6 +108,7 @@ fetch(url)
     console.log(Object.keys(data)[0]);
     if (data[Object.keys(data)[0]].data) {
       const game = data[Object.keys(data)[0]].data;
+      console.log(data[Object.keys(data)[0]].data.type);
       if (game) {
         if (game.pc_requirements) {
           console.log(game.pc_requirements);
@@ -180,4 +181,12 @@ fetch(url)
     console.log(err);
   });
 
-  `SELECT appid FROM steam WHERE id = ?;`
+  // `SELECT appid FROM steam WHERE id = ?;`
+
+
+  // const {getGPUTier} = require('detect-gpu');
+
+  // (async () => {
+  //   const gpuTier = await getGPUTier({"https://unpkg.com/detect-gpu@{version}/dist/benchmarks"});
+  //   console.log(gpuTier);
+  // });
