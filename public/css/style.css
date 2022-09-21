@@ -7,10 +7,11 @@
     --RobotoFont: 'Roboto', sans-serif;
 }
 
+/*--- navigation header ---*/
 nav {
     background-color: var(--MainColor);
     position: fixed;
-    top: -20px;
+    top: -50px;
     margin: 0;
     width: 100%;
     height: 100px;
@@ -38,6 +39,7 @@ nav {
     padding: 0 10px;
 }
 
+/*--- index image / content ---*/
 header {
     height: 100vh;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
@@ -81,6 +83,7 @@ header a {
     color: var(--Neut1Color);
 }
 
+/*--- mission statement / about us ---*/
 #mission {
     border: 1px solid #fff;
     color: var(--MainColor);
@@ -107,10 +110,11 @@ header a {
     margin: 10px 0;
 }
 
+/*--- footer code ---*/
 footer {
     position: absolute;
     width: 100%;
-    height: 50px;
+    height: 80px;
     padding: 20px 10px;
     border: 1px solid var(--MainColor);
     background-color: var(--MainColor);
@@ -122,13 +126,121 @@ footer {
 .footerContent {
     position: relative;
     width: 100%;
+    height: 120px;
     border: 1px solid var(--MainColor);
     background-color: var(--MainColor);
     padding: 20px 10px;
-    margin-top: 25px;
+    margin-top: 35px;
     font-family: var(--RobotoFont);
     font-size: 20px;
     text-align: justify;
     color: var(--Neut1Color);
     z-index: 901;
+}
+
+/*--- modal / popup with more info about the selected game ---*/
+.modal {
+    background-color: rgba(0,0,0,0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    visibility: hidden;
+}
+.modCard {
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 10px #000;
+    border-radius: 5px;
+    padding: 15px;
+    width: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+}
+
+.modFlex {
+    width: 45%;
+    flex: 1;
+}
+
+.modCard h1 {
+    font-family: var(--AdventFont);
+    font-size: 40px;
+    color: var(--Neut1Color);
+    text-shadow: 0 0 5px #000;
+}
+
+.modCard h3 {
+    width: fit-content;
+    font-family: var(--AdventFont);
+    font-size: 20px;
+    color: var(--Neut1Color);
+    text-shadow: 0 0 5px #000;
+    border: 2px solid var(--Neut1Color);
+    margin: 10px 0;
+    padding: 5px 10px;
+}
+
+.modCard b {
+    font-family: var(--RobototFont);
+    font-size: 20px;
+    color: var(--Neut1Color);
+    text-shadow: 0 0 5px #000;
+    margin: 0 10px;
+    display: inline;
+}
+
+.modCard P {
+    font-family: var(--RobototFont);
+    font-size: 18px;
+    color: var(--Neut1Color);
+    line-height: 130%;
+    text-align: justify;
+    padding: 40px 10px 10px 10px;
+}
+
+/* larger devices */
+@media screen and (max-width: 992px) {
+    .modFlex {
+        min-width: 45%;
+    }
+}
+
+/* medium devices */
+@media screen and (max-width: 768px) {
+    .modCard {
+        flex-flow: column wrap;
+        width: 94%;
+        margin: 2%;
+    }
+    .modFlex {
+        padding: 1%;
+        margin: 1%;
+        width: 96%;
+    }
+}
+
+/* small devices */
+@media screen and (max-width: 576px) {
+    .modCard {
+        flex-flow: column wrap;
+        width: 94%;
+        margin: 2%;
+    }
+    .modFlex {
+        padding: 1%;
+        margin: 1%;
+        width: 96%;
+    }
 }
