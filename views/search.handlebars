@@ -1,0 +1,56 @@
+<section class='search-showcase'>
+  <div class='search-header'>
+    <h2>Search for a game!</h2>
+  </div>
+  <div class='search-bar-btn'>
+    <input class='search-input' type='text' placeholder='Search..' />
+    <button class='search-btn'>Search</button>
+  </div>
+</section>
+
+<div class='search-page-container'>
+  <div class='searched-games-container'>
+    <section class='main-card-container'>
+      {{#each game as |game|}}
+        <div class='card-img-container'>
+          <div
+            class='card'
+            style="background-image: url('https://source.unsplash.com/random/300×300');"
+          >
+          </div>
+          <div class='card-title-container'>
+            <p class='card-title'>Example Title</p>
+          </div>
+        </div>
+      {{else}}
+        <div class='no-game-container'>
+          <h4>No games found, Please try again.</h4>
+        </div>
+      {{/each}}
+    </section>
+  </div>
+</div>
+
+<div class='search-page-container'>
+  <div class='card-section-container'>
+    <h2 class='card-section-title'>Top 20 Games In The Last 2 Weeks</h2>
+  </div>
+  <section class='main-card-container'>
+    {{#each game as |game|}}
+      <div class='card-img-container'>
+        <div
+          class='card'
+          style="background-image: url('https://source.unsplash.com/random/300×300');"
+        >
+        </div>
+        <div class='card-title-container'>
+          <p class='card-title'>Example Title</p>
+        </div>
+      </div>
+    {{else}}
+      <div class='no-game-container'>
+        <h4>No games found, Please try again.</h4>
+      </div>
+    {{/each}}
+  </section>
+</div>

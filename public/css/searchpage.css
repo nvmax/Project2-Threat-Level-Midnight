@@ -1,0 +1,219 @@
+:root {
+  --MainColor: rgba(10, 26, 57, 1);
+  --AltColor: rgba(138, 111, 128, 1);
+  --Neut1Color: rgba(194, 181, 177, 1);
+  --Neut2Color: rgba(175, 177, 160, 1);
+  --AdventFont: 'Advent Pro', sans-serif;
+  --RobotoFont: 'Roboto', sans-serif;
+}
+
+/* Main page wrapper */
+
+.search-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Showcase search bar */
+
+.search-showcase {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  height: 250px;
+  width: 100%;
+}
+
+.search-header h2 {
+  margin: 0 0 20px;
+}
+
+.search-bar-btn {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+}
+
+.search-input {
+  width: 70%;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+}
+
+.search-btn {
+  width: 20%;
+  padding: 10px;
+  margin: 0;
+  background-color: var(--MainColor);
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+}
+
+/* Card Header */
+
+.card-section-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card */
+
+.main-card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: none;
+  margin-bottom: 200px;
+}
+
+.card-img-container {
+  margin: 10px;
+  border-radius: 5px;
+  background-color: rgba(245, 245, 245);
+  box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  width: 200px;
+  height: 250px;
+  margin: 10px auto;
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+.card-title {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.card-img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1200px) {
+  .search-page-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+  }
+}
+
+/* No games found */
+
+.no-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+  .search-page-container {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-page-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search-page-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .main-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-img-container {
+    width: 80%;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgba(245, 245, 245);
+    box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card {
+    width: 80%;
+    height: 300px;
+    margin: 10px auto;
+    background-position: center;
+    background-size: cover;
+    border: none;
+  }
+
+  .card-section-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  .search-bar-btn {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+  }
+
+  .search-btn {
+    font-size: 0.7em;
+  }
+}
