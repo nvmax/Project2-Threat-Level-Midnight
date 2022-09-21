@@ -1,4 +1,4 @@
-const id = 1185410;
+const id = 1158600;
 // const id = 499450;
 // const id = 1184350;
 const url = `https://store.steampowered.com/api/appdetails?appids=${id}`;
@@ -179,3 +179,5 @@ fetch(url)
   .catch(function (err) {
     console.log(err);
   });
+
+  `SELECT appid FROM steam WHERE id = ?;`

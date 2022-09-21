@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, GpuInfo, CpuInfo } = require('../../models');
+const { User, GpuInfo, CpuInfo, Steam, UserGames } = require('../../models');
 const bcrypt = require('bcrypt');
 
 
@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
-        include: [CpuInfo,GpuInfo]
+        include: [CpuInfo, GpuInfo, {model: Steam, through: UserGames, as: 'user_steams'}]
     })
     .then(dbUserData => {
         if (!dbUserData) {

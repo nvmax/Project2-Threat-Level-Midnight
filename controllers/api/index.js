@@ -3,10 +3,11 @@ const users = require('./userRoutes');
 const cpuinfo = require('./cpuinfoRoutes');
 const gpuinfo = require('./gpuinfoRoutes.js');
 const steaminfo = require('./steamRoutes.js');
+const userGames = require('./steamRoutes.js');
 
 router.use('/user', users);
 router.use('/cpuinfo', cpuinfo);
 router.use('/gpuinfo', gpuinfo);
-router.use('/steam', steaminfo);
+router.use('/steam', userGames);
 
 module.exports = router;
