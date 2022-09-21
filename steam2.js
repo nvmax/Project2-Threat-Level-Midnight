@@ -1,4 +1,4 @@
-const id = 1185410;
+const id = 1158600;
 // const id = 499450;
 // const id = 1184350;
 const url = `https://store.steampowered.com/api/appdetails?appids=${id}`;
@@ -108,6 +108,7 @@ fetch(url)
     console.log(Object.keys(data)[0]);
     if (data[Object.keys(data)[0]].data) {
       const game = data[Object.keys(data)[0]].data;
+      console.log(data[Object.keys(data)[0]].data.type);
       if (game) {
         if (game.pc_requirements) {
           console.log(game.pc_requirements);
@@ -179,3 +180,13 @@ fetch(url)
   .catch(function (err) {
     console.log(err);
   });
+
+  // `SELECT appid FROM steam WHERE id = ?;`
+
+
+  // const {getGPUTier} = require('detect-gpu');
+
+  // (async () => {
+  //   const gpuTier = await getGPUTier({"https://unpkg.com/detect-gpu@{version}/dist/benchmarks"});
+  //   console.log(gpuTier);
+  // });
