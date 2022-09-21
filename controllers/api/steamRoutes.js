@@ -16,31 +16,54 @@ router.get('/', async (req, res) => {
 
 // get all games with a partial name match
 router.get('/:name', async (req, res) => {
-    try {
-        // const param 
-        const steamData = await Steam.findAll({
-            limit: 10,
-            where: {
-                name: {
-                    [Op.like]: '%' + req.params.name + '%'
+    if (req.params.name.includes(' ')) {
+        const nameArr = req.params.name.split(' ');
+        const name = nameArr.join('%');
+        try {
+            const steamData = await Steam.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${name}%`
+                    }
                 }
+            });
+            res.status(200).json(steamData);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }  else if (req.params.name.includes('%')) {
+        try {
+            const steamData = await Steam.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${req.params.name}%`
+                    }
+                }
+            });
+            res.status(200).json(steamData);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        if (req.params.name.match(/\d+/g)) {
+            try {
+                const steamData = await Steam.findAll({
+                    where: {
+                        appid: {
+                            [Op.like]: `${req.params.name}`
+                        }
+                    }
+                });
+                res.status(200).json(steamData);
+            } catch (err) {
+                res.status(500).json(err);
             }
-        });
-        res.status(200).json(steamData);
-    } catch (err) {
-        res.status(500).json(err.message);
+        }
     }
+    
 });
 
-// get name by id
-router.get('/id/:id', async (req, res) => {
-    try {
-        const steamData = await Steam.findByPk(req.params.id);
-        res.status(200).json(steamData);
-    } catch (err) {
-        res.status(500).json(err.message);
-    }
-});
+
 
 
 

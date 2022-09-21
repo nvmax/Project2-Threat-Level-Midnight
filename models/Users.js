@@ -60,14 +60,6 @@ User.init(
             key: "id",
         },
     },
-    steam_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: "steam",
-            key: "id",
-        },
-      },
   },
   {
     hooks: {

@@ -2,6 +2,7 @@ const CpuInfo = require('./CpuInfo');
 const GpuInfo = require('./GpuInfo');
 const User = require('./Users');
 const Steam = require('./Steam');
+const SteamUsers = require('./SteamUser');
 
 
 
@@ -21,14 +22,26 @@ User.belongsTo(GpuInfo, {
     foreignKey: 'gpu_id',
 });
 
-Steam.hasMany(User, {
-    foreignKey: 'steam_id',
+Steam.belongsToMany(User, {
+    foreignKey : 'steam_id',
+    through: {
+        model: SteamUsers,
+        unique: false,
+    },
+    as : 'user_steam',
 });
 
-User.belongsTo(Steam, {
-    foreignKey: 'steam_id',
+User.belongsToMany(Steam, {
+    foreignKey : 'user_id',
+    through: {
+        model: SteamUsers,
+        unique: false,
+    },
+    as : 'steam_users',
 });
 
 
 
-module.exports = { User, GpuInfo, CpuInfo, Steam };
+
+
+module.exports = { User, GpuInfo, CpuInfo, Steam, SteamUsers};
