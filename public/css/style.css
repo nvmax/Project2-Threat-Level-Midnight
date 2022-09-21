@@ -1,41 +1,49 @@
 :root {
-    --MainColor: rgba(10,26,57,1);
-    --AltColor: rgba(138,111,128,1);
-    --Neut1Color: rgba(194,181,177,1);
-    --Neut2Color: rgba(175,177,160,1);
+    --MainColor: rgba(10, 26, 57, 1);
+    --AltColor: rgba(138, 111, 128, 1);
+    --Neut1Color: rgba(194, 181, 177, 1);
+    --Neut2Color: rgba(175, 177, 160, 1);
     --AdventFont: 'Advent Pro', sans-serif;
     --RobotoFont: 'Roboto', sans-serif;
 }
 
 nav {
     background-color: var(--MainColor);
-    text-align: right;
     position: fixed;
-    top: 0px;
+    top: -20px;
     margin: 0;
-    padding: 10px 0;
     width: 100%;
-    z-index: 999;
+    height: 100px;
+    z-index: 998;
+    transform: skewY(2deg);
 }
 
-nav .link {
+.link {
+    position: fixed;
+    top: 25px;
+    right: 10px;
+    z-index: 999;
     display: inline;
-    color: var(--Neut2Color);
+    width: 100%;
+    text-align: right;
     letter-spacing: 1px;
     font-family: var(--AdventFont);
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
-    padding: 0 10px;
+}
+
+.link a {
+    color: var(--Neut2Color);
     cursor: pointer;
+    padding: 0 10px;
 }
 
 header {
     height: 100vh;
-    background-image: linear-gradient(to bottom,  rgba(0,0,0,0.7), rgba(255,255,255,0.5), rgba(255,255,255,1)), 
-    url('../images/desktop.jpg');
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+        url('../images/desktop.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-size: cover;
     padding: 50px 0;
     margin: 0;
 }
@@ -46,16 +54,18 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position:relative;
+    position: relative;
 }
 
 header h1 {
     font-family: var(--AdventFont);
+    color: var(--Neut2Color);
     font-size: 70px;
 }
 
 header h2 {
     font-family: var(--RobotoFont);
+    color: var(--Neut2Color);
     font-size: 25px;
 }
 
@@ -63,20 +73,62 @@ header h6 {
     cursor: pointer;
     font-family: var(--AdventFont);
     font-size: 20px;
-    position:absolute;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
+}
+
+header a {
+    color: var(--Neut1Color);
 }
 
 #mission {
+    border: 1px solid #fff;
+    color: var(--MainColor);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        url('../images/keyboard.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: -30px 0;
+    transform: skewY(2deg);
+}
+
+.missionContent {
     width: 80%;
     margin: 200px auto;
     font-family: var(--RobotoFont);
     font-size: 20px;
     text-align: justify;
+    transform: skewY(-2deg);
 }
 
 #mission h1 {
     font-family: var(--AdventFont);
     font-size: 40px;
     margin: 10px 0;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    padding: 20px 10px;
+    border: 1px solid var(--MainColor);
+    background-color: var(--MainColor);
+    color: var(--Neut1Color);
+    transform: skewY(2deg);
+    z-index: 900;
+}
+
+.footerContent {
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--MainColor);
+    background-color: var(--MainColor);
+    padding: 20px 10px;
+    margin-top: 25px;
+    font-family: var(--RobotoFont);
+    font-size: 20px;
+    text-align: justify;
+    color: var(--Neut1Color);
+    z-index: 901;
 }
