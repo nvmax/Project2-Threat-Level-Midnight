@@ -181,12 +181,23 @@ fetch(url)
     console.log(err);
   });
 
-  // `SELECT appid FROM steam WHERE id = ?;`
+
+  // use steamspy.com/api.php?request=top100in2weeks
+
+//   const url1 = "https://steamspy.com/api.php?request=top100in2weeks";
+
+//  // create function to get data from url1
+
+//   fetch(url1)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data);
+//     })
+//     .catch(function (err) {
+//       console.log(err);
+//     }
+//     );
 
 
-  // const {getGPUTier} = require('detect-gpu');
-
-  // (async () => {
-  //   const gpuTier = await getGPUTier({"https://unpkg.com/detect-gpu@{version}/dist/benchmarks"});
-  //   console.log(gpuTier);
-  // });
