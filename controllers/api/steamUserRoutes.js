@@ -18,23 +18,9 @@ router.post('/', async (req, res) => {
     }
 });
 
-// put steamuser association
-router.put('/:id', async (req, res) => {
-    try {
-        const steamuser = await SteamUsers.update(req.body, {
-            where: {
-                id: req.params.id,
-                // send steam_id and user_id to update
-            },
-        });
-        res.status(200).json(steamuser);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
 
 
-// delete steamuser association
+// delete specific game from user's library
 router.delete('/:id', async (req, res) => {
     try {
         const steamuser = await SteamUsers.destroy({
@@ -51,6 +37,9 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+
+
 
 
 
