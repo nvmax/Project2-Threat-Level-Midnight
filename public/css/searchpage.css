@@ -105,6 +105,15 @@
   object-fit: cover;
 }
 
+/* No games found */
+
+.no-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 @media screen and (max-width: 1200px) {
   .search-page-container {
     max-width: 960px;
@@ -121,15 +130,6 @@
     justify-content: center;
     width: 50%;
   }
-}
-
-/* No games found */
-
-.no-game-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 @media screen and (max-width: 960px) {
