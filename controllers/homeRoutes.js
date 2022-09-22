@@ -21,7 +21,7 @@ router.get('/register', (req, res) => {
     res.redirect('/');
     return;
   }
-  res.render('signup');
+  res.render('register');
 });
 
 router.get('/index', (req, res) => {
