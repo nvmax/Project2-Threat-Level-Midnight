@@ -6,13 +6,14 @@
   </div>
   <div class='login-right-container'>
     <section class='login-form-container'>
-      <form class='login-main-form-element'>
+      <form id='login' class='login-main-form-element'>
         <h4>Login</h4>
-        <label for='login-form-email'>Email</label>
+        <label for='form-email'>Email</label>
         <input type='email' id='form-email' />
-        <label for='form-message'>Password</label>
+        <label for='form-password'>Password</label>
         <input type='text' id='form-password' />
-        <button class='btn btn-form'>Login</button>
+        <button class='btn btn-form' type="submit">Login</button>
+        <div id="warning"></div>
       </form>
     </section>
   </div>
