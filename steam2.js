@@ -1,8 +1,8 @@
 const e = require("express");
 
-// const id = 214630;
-const id = 499450;
-// const id = 1184350;
+// const id = 626600;
+// const id = 499450;
+const id = 626940;
 const url = `https://store.steampowered.com/api/appdetails?appids=${id}`;
 // const url = 'https://store.steampowered.com/api/appdetails?appids=10';
 // get json from steam api image.png http://store.steampowered.com/api/appdetails?appids=387990 log body
@@ -14,8 +14,7 @@ let directx = [];
 let storage = [];
 let os = [];
 
-
-function parseBetter(){
+function parseBetter() {
   console.log(proc);
   console.log(mem);
   console.log(gpu);
@@ -23,17 +22,72 @@ function parseBetter(){
   console.log(storage);
   console.log(os);
 
-  let gpuRecNv = gpu[1].match(/Geforce (\w+ \d+ )/i)
-  let gpuRecAMD = gpu[1].match(/Radeon (\w+ \d+)/i)
+  if (gpu.length !== 0) {
+    let gpuRecNv = gpu[0].match(/Geforce (\w+ \d+)/i);
+    let gpuRecAMD = gpu[0].match(/Radeon (\w+ \d+)/i);
 
-  console.log(`Nvidia GPU: ${gpuRecNv[1]}`);
-  // console.log(`Nvidia Model #: ${gpuRecNv[2]}`);
-  console.log(`AMD GPU: ${gpuRecAMD[1]}`);
-  // console.log(`AMD Model #: ${gpuRecAMD[2]}`);
+    if (gpuRecNv !== null) console.log(`Rec Nvidia GPU: ${gpuRecNv[0]}`);
+    // console.log(`Nvidia Model #: ${gpuRecNv[2]}`);
+    if (gpuRecAMD !== null) console.log(`Rec AMD GPU: ${gpuRecAMD[0]}`);
+    // console.log(`AMD Model #: ${gpuRecAMD[2]}`);
+
+    let gpuMinNv = gpu[1].match(/Geforce(( \w+)? \d+ )/i);
+    let gpuMinAMD = gpu[1].match(/Radeon(( \w+)? \d+)/i);
+
+    if (gpuMinNv !== null) console.log(`Min Nvidia GPU: ${gpuMinNv[0]}`);
+    // console.log(`Nvidia Model #: ${gpuMinNv[2]}`);
+    if (gpuMinAMD !== null) console.log(`Min AMD GPU: ${gpuMinAMD[0]}`);
+    // console.log(`AMD Model #: ${gpuRecAMD[2]}`);
+  }
+  // convert min and rec ram values to mb and just get the number. mult because floats are big
+  mem = mem.map((item) => {
+    let mult = 1;
+    if (item.toLowerCase().match(/gb/i)) {
+      mult = 1000;
+    }
+    return item.match(/\d+/) * mult;
+  });
+  console.log(`Min ram in MB: ${mem[1]}`);
+  console.log(`Rec ram in MB: ${mem[0]}`);
+
+  // convert min and rec storage values to mb and just get the number. mult because floats are big
+  storage = storage.map((item) => {
+    let mult = 1;
+    if (item.toLowerCase().match(/gb/i)) {
+      mult = 1000;
+    }
+    return item.match(/\d+/) * mult;
+  });
+  console.log(`Min storage in MB: ${storage[1]}`);
+  console.log(`Rec storage in MB: ${storage[0]}`);
+
+  // separate min and max amd and intel
+  proc = proc.map((item) => {
+    let ghzRegex = /( [\d\.]+ ?GHz([\w ]+)?)|( or AMD equivalent([ \w]+)?)/gi;
+    item = item.replace(ghzRegex, "");
+    let item0 = item.match(/Intel[^\/]*/i);
+    if (item0 !== null) item0[0].replace(/ (\w+) CPU/, "$1");
+    let item1 = item.match(/AMD[^\/]*/i);
+    if (item1 !== null) item1[0].replace(/ (\w+) CPU/, "$1");
+    return [item0, item1];
+  });
+
+  if (proc[1][0] !== null) {
+    console.log(`Min Intel CPU: ${proc[1][0]}`);
+  }
+  if (proc[1][1] !== null) {
+    console.log(`Min AMD CPU: ${proc[1][1]}`);
+  }
+
+  if (proc[0][0] !== null) {
+    console.log(`Rec Intel CPU: ${proc[0][0]}`);
+  }
+  if (proc[0][1] !== null) {
+    console.log(`Rec AMD CPU: ${proc[0][1]}`);
+  }
 }
 
 function parseNormSpecs(specs) {
-  // console.log("there");
   // console.log(specs.minimum);
   let dataArray1 = specs.split("<strong>");
   let dataArray2 = dataArray1.map((item) => {
@@ -69,7 +123,6 @@ function parseNormSpecs(specs) {
     directx: false,
     storage: false,
   };
-
 
   // console.log(finalArray);
   // find key Processor and report value
@@ -171,14 +224,14 @@ function parseSpecs(requirements) {
       });
       console.log(finalArray);
       finalArray.splice(0, 1);
-      proc.push(finalArray[0].Processor);
-      mem.push(finalArray[0].Memory);
-      gpu.push(finalArray[0].Graphics);
-      os.push(finalArray[0].OS);
       proc.push(finalArray[1].Processor);
       mem.push(finalArray[1].Memory);
       gpu.push(finalArray[1].Graphics);
       os.push(finalArray[1].OS);
+      proc.push(finalArray[0].Processor);
+      mem.push(finalArray[0].Memory);
+      gpu.push(finalArray[0].Graphics);
+      os.push(finalArray[0].OS);
       console.log("Minimum:");
       console.log(finalArray[0].Processor);
       console.log(finalArray[0].Memory);
@@ -273,7 +326,6 @@ function main() {
     .catch(function (err) {
       console.log(err);
     });
-    
 }
 
 main();
