@@ -210,6 +210,14 @@ footer {
     padding: 40px 10px 10px 10px;
 }
 
+#warning {
+    color: darkred;
+    font-family: var(--AdventFont);
+    font-size: 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
 /* larger devices */
 @media screen and (max-width: 992px) {
     .modFlex {
