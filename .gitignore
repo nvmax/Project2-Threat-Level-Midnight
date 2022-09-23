@@ -1,4 +1,5 @@
 node_modules
+package-lock.json
 .env
 Os.js
 alec.js
@@ -8,3 +9,4 @@ validIds.txt
 steam_data.json
 crap.json
 index2.js
+UserGames.js

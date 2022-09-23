@@ -35435,3 +35435,53 @@ Minimum:
  Intel Core 2 or AMD equivalent
  1 GB RAM
  200 MB available space
+
+Game 626310:
+Recommended:
+ Intel Core I3+ or AMD equivalent recommended for HD 1080p playback
+ 2 GB RAM
+ 500 MB available space
+
+Minimum:
+ Intel Core 2 or AMD equivalent
+ 1 GB RAM
+ 200 MB available space
+
+Game 626320:
+Recommended:
+ Intel Core I3+ or AMD equivalent recommended for HD 1080p playback
+ 2 GB RAM
+ 500 MB available space
+
+Minimum:
+ Intel Core 2 or AMD equivalent
+ 1 GB RAM
+ 200 MB available space
+
+Game 625320:
+Recommended:
+ Intel i5-4590 / AMD FX 8350
+ 8 GB RAM
+ NVIDIA GeForce® GTX 970 / AMD Radeon™ R9 290
+ 400 MB available space
+
+Minimum:
+ Intel i5-4590 / AMD FX 8350
+ 4 GB RAM
+ NVIDIA GeForce® GTX 970 / AMD Radeon™ R9 290
+ 400 MB available space
+
+Game 625330:
+Recommended:
+ Intel® Core™ i7 or AMD Phenom II X6 with at least 3,5 GHz
+ 8 GB RAM
+ GeForce 660 / Radeon HD 6970
+ Version 11
+ 10 GB available space
+
+Minimum:
+ Intel® Core™ i5 or AMD Phenom II X4 with at least 2,5 GHz
+ 4 GB RAM
+ GeForce 460 / Radeon HD 5850 / Intel HD 4600 minimum 1024 MB RAM
+ Version 11
+ 5 GB available space
