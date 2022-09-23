@@ -6,16 +6,16 @@ const signupFormHandler = async (event) => {
     const password = document.querySelector('#form-password').value.trim();
   
     if (username && email && password) {
-      const response = await fetch('/api/users', {
+      const response = await fetch('/api/user', {
         method: 'POST',
         body: JSON.stringify({ username, email, password }),
         headers: { 'Content-Type': 'application/json' },
       });
   
       if (response.ok) {
-        document.location.replace('/');
+        document.location.replace('/search');
       } else {
-        alert('Failed to sign up.');
+        warning.innerHTML = 'Failed to sign up.';
       }
     }
   };
