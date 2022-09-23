@@ -1,8 +1,8 @@
 const e = require("express");
 
 // const id = 626600;
-// const id = 499450;
-const id = 626940;
+const id = 499450;
+// const id = 627530;
 const url = `https://store.steampowered.com/api/appdetails?appids=${id}`;
 // const url = 'https://store.steampowered.com/api/appdetails?appids=10';
 // get json from steam api image.png http://store.steampowered.com/api/appdetails?appids=387990 log body
@@ -23,6 +23,7 @@ function parseBetter() {
   console.log(os);
 
   if (gpu.length !== 0) {
+    gpu[0] = gpu[0].replace(/™/gi, '');
     let gpuRecNv = gpu[0].match(/Geforce (\w+ \d+)/i);
     let gpuRecAMD = gpu[0].match(/Radeon (\w+ \d+)/i);
 
@@ -31,6 +32,7 @@ function parseBetter() {
     if (gpuRecAMD !== null) console.log(`Rec AMD GPU: ${gpuRecAMD[0]}`);
     // console.log(`AMD Model #: ${gpuRecAMD[2]}`);
 
+    gpu[1] = gpu[1].replace(/™/gi, '');
     let gpuMinNv = gpu[1].match(/Geforce(( \w+)? \d+ )/i);
     let gpuMinAMD = gpu[1].match(/Radeon(( \w+)? \d+)/i);
 
@@ -63,12 +65,12 @@ function parseBetter() {
 
   // separate min and max amd and intel
   proc = proc.map((item) => {
-    let ghzRegex = /( [\d\.]+ ?GHz([\w ]+)?)|( or AMD equivalent([ \w]+)?)/gi;
-    item = item.replace(ghzRegex, "");
-    let item0 = item.match(/Intel[^\/]*/i);
-    if (item0 !== null) item0[0].replace(/ (\w+) CPU/, "$1");
-    let item1 = item.match(/AMD[^\/]*/i);
-    if (item1 !== null) item1[0].replace(/ (\w+) CPU/, "$1");
+    let ghzRegex = /( [\d\.]+ ?GHz([\w ]+)?)|( or AMD equivalent([ \w]+)?)|( or greater)|(, equivalent or better)/gi;
+    item = item.replace(ghzRegex, "").replace(/ or /, '/');
+    let item0 = item.match(/Intel[\w\d -]+/i);
+    if (item0 !== null) item0[0] = item0[0].replace(/ ?Intel CPU (Intel )?/gi, "");
+    let item1 = item.match(/AMD[\w\d -]+/i);
+    if (item1 !== null) item1[0] = item1[0].replace(/ ?AMD CPU (AMD )?/gi, "");
     return [item0, item1];
   });
 
