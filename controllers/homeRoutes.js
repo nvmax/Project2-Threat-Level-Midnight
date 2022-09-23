@@ -9,6 +9,10 @@ router.get('/search', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/search');
+    return;
+  }
   res.render('login');
 });
 

@@ -1,17 +1,21 @@
 const os = require('node:os');
 
-// return just one
-const CPUarray = os.cpus();
+exports.totalmem = function () {
+    // in bytes
+    const totalmem = os.totalmem();
 
-// in bytes
-const totalmem = os.totalmem();
+    // user memory
+    const userMem = Math.round(totalmem / 1073741824 / 4) * 4;
+    console.log(userMem);
+};
 
-// user core
-const userCPU = CPUarray.map(function(i) {
-    return i.model;
-});
-console.log(userCPU[0]);
+exports.cpus = function () {
+    // return just one
+    const CPUarray = os.cpus();
 
-// user memory
-const userMem = Math.round(totalmem / 1073741824 / 4) * 4;
-console.log(userMem);
+    // user core
+    const userCPU = CPUarray.map(function (i) {
+        return i.model;
+    });
+    console.log(userCPU[0]);
+};
