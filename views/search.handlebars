@@ -3,10 +3,13 @@
     <h2>Search for a game!</h2>
   </div>
   <div class='search-bar-btn'>
-    <input class='search-input' type='text' placeholder='Search..' />
-    <button class='search-btn'>Search</button>
+    <form id='search' class='search-form'>
+    <input id="search-input" class='search-input' type='text' placeholder='Search..' />
+    <button class='search-btn' type="submit">Search</button>
+    </form>
+   
   </div>
-</section>
+</section>  
 
 <div class='search-page-container'>
   <div class='searched-games-container'>
@@ -36,7 +39,7 @@
     <h2 class='card-section-title'>Top 20 Games In The Last 2 Weeks</h2>
   </div>
   <section class='main-card-container'>
-    {{#each game as |game|}}
+    {{#each top20 as |top20|}}
       <div class='card-img-container'>
         <div
           class='card'
@@ -74,3 +77,4 @@
     </div>
   </div>
 </div>
+<script src="/js/search.js"></script>
