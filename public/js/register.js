@@ -13,7 +13,20 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/search');
+      const loginResponse = await fetch('/api/user/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (loginResponse.ok) {
+        document.location.replace('/search');
+      } else {
+        const form = document.querySelector('.login-form-container');
+        const errorMsg = document.createElement('span');
+        errorMsg.textContent = 'Failed to log in, please go to login page';
+        errorMsg.classList.add('error-message');
+        form.appendChild(errorMsg);
+      }
     } else {
       warning.innerHTML = 'Failed to sign up.';
     }
@@ -27,7 +40,6 @@ const signupFormHandler = async (event) => {
     setTimeout(() => {
       document.querySelector('.error-message').innerHTML = '';
     }, 2500);
-    
   }
 };
 
