@@ -83,10 +83,11 @@
 
 .card {
   width: 200px;
-  height: 250px;
+  height: 114px;
   margin: 10px auto;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   border: none;
 }
 
