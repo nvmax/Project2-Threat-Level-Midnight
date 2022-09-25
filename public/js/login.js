@@ -15,7 +15,7 @@ const loginFormHandler = async (event) => {
       document.location.replace('/search');
     } else {
       const warning = document.getElementById('warning');
-      warning.innerHTML = 'Failed to log in';
+      warning.innerHTML = 'Email or password is incorrect';
     }
   } else {
     const form = document.querySelector('.login-form-container');
