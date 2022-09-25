@@ -25,9 +25,10 @@ router.get('/:name', async (req, res) => {
                     name: {
                         [Op.like]: `%${name}%`
                     }
-                }
+                },
+                raw:true
             });
-            res.status(200).json(steamData);
+            res.status(200).render('search', {game :steamData });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -36,11 +37,12 @@ router.get('/:name', async (req, res) => {
             const steamData = await Steam.findAll({
                 where: {
                     name: {
-                        [Op.like]: `%${req.params.name}%`
+                        [Op.contains]: `${req.params.name}%`
                     }
-                }
+                },
+                raw:true
             });
-            res.status(200).json(steamData);
+            res.status(200).render('search', {game :steamData });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -52,9 +54,10 @@ router.get('/:name', async (req, res) => {
                         appid: {
                             [Op.like]: `${req.params.name}`
                         }
-                    }
+                    },
+                    raw:true
                 });
-                res.status(200).json(steamData);
+                res.status(200).render('search', { game: steamData });
             } catch (err) {
                 res.status(500).json(err);
             }

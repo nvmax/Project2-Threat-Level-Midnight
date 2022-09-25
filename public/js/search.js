@@ -1,7 +1,7 @@
 const searchFormHandler = async (event) => {
     event.preventDefault();
 const searchInput = document.querySelector('#search-input').value.trim();
-
+const parse = new DOMParser();
 
 if (searchInput) {
     // get appid from api/steam/ + searchInput
@@ -11,7 +11,12 @@ if (searchInput) {
     });
     // return appid and name to console.log
     if (response.ok) {
-        console.log(response.json());
+       const games = await response.text();
+       const gamehtml = parse.parseFromString(games, 'text/html');
+
+       const gameinfo = gamehtml.querySelector('.searched-games-container');
+       document.querySelector('.search-page-container').replaceChildren(gameinfo);
+
     } else {
         console.log('Failed to search');
     }
@@ -25,63 +30,6 @@ if (searchInput) {
 
 
 // https://git.heroku.com/intense-inlet-78981.git // heroku deploy for handling cors error
-
-const games = 'https://intense-inlet-78981.herokuapp.com/https://steamspy.com/api.php?request=top100in2weeks';
-// use corsOptions to get the data from the api
-fetch(games, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3001' }
-})
-    .then(response => response.json())
-    .then(data => {
-        const appidArray = Object.keys(data); 
-            const appidDataArray = appidArray.map(function (appid) {
-                return {
-                    appid,
-                    ccu: data[appid].ccu
-                };
-            });
-            appidDataArray.sort(function (a, b) {
-                return b.ccu - a.ccu;
-            });      
-             // grab only the first 10 
-            const top20 = appidDataArray.slice(0, 20);
-            console.log(top20);
-    })
-    .catch(err => {
-        console.log(err);
-    });
-
-
-
-
-
-
-    // fetch(url1)
-    // .then(function (response) {
-    //     return response.json();
-    // })
-    // .then(function (data) {
-    //     const appidArray = Object.keys(data); 
-    //     const appidDataArray = appidArray.map(function (appid) {
-    //         return {
-    //             appid,
-    //             ccu: data[appid].ccu
-    //         };
-    //     });
-    //     appidDataArray.sort(function (a, b) {
-    //         return b.ccu - a.ccu;
-    //     });      
-    //      // grab only the first 10 
-    //     const top20 = appidDataArray.slice(0, 20);
-    //     console.log(top20);
-    // })
-    // .catch(function (err) {
-    //     console.log(err);
-    // });
-
-
-
 
 
 
