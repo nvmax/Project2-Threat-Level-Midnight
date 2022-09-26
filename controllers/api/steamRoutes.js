@@ -37,7 +37,7 @@ router.get('/:name', async (req, res) => {
             const steamData = await Steam.findAll({
                 where: {
                     name: {
-                        [Op.contains]: `${req.params.name}%`
+                        [Op.contains]: `%${req.params.name}%`
                     }
                 },
                 raw:true
