@@ -39,6 +39,14 @@ nav {
     padding: 0 10px;
 }
 
+#searchLink, #logout {
+    display: none;
+}
+
+#loginLink, #registerlink {
+    display: inline-block;
+}
+
 /*--- index image / content ---*/
 header {
     height: 100vh;
@@ -193,7 +201,7 @@ footer {
 }
 
 .modCard b {
-    font-family: var(--RobototFont);
+    font-family: var(--RobotoFont);
     font-size: 20px;
     color: var(--Neut1Color);
     text-shadow: 0 0 5px #000;
@@ -202,7 +210,7 @@ footer {
 }
 
 .modCard P {
-    font-family: var(--RobototFont);
+    font-family: var(--RobotoFont);
     font-size: 18px;
     color: var(--Neut1Color);
     line-height: 130%;
@@ -216,6 +224,72 @@ footer {
     font-size: 20px;
     margin: 10px 0;
     text-align: center;
+}
+
+/*--- user profile w/ toggle ---*/
+
+#profileToggle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: var(--AdventFont);
+    color: var(--AltColor);
+    letter-spacing: 2px;
+    font-weight:900;
+    font-size: 17px;
+    padding: 5px;
+    z-index: 999;
+}
+
+#userProfile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #e0e0e0;
+    color: var(--MainColor);
+    box-shadow: 0px 0px 10px;
+    padding: 50px 10px;
+    text-align: right;
+    visibility: hidden;
+}
+
+#userProfile h1 {
+    font-family: var(--AdventFont);
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 160%;
+}
+
+#userProfile h3 {
+    font-family: var(--RobotoFont);
+    font-size: 18px;
+    line-height: 100%;
+}
+
+#userProfile h4 {
+    text-align: left;
+    font-family: var(--AdventFont);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 140%;
+    border-bottom: 1px solid var(--MainColor);
+}
+
+#userProfile ul, #userProfile ol {
+    text-align: left;
+    font-size: 17px;
+    font-family: var(--RobotoFont);
+}
+
+#userProfile ul li, #userProfile ol li {
+    line-height: 140%;
+}
+
+#userProfile ul li b, #userProfile ol li b {
+    font-family: var(--RobotoFont);
+    font-weight: bold;
 }
 
 /* larger devices */

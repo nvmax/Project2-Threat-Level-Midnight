@@ -1,36 +1,33 @@
-
 <section class='search-showcase'>
   <div class='search-header'>
     <h2>Search for a game!</h2>
   </div>
   <div class='search-bar-btn'>
     <form id='search' class='search-form'>
-    <input id="search-input" class='search-input' type='text' placeholder='Search..' />
-    <button class='search-btn' type="submit">Search</button>
+      <input id="search-input" class='search-input' type='text' placeholder='Search..' />
+      <button class='search-btn' type="submit">Search</button>
     </form>
-   
+
   </div>
-</section>  
+</section>
 
 <div class='search-page-container'>
   <div class='searched-games-container'>
     <section class='main-card-container'>
       {{#each game as |games|}}
-      
-        <div class='card-img-container'>
-          <img onerror = "this.style.display='none';this.parentElement.remove()"
-            class='card'
-            src ="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/header.jpg"
-          >
-          <div class='card-title-container'>
-            <p class='card-title'>{{name}}</p>
-          </div>
+
+      <div class='card-img-container'>
+        <img onerror="this.style.display='none';this.parentElement.remove()" class='card'
+          src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/header.jpg">
+        <div class='card-title-container'>
+          <p class='card-title'>{{name}}</p>
         </div>
+      </div>
       {{else}}
-        <div class='no-game-container'>
-          <h4>No games found, Please try again.</h4>
-        </div>
-     
+      <div class='no-game-container'>
+        <h4>No games found, Please try again.</h4>
+      </div>
+
       {{/each}}
     </section>
   </div>
@@ -38,24 +35,20 @@
 
 <div class='search-page-container'>
   <div class='card-section-container'>
-    <h2 class='card-section-title'>Top 20 Games In The Last 2 Weeks</h2>
+    <h2 class='card-section-title'>Top 20 Games In The Last Week</h2>
   </div>
   <section class='main-card-container'>
     {{#each top20 as |t20|}}
-      <div class='card-img-container'>
-        <div
-          class='card'
-          style="background-image: url('https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg');"
-        >
-        </div>
-        <div class='card-title-container'>
+    <div class='card-img-container'>
+      <img class='card' src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg">
+      <div class='card-title-container'>
         <p class='card-title'>{{name}}</p>
-        </div>
       </div>
+    </div>
     {{else}}
-      <div class='no-game-container'>
-        <h4>No games found, Please try again.</h4>
-      </div>
+    <div class='no-game-container'>
+      <h4>No games found, Please try again.</h4>
+    </div>
     {{/each}}
   </section>
 </div>
@@ -79,4 +72,29 @@
     </div>
   </div>
 </div>
+
+<div id="profileToggle">click to toggle profile</div>
+<section id="userProfile">
+  <h1>User Name</h1>
+  <h3>email@domain.com</h3>
+
+  <h4>device information</h4>
+  <ul>
+    <li><b>Ram Size:</b> ##GB</li>
+    <li><b>HD Size:</b> ##GB</li>
+    <li><b>CPU ID:</b> ##</li>
+    <li><b>GPU ID:</b> ##</li>
+  </ul>
+
+  <h4>saved games</h4>
+  <ol>
+    <li> game one </li>
+    <li> game two </li>
+    <li> game three </li>
+    <li> game four </li>
+    <li> game five </li>
+  </ol>
+
+</section>
+
 <script src="/js/search.js"></script>
