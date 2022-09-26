@@ -29,7 +29,7 @@ if (searchInput) {
 
 
 
-// https://git.heroku.com/intense-inlet-78981.git // heroku deploy for handling cors error
+// https://git.heroku.com/intense-inlet-78981.git
 
 
 
