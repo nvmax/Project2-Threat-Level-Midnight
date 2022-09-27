@@ -153,6 +153,7 @@ footer {
     visibility: hidden;
 }
 .modCard {
+    background-image:url('https://via.placeholder.com/150');
     background-color: #fff;
     background-size: cover;
     background-repeat: no-repeat;
@@ -170,6 +171,14 @@ footer {
 .modFlex {
     width: 45%;
     flex: 1;
+}
+
+.modImg {
+    background-image:url('https://via.placeholder.com/150');
+    width: 80%;
+    min-height: 200px;
+    background-size: cover;
+    margin: 30px auto;
 }
 
 .modCard h1 {
@@ -292,8 +301,10 @@ footer {
 /* medium devices */
 @media screen and (max-width: 768px) {
     .modCard {
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 94%;
+        height: 94%;
+        overflow: auto;
         margin: 2%;
     }
     .modFlex {
@@ -301,13 +312,18 @@ footer {
         margin: 1%;
         width: 96%;
     }
+    .modImg {
+        display: none;
+    }
 }
 
 /* small devices */
 @media screen and (max-width: 576px) {
     .modCard {
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 94%;
+        height: 94%;
+        overflow: auto;
         margin: 2%;
     }
     .modFlex {
@@ -317,5 +333,8 @@ footer {
     }
     .homepage-logo {
         width: 350px;
+    }
+    .modImg {
+        display: none;
     }
 }
