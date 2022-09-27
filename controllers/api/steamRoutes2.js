@@ -51,6 +51,7 @@ router.get("/:name", async (req, res) => {
     //   console.log(steamData);
         const cleanedData = [];
         let i = 0;
+        // looop through list and check content type to only show games
       for (item of steamData) {
         console.log(i);
         i++;
@@ -87,6 +88,8 @@ module.exports = router;
 // and prefer to use our table values instead, if we have them. I reckon after only a relatively few searches and updates we'll have most of the popular
 // searches and top-played games filled out and won't need to rely all the much on the api, leaving things faster, and more reliable.
 // I wrote some rough code that might work for this so that it can hopefully be thrown together really quickly and we don't have to think about it further.
+// We may also consider something to make sure we don't query/api call if it's the same search and your idea about a local save would be helpful. I feel those
+// solutions would be less helpful and maybe even more tricky than this one though.
 
 // // possible new steam column, prefilled with null values until seen for first time
 // {
