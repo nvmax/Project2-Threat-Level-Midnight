@@ -19,7 +19,7 @@ router.get('/search', withAuth, async (req, res) => {
       },
       raw: true
       })
-    res.render('search', { top20: toptwenty });
+    res.render('search', { top20: toptwenty, logged_in: req.session.logged_in });
   })
   .catch(function (error) {
     console.log(error);
