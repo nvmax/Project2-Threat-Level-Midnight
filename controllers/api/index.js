@@ -2,7 +2,7 @@ const router = require('express').Router();
 const users = require('./userRoutes');
 const cpuinfo = require('./cpuinfoRoutes');
 const gpuinfo = require('./gpuinfoRoutes.js');
-const steaminfo = require('./steamRoutes.js');
+const steaminfo = require('./steamRoutes2.js');
 const steamusers = require('./steamUserRoutes.js');
 const withAuth = require('../../utils/auth');
 
