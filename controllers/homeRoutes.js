@@ -40,7 +40,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/index', (req, res) => {
-  res.render('index');
+  res.render('index', { logged_in: req.session.logged_in });
 });
 
 module.exports = router;

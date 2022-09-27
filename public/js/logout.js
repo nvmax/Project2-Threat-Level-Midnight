@@ -3,9 +3,7 @@ const logout = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     });
-
-
-  
+    
     if (response.ok) {
       alert('You have been logged out')
       document.location.replace('/index');
@@ -14,5 +12,5 @@ const logout = async () => {
     }
   };
   
-  document.querySelector('#logout').addEventListener('click', logout);
+  // document.querySelector('#logout').addEventListener('click', logout);
   

@@ -46,8 +46,6 @@ const gameInfoHandler = async (event) => {
         const website = gameinfo.website;
         const headerimage = gameinfo.header_image;
         
-    
-
         document.querySelector('#name').textContent = name;
         document.querySelector('#date').textContent = date;
         document.querySelector('#description').textContent = description;
@@ -56,22 +54,10 @@ const gameInfoHandler = async (event) => {
         backgroundEl.style.backgroundImage = `url('${background}')`;
         document.querySelector('#recommended').innerHTML = recommended;
         document.querySelector('#website').innerHTML = website;
-      
-        
-
-       
-
 
     } else {
         console.log('Failed to get game info');
     }
-
-
-
-    
-
-
-    
     document.querySelector('.modal').style.visibility = 'visible';
     // get appid from click on modal 
     console.log( event.target.getAttribute('data-appid'));
@@ -85,10 +71,16 @@ const gameInfoHandler = async (event) => {
 
 
 
-
-
-
-
+const toggleProfile = async (event) => {
+    event.preventDefault();
+    
+    const profile = document.getElementById("userProfile");
+    if (window.getComputedStyle(profile).visibility === "hidden") {
+        profile.style.visibility = 'visible';
+    } else {
+        profile.style.visibility = 'hidden';
+    }
+}
 
 
 
@@ -96,6 +88,7 @@ const gameInfoHandler = async (event) => {
 
 [...document.getElementsByClassName('main-card-container')].forEach(e => e.addEventListener('click', gameInfoHandler));
 document.querySelector('#search').addEventListener('submit', searchFormHandler);
+document.querySelector('#profileToggle').addEventListener('click', toggleProfile);
 
 
 
