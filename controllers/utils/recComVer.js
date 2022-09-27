@@ -1,15 +1,5 @@
-const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("./models");
+const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("../../models");
 const { Op } = require("sequelize");
-
-const id = 10;
-// const id = 251570;
-// const id = 626600;
-// const id = 499450;
-// const id = 627530;
-// const id = 105600;
-
-// const url = 'https://store.steampowered.com/api/appdetails?appids=10';
-// get json from steam api image.png http://store.steampowered.com/api/appdetails?appids=387990 log body
 
 // Parse normally formatted requirements
 function parseNormSpecs(specs) {
@@ -65,7 +55,7 @@ function parseOldSpecs(specs) {
 
 // General parsing hub
 function parseSpecs(requirements, parsed) {
-  console.log(requirements);
+  // console.log(requirements);
   let min = [];
   let rec = [];
   // recents games have separate recommended section, old ones don't
@@ -96,7 +86,7 @@ function parseSpecs(requirements, parsed) {
 function finalizeParse(specs, parsed) {
   for (item of specs) {
     if (item.Processor) {
-      console.log(item.Processor);
+      // console.log(item.Processor);
       // we will use the intel example to compare benchmarks
       if (item.Processor.match(/intel/i)) {
         parsed[0].push(
@@ -105,7 +95,7 @@ function finalizeParse(specs, parsed) {
             .replace(/cpu /gi, "")
             .match(/\d.\d\d?|[\w-]+|[gm]hz/gi)
         );
-        console.log(parsed[0]);
+        // console.log(parsed[0]);
       }
     } else if (item.Memory) {
       // console.log(item.Memory);
@@ -136,7 +126,7 @@ function finalizeParse(specs, parsed) {
 }
 
 // Use requirements tp generate sequelize calls
-async function generateSql(proc, mem, gpu, storage) {
+async function compareToUser(proc, mem, gpu, storage, userId) {
   // convert to GB if needed
   if (mem.length) {
     if (mem[0].length) {
@@ -186,7 +176,7 @@ async function generateSql(proc, mem, gpu, storage) {
     const user = await User.findOne({
       attributes: { exclude: ["password"] },
       where: {
-        id: 1,
+        id: userId,
       },
       include: [
         { model: GpuInfo },
@@ -199,18 +189,18 @@ async function generateSql(proc, mem, gpu, storage) {
     userRam = user.ramsize;
     userStorage = user.hddsize;
 
-    console.log(userCPUBench);
-    console.log(gameCPUBenchMin);
-    console.log(gameCPUBenchRec);
-    console.log(userGPUBench);
-    console.log(gameGPUBenchMin);
-    console.log(gameGPUBenchRec);
-    console.log(userRam);
-    console.log(mem[0][0]);
-    console.log(mem[1][0]);
-    console.log(userStorage);
-    console.log(storage[0][0]);
-    console.log(storage[1][0]);
+    // console.log(userCPUBench);
+    // console.log(gameCPUBenchMin);
+    // console.log(gameCPUBenchRec);
+    // console.log(userGPUBench);
+    // console.log(gameGPUBenchMin);
+    // console.log(gameGPUBenchRec);
+    // console.log(userRam);
+    // console.log(mem[0][0]);
+    // console.log(mem[1][0]);
+    // console.log(userStorage);
+    // console.log(storage[0][0]);
+    // console.log(storage[1][0]);
 
     if (
       userCPUBench >= gameCPUBenchRec &&
@@ -218,100 +208,70 @@ async function generateSql(proc, mem, gpu, storage) {
       userRam >= mem[1][0] &&
       userStorage >= storage[1][0]
     ) {
-      console.log("This game should run well on your system!");
+      // console.log("This game should run well on your system!");
+      return "Recommended";
     } else if (
       userCPUBench >= gameCPUBenchMin &&
       userGPUBench >= gameGPUBenchMin &&
       userRam >= mem[0][0] &&
       userStorage >= storage[0][0]
     ) {
-      console.log("This game should somewhat run on your system!");
+      // console.log("This game should somewhat run on your system!");
+      return "Minimum";
     } else {
-      console.log(
-        "Your system is beneath this game. Don't insult it by trying to run it."
-      );
+      // console.log("Your system is beneath this game. Don't insult it by trying to run it.");
+      return "Potato";
     }
   } else {
-    console.log("Unclear. It's an older game, so you should be good to go.");
+    // console.log("Unclear. It's an older game, so you should be good to go.");
+    return "Default";
   }
 }
 
 // Fetch from api, print other general data, pull out requirements section, call parser and sql functions
-function main() {
-  const url = `https://store.steampowered.com/api/appdetails?appids=${id}`;
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // console.log(data);
-      console.log(Object.keys(data)[0]);
-      if (data[Object.keys(data)[0]].data) {
-        const game = data[Object.keys(data)[0]].data;
-        if (data[Object.keys(data)[0]].data.type === "game") {
-          console.log(data[Object.keys(data)[0]].data.type);
-          if (game) {
-            const parsed = [[], [], [], []];
-            // game name
-            if (game.name) {
-              console.log(`Name: ${game.name}`);
-            }
-
-            // game price
-            if (game.is_free) console.log(`Free? Yes!`);
-            else console.log("Free? No.");
-
-            // how well it will run
-            // full description (any of them work)
-            if (game.detailed_description) {
-              console.log(`Description: ${game.detailed_description}`);
-            }
-
-            // release date
-            if (game.release_date) {
-              console.log(`Release Date: ${game.release_date.date}`);
-            }
-
-            // wallpaper (not raw)
-            if (game.background) {
-              console.log(`Wallpaper Link: ${game.background}`);
-            }
-
-            // which platforms it runs on (windows mac linux)
-            if (
-              typeof game.mac_requirements.recommended === "string" ||
-              typeof game.mac_requirements.minimum === "string"
-            ) {
-              console.log(`Runs on Mac (Intel)`);
-              // console.log(typeof game.mac_requirements.minimum);
-              // requirements = game.mac_requirements;
-              // parseSpecs(requirements);
-            }
-            if (
-              typeof game.linux_requirements.recommended === "string" ||
-              typeof game.linux_requirements.minimum === "string"
-            ) {
-              console.log(`Runs on Linux`);
-              // console.log(game.linux_requirements);
-              // requirements = game.linux_requirements;
-              // parseSpecs(requirements);
-            }
-            if (
-              typeof game.pc_requirements.recommended === "string" ||
-              typeof game.pc_requirements.minimum === "string"
-            ) {
-              requirements = game.pc_requirements;
-              console.log(`Runs on PC`);
-              parseSpecs(requirements, parsed);
-            }
-            generateSql(...parsed);
+async function specCompare(appid, userId) {
+  let systemReadiness = "Default";
+  const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`;
+  try {
+    const data = await (await fetch(url)).json();
+    // console.log(data);
+    // console.log(appid);
+    if (data[appid].data) {
+      const game = data[appid].data;
+      // console.log(game.type);
+      if (game.type === "game") {
+        if (game) {
+          const parsed = [[], [], [], []];
+          // which platforms it runs on (windows mac linux)
+          // if (
+          //   typeof game.mac_requirements.recommended === "string" ||
+          //   typeof game.mac_requirements.minimum === "string"
+          // ) {
+          //   console.log(`Runs on Mac (Intel)`);
+          // }
+          // if (
+          //   typeof game.linux_requirements.recommended === "string" ||
+          //   typeof game.linux_requirements.minimum === "string"
+          // ) {
+          //   console.log(`Runs on Linux`);
+          // }
+          if (
+            typeof game.pc_requirements.recommended === "string" ||
+            typeof game.pc_requirements.minimum === "string"
+          ) {
+            requirements = game.pc_requirements;
+            // console.log(`Runs on PC`);
+            parseSpecs(requirements, parsed);
           }
+          systemReadiness = compareToUser(...parsed, userId);
         }
       }
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  // console.log(systemReadiness);
+  return systemReadiness;
 }
 
-main();
+module.exports = { specCompare };
