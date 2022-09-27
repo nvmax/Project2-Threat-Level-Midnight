@@ -71,10 +71,7 @@ const searchedGamesHandler = async (event) => {
     document.querySelector('.modal').addEventListener('click', (event) => {
         document.querySelector('.modal').style.visibility = 'hidden';
     });
-    
 
-    
-    
 };
     
 
