@@ -59,10 +59,8 @@ header {
     position: relative;
 }
 
-header h1 {
-    font-family: var(--AdventFont);
-    color: var(--Neut2Color);
-    font-size: 70px;
+.homepage-logo {
+    width: 500px;
 }
 
 header h2 {
@@ -332,6 +330,9 @@ footer {
         padding: 1%;
         margin: 1%;
         width: 96%;
+    }
+    .homepage-logo {
+        width: 350px;
     }
     .modImg {
         display: none;

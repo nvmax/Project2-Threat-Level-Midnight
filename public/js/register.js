@@ -20,25 +20,21 @@ const signupFormHandler = async (event) => {
       });
       if (loginResponse.ok) {
         document.location.replace('/search');
-      } else {
-        const form = document.querySelector('.login-form-container');
-        const errorMsg = document.createElement('span');
-        errorMsg.textContent = 'Failed to log in, please go to login page';
-        errorMsg.classList.add('error-message');
-        form.appendChild(errorMsg);
       }
     } else {
-      warning.innerHTML = 'Failed to sign up.';
+      const warning = document.getElementById('warning');
+      warning.innerHTML = 'Failed to register, you may already have an account';
+
+      setTimeout(() => {
+        document.getElementById('warning').innerHTML = '';
+      }, 2500);
     }
   } else {
-    const form = document.querySelector('.login-form-container');
-    const errorMsg = document.createElement('span');
-    errorMsg.textContent = 'Please enter your information first';
-    errorMsg.classList.add('error-message');
-    form.appendChild(errorMsg);
+    const warning = document.getElementById('warning');
+    warning.innerHTML = 'Please enter your information first.';
 
     setTimeout(() => {
-      document.querySelector('.error-message').innerHTML = '';
+      document.getElementById('warning').innerHTML = '';
     }, 2500);
   }
 };
