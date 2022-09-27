@@ -175,6 +175,14 @@ footer {
     flex: 1;
 }
 
+.modImg {
+    background-image:url('https://via.placeholder.com/150');
+    width: 80%;
+    min-height: 200px;
+    background-size: cover;
+    margin: 30px auto;
+}
+
 .modCard h1 {
     font-family: var(--AdventFont);
     font-size: 40px;
@@ -295,27 +303,37 @@ footer {
 /* medium devices */
 @media screen and (max-width: 768px) {
     .modCard {
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 94%;
+        height: 94%;
+        overflow: auto;
         margin: 2%;
     }
     .modFlex {
         padding: 1%;
         margin: 1%;
         width: 96%;
+    }
+    .modImg {
+        display: none;
     }
 }
 
 /* small devices */
 @media screen and (max-width: 576px) {
     .modCard {
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 94%;
+        height: 94%;
+        overflow: auto;
         margin: 2%;
     }
     .modFlex {
         padding: 1%;
         margin: 1%;
         width: 96%;
+    }
+    .modImg {
+        display: none;
     }
 }

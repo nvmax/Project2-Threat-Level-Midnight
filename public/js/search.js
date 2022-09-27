@@ -45,14 +45,23 @@ const gameInfoHandler = async (event) => {
         const recommended = gameinfo.pc_requirements.recommended;
         const website = gameinfo.website;
         const headerimage = gameinfo.header_image;
+
+        console.log(headerimage);
         
         document.querySelector('#name').textContent = name;
-        document.querySelector('#date').textContent = date;
-        document.querySelector('#description').textContent = description;
-        const backgroundEl = document.querySelector('.modCard');
 
+        document.querySelector('#date').textContent = date;
+
+        document.querySelector('#description').textContent = description;
+
+        const backgroundEl = document.querySelector('.modCard');
         backgroundEl.style.backgroundImage = `url('${background}')`;
+
+        const modImg = document.querySelector('.modImg');
+        modImg.style.backgroundImage = `url('${headerimage}')`;
+
         document.querySelector('#recommended').innerHTML = recommended;
+
         document.querySelector('#website').innerHTML = website;
 
     } else {
@@ -68,9 +77,6 @@ const gameInfoHandler = async (event) => {
     
 };
 
-
-
-
 const toggleProfile = async (event) => {
     event.preventDefault();
     
@@ -81,10 +87,6 @@ const toggleProfile = async (event) => {
         profile.style.visibility = 'hidden';
     }
 }
-
-
-
-
 
 [...document.getElementsByClassName('main-card-container')].forEach(e => e.addEventListener('click', gameInfoHandler));
 document.querySelector('#search').addEventListener('submit', searchFormHandler);
