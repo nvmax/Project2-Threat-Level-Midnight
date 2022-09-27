@@ -155,6 +155,7 @@ footer {
     visibility: hidden;
 }
 .modCard {
+    background-image:url('https://via.placeholder.com/150');
     background-color: #fff;
     background-size: cover;
     background-repeat: no-repeat;
