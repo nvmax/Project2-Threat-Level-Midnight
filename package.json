@@ -1,12 +1,13 @@
 {
   "name": "project2-threat-level-midnight",
   "version": "1.0.0",
-  "description": "",
+  "description": "Unplayable",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node seeds/seed.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +30,8 @@
     "mysql2": "^2.3.3",
     "os": "^0.1.2",
     "request": "^2.88.2",
-    "sequelize": "^6.22.0"
+    "sequelize": "^6.22.0",
+    "serve": "^14.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
