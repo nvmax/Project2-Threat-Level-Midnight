@@ -21,18 +21,18 @@ const loginFormHandler = async (event) => {
     } else {
       const warning = document.getElementById('warning');
       warning.innerHTML = 'Email or password is incorrect';
+
+      setTimeout(() => {
+        document.getElementById('warning').innerHTML = '';
+      }, 2500);
     }
   } else {
-    const form = document.querySelector('.login-form-container');
-    const errorMsg = document.createElement('span');
-    errorMsg.textContent = 'Please enter your information first';
-    errorMsg.classList.add('error-message');
-    form.appendChild(errorMsg);
-
+    const warning = document.getElementById('warning');
+    warning.innerHTML = 'Please enter your information first.';
+    
     setTimeout(() => {
-      document.querySelector('.error-message').innerHTML = '';
+      document.getElementById('warning').innerHTML = '';
     }, 2500);
-
   }
 };
 
