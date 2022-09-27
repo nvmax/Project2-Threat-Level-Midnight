@@ -8,10 +8,11 @@
   <link rel='stylesheet' type='text/css' href='/css/style.css' />
   <link rel='stylesheet' type='text/css' href='/css/searchpage.css' />
   <link rel='stylesheet' type='text/css' href='/css/login-signup.css' />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@300&family=Roboto:wght@300&display=swap");
   </style>
-  <title>Document</title>
+  <title>Unplayable</title>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
     {{#if logged_in}}
     <a href='/index'>Home</a>
     <a href='/search'>Search</a>
-    <a href='/logout'>Logout</a>
+    <a id="logout" href='/index'>Logout</a>
     {{else}}
     <a href='/index'>Home</a>
     <a href='/login'>Login</a>
