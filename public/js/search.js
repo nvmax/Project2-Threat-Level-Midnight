@@ -43,7 +43,23 @@ if (searchInput) {
 
 
 
+const toggleProfile = async (event) => {
+    event.preventDefault();
+
+    const profile = document.getElementById("userProfile");
+    if (window.getComputedStyle(profile).visibility === "hidden") {
+        profile.style.visibility = 'visible';
+    } else {
+        profile.style.visibility = 'hidden';
+    }
+}
+
+
+// [...document.getElementsByClassName('main-card-container')].forEach(e => e.addEventListener('click', gameInfoHandler));
+
 document.querySelector('#search').addEventListener('submit', searchFormHandler);
+
+document.querySelector('#profileToggle').addEventListener('click', toggleProfile);
 
 
 
