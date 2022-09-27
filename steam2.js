@@ -104,9 +104,10 @@ function finalizeParse(specs, parsed) {
       // we will use the intel example to compare benchmarks
       if (item.Processor.match(/intel/i)) {
         parsed[0].push(
-          item.Processor.replace(/ or /gi, ' / ').match(/(intel[\w- .]+h?z?) ?\/?/i)[1].replace(/cpu /gi,'').match(
-            /\d.\d\d?|[\w-]+|[gm]hz/gi
-          )
+          item.Processor.replace(/ or /gi, " / ")
+            .match(/(intel[\w- .]+h?z?) ?\/?/i)[1]
+            .replace(/cpu /gi, "")
+            .match(/\d.\d\d?|[\w-]+|[gm]hz/gi)
         );
         console.log(parsed[0]);
       }
@@ -116,9 +117,11 @@ function finalizeParse(specs, parsed) {
       // console.log(mem);
     } else if (item.Graphics || item.VideoCard) {
       let cosa = {};
-      if(item.Graphics){
+      if (item.Graphics) {
         cosa = item.Graphics;
-      }else{cosa = item.VideoCard}
+      } else {
+        cosa = item.VideoCard;
+      }
       // console.log(cosa);
       // console.log(item.VideoCard);
       // we will use nvidia examples to compare benchmarks
@@ -245,66 +248,68 @@ function main() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
       console.log(Object.keys(data)[0]);
       if (data[Object.keys(data)[0]].data) {
         const game = data[Object.keys(data)[0]].data;
-        console.log(data[Object.keys(data)[0]].data.type);
-        if (game) {
-          const parsed = [[], [], [], []];
-          // game name
-          if (game.name) {
-            console.log(`Name: ${game.name}`);
-          }
+        if (data[Object.keys(data)[0]].data.type === "game") {
+          console.log(data[Object.keys(data)[0]].data.type);
+          if (game) {
+            const parsed = [[], [], [], []];
+            // game name
+            if (game.name) {
+              console.log(`Name: ${game.name}`);
+            }
 
-          // game price
-          if (game.is_free) console.log(`Free? Yes!`);
-          else console.log("Free? No.");
+            // game price
+            if (game.is_free) console.log(`Free? Yes!`);
+            else console.log("Free? No.");
 
-          // how well it will run
-          // full description (any of them work)
-          if (game.detailed_description) {
-            console.log(`Description: ${game.detailed_description}`);
-          }
+            // how well it will run
+            // full description (any of them work)
+            if (game.detailed_description) {
+              console.log(`Description: ${game.detailed_description}`);
+            }
 
-          // release date
-          if (game.release_date) {
-            console.log(`Release Date: ${game.release_date.date}`);
-          }
+            // release date
+            if (game.release_date) {
+              console.log(`Release Date: ${game.release_date.date}`);
+            }
 
-          // wallpaper (not raw)
-          if (game.background) {
-            console.log(`Wallpaper Link: ${game.background}`);
-          }
+            // wallpaper (not raw)
+            if (game.background) {
+              console.log(`Wallpaper Link: ${game.background}`);
+            }
 
-          // which platforms it runs on (windows mac linux)
-          if (
-            typeof game.mac_requirements.recommended === "string" ||
-            typeof game.mac_requirements.minimum === "string"
-          ) {
-            console.log(`Runs on Mac (Intel)`);
-            // console.log(typeof game.mac_requirements.minimum);
-            // requirements = game.mac_requirements;
-            // parseSpecs(requirements);
+            // which platforms it runs on (windows mac linux)
+            if (
+              typeof game.mac_requirements.recommended === "string" ||
+              typeof game.mac_requirements.minimum === "string"
+            ) {
+              console.log(`Runs on Mac (Intel)`);
+              // console.log(typeof game.mac_requirements.minimum);
+              // requirements = game.mac_requirements;
+              // parseSpecs(requirements);
+            }
+            if (
+              typeof game.linux_requirements.recommended === "string" ||
+              typeof game.linux_requirements.minimum === "string"
+            ) {
+              console.log(`Runs on Linux`);
+              // console.log(game.linux_requirements);
+              // requirements = game.linux_requirements;
+              // parseSpecs(requirements);
+            }
+            if (
+              typeof game.pc_requirements.recommended === "string" ||
+              typeof game.pc_requirements.minimum === "string"
+            ) {
+              requirements = game.pc_requirements;
+              console.log(`Runs on PC`);
+              parseSpecs(requirements, parsed);
+            }
+            generateSql(...parsed);
           }
-          if (
-            typeof game.linux_requirements.recommended === "string" ||
-            typeof game.linux_requirements.minimum === "string"
-          ) {
-            console.log(`Runs on Linux`);
-            // console.log(game.linux_requirements);
-            // requirements = game.linux_requirements;
-            // parseSpecs(requirements);
-          }
-          if (
-            typeof game.pc_requirements.recommended === "string" ||
-            typeof game.pc_requirements.minimum === "string"
-          ) {
-            requirements = game.pc_requirements;
-            console.log(`Runs on PC`);
-            parseSpecs(requirements, parsed);
-          }
-          generateSql(...parsed);
         }
       }
     })
