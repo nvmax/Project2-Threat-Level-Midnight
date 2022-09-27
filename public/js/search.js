@@ -13,6 +13,7 @@ if (searchInput) {
     // return appid and name to console.log
     if (response.ok) {
        const games = await response.text();
+       console.log(games);
        const gamehtml = parse.parseFromString(games, 'text/html');
 
        const gameinfo = gamehtml.querySelector('.searched-games-container');
