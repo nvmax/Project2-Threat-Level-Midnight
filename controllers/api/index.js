@@ -2,14 +2,14 @@ const router = require('express').Router();
 const user = require('./userRoutes');
 const cpuinfo = require('./cpuinfoRoutes');
 const gpuinfo = require('./gpuinfoRoutes.js');
-const steaminfo = require('./steamRoutes.js');
+const steam = require('./steamRoutes.js');
 const steamusers = require('./steamUserRoutes.js');
 const withAuth = require('../../utils/auth');
 
 router.use('/user', user);
 router.use('/cpuinfo', cpuinfo);
 router.use('/gpuinfo', gpuinfo);
-router.use('/steam', steaminfo);
+router.use('/steam', steam);
 router.use('/steamuser', steamusers);
 
 
