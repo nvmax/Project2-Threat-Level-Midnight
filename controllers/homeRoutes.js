@@ -19,7 +19,7 @@ router.get('/search', withAuth, async (req, res) => {
       },
       raw: true
       })
-    res.render('search', { top20: toptwenty });
+    res.render('search', { top20: toptwenty, logged_in: req.session.logged_in });
   })
   .catch(function (error) {
     console.log(error);
@@ -40,7 +40,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/index', (req, res) => {
-  res.render('index');
+  res.render('index', { logged_in: req.session.logged_in });
 });
 
 module.exports = router;

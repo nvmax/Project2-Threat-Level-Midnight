@@ -39,14 +39,6 @@ nav {
     padding: 0 10px;
 }
 
-#searchLink, #logout {
-    display: none;
-}
-
-#loginLink, #registerlink {
-    display: inline-block;
-}
-
 /*--- index image / content ---*/
 header {
     height: 100vh;
@@ -163,6 +155,7 @@ footer {
     visibility: hidden;
 }
 .modCard {
+    background-image:url('https://via.placeholder.com/150');
     background-color: #fff;
     background-size: cover;
     background-repeat: no-repeat;
