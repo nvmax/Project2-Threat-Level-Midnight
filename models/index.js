@@ -1,7 +1,7 @@
 const CpuInfo = require('./cpuinfo');
 const GpuInfo = require('./gpuinfo');
 const User = require('./user');
-const Steam = require('./steam');
+const Steam = require('./steam1');
 const SteamUsers = require('./steamuser');
 
 
