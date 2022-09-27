@@ -7,10 +7,10 @@ const steamusers = require('./steamUserRoutes.js');
 const withAuth = require('../../utils/auth');
 
 router.use('/user', users);
-router.use('/cpuinfo', withAuth, cpuinfo);
-router.use('/gpuinfo', withAuth, gpuinfo);
-router.use('/steam', withAuth, steaminfo);
-router.use('/steamuser', withAuth, steamusers);
+router.use('/cpuinfo', cpuinfo);
+router.use('/gpuinfo', gpuinfo);
+router.use('/steam', steaminfo);
+router.use('/steamuser', steamusers);
 
 
 module.exports = router;
