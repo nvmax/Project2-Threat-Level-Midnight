@@ -39,14 +39,6 @@ nav {
     padding: 0 10px;
 }
 
-#searchLink, #logout {
-    display: none;
-}
-
-#loginLink, #registerlink {
-    display: inline-block;
-}
-
 /*--- index image / content ---*/
 header {
     height: 100vh;
