@@ -147,12 +147,22 @@ footer {
 }
 
 .footerFlex .footer-logo {
-    width: 300px;
+    width: 330px;
+}
+
+.footerFlex a {
+    color: var(--AltColor);
+}
+
+.footerFlex b {
+    color: var(--Neut2Color);
+    font-size: 15px;
 }
 
 .footerFlex p {
+    color: var(--Neut2Color);
     font-family: var(--AdventFont);
-    font-size: 20px;
+    font-size: 30px;
     letter-spacing: 2px;
 }
 
@@ -372,6 +382,18 @@ footer {
         overflow: auto;
         margin: 2%;
     }
+    .footerFlex {
+        width: 80%;
+        margin-bottom: 50px;
+    }
+    .footerContent {
+        flex-flow: column;
+        width: 94%;
+        padding: 20px 0;
+    }
+    .footerFlex .footer-logo {
+        width: 100%;
+    }
     .modFlex {
         padding: 1%;
         margin: 1%;
@@ -390,6 +412,18 @@ footer {
         height: 94%;
         overflow: auto;
         margin: 2%;
+    }
+    .footerFlex {
+        width: 80%;
+        margin-bottom: 50px;
+    }
+    .footerContent {
+        flex-flow: column;
+        width: 100%;
+        padding: 20px 0;
+    }
+    .footerFlex .footer-logo {
+        width: 100%;
     }
     .modFlex {
         padding: 1%;
