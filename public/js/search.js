@@ -151,12 +151,29 @@ const toggleProfile = async (event) => {
     }
 }
 
+const displayManageForm = async (event) => {
+    event.preventDefault();
+    
+    const manageForm2 = document.getElementById("manageDevices2");
+    const manageForm1 = document.getElementById("manageDevices1");
+    if (window.getComputedStyle(manageForm2).display === "none") {
+        manageForm2.style.display = 'block';
+        manageForm1.style.display = 'none';
+    }
+}
 
+const manageDeviceData = async (event) => {
+    event.preventDefault();
 
-
-
-
-
+    const manageForm2 = document.getElementById("manageDevices2");
+    const manageForm1 = document.getElementById("manageDevices1");
+    if (window.getComputedStyle(manageForm2).display === "none") {
+        manageForm2.style.display = 'none';
+        manageForm1.style.display = 'block';
+    }
+    
+    // whatever you want to do with the data
+}
 
 const searchPageContainer = document.querySelector('.search-page-container');
 searchPageContainer.addEventListener('click', searchedGamesHandler);
@@ -164,6 +181,8 @@ searchPageContainer.addEventListener('click', searchedGamesHandler);
 [...document.getElementsByClassName('main-card-container')].forEach(e => e.addEventListener('click', gameInfoHandler));
 document.querySelector('#search').addEventListener('submit', searchFormHandler);
 document.querySelector('#profileToggle').addEventListener('click', toggleProfile);
+document.querySelector('#manageButton').addEventListener('click', displayManageForm);
+document.querySelector('#submitDevice').addEventListener('click', manageDeviceData);
 
 
 
