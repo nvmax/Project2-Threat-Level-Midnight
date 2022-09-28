@@ -62,6 +62,8 @@ const searchedGamesHandler = async (event) => {
         document.querySelector('#recommended').innerHTML = recommended;
         document.querySelector('#website').innerHTML = website;
 
+        const mod1Img = document.querySelector('.modImg');
+        mod1Img.style.backgroundImage = `url('${headerimage}')`;
     } else {
         console.log('Failed to get game info');
     }
