@@ -14,7 +14,7 @@ const searchFormHandler = async (event) => {
   const parse = new DOMParser();
 
   if (searchInput) {
-    displayLoading();
+    // displayLoading();
     // get appid from api/steam/ + searchInput
     const response = await fetch("/api/steam/" + searchInput, {
       method: "GET",
@@ -27,7 +27,7 @@ const searchFormHandler = async (event) => {
       const gamehtml = parse.parseFromString(games, "text/html");
 
       const gameinfo = gamehtml.querySelector(".searched-games-container");
-      hideLoading();
+      // hideLoading();
       document
         .querySelector(".search-page-container")
         .replaceChildren(gameinfo);
