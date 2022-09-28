@@ -58,7 +58,7 @@ router.get("/:name", async (req, res) => {
         i++;
         try {
           const data = (await axios.get(
-            `https://store.steampowered.com/api/appdetails?appids=${item.appid}`
+            `https://store.steampowered.com/api/appdetails?appids=${item.appid}&?key=${process.env.ST_KEY}`
           )).data;
         //   console.log(data);
           if (data) {

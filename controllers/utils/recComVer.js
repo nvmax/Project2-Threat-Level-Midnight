@@ -232,7 +232,7 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
 // Fetch from api, print other general data, pull out requirements section, call parser and sql functions
 async function specCompare(appid, userId) {
   let systemReadiness = "Default";
-  const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`;
+  const url = `https://store.steampowered.com/api/appdetails?appids=${appid}&?key=${process.env.STEAM_API_KEY}`;
   try {
     const data = await (await fetch(url)).json();
     // console.log(data);
