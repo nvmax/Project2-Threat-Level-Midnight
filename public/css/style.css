@@ -265,10 +265,9 @@ footer {
 /*--- user profile w/ toggle ---*/
 
 #profileToggle {
-    transform: rotate(-90deg);
     position: fixed;
-    top: 90px;
-    left: -60px;;
+    top: 5px;
+    left: 50px;
     font-family: var(--AdventFont);
     color: var(--AltColor);
     letter-spacing: 2px;
