@@ -21,6 +21,7 @@
     <section class="main-card-container">
       <div class="spinner"></div>
       {{#each game as |games|}}
+
         <div class="card-img-container">
           <img
             onerror="this.style.display='none';this.parentElement.remove()"
@@ -35,6 +36,7 @@
         <div class="no-game-container">
           <h4>No games found, Please try again.</h4>
         </div>
+
       {{/each}}
     </section>
   </div>
@@ -83,10 +85,40 @@
   </div>
 </div>
 
-<div id="profileToggle">toggle profile <i class="fas fa-user"></i></div>
+<div id="profileToggle">click to toggle profile</div>
 <section id="userProfile">
   <h1>User Name</h1>
   <h3>email@domain.com</h3>
+
+  <form id="manageDevices1">
+    <button type="button" class="manageButton" id="manageButton">add or update
+      device</button>
+  </form>
+  <form id="manageDevices2">
+    <input type="checkbox" id="desktop" name="desktop" value="desktop" />
+    <label for="desktop"> Desktop </label>
+
+    <input type="checkbox" id="laptop" name="laptop" value="laptop" />
+    <label for="laptop"> Laptop </label>
+
+    <select id="RAM" name="ram">
+      <option value="none" selected disabled hidden>select your RAM size</option>
+      <option value="four">4 GB</option>
+      <option value="eight">8 GB</option>
+      <option value="sixteen">16 GB</option>
+      <option value="thirtytwo">32 GB</option>
+      <option value="sixtyfour">64 BG</option>
+      <option value="onetwentyeight">128 GB</option>
+    </select>
+
+    <label for="CPU">CPU:</label><br />
+    <input type="text" id="CPU" name="CPU" />
+
+    <label for="GPU">GPU:</label><br />
+    <input type="text" id="GPU" name="GPU" />
+
+    <button type="button" class="manageButton" id="submitDevice">submit</button>
+  </form>
 
   <h4>device information</h4>
   <ul>
@@ -104,7 +136,6 @@
     <li> game four </li>
     <li> game five </li>
   </ol>
-
 </section>
 
 <script src="/js/search.js"></script>
