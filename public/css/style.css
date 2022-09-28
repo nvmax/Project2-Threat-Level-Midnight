@@ -290,6 +290,12 @@ footer {
     visibility: hidden;
 }
 
+#userProfile:hover {
+    background-color: var(--Neut1Color);
+    transition: 500ms;  
+    cursor: pointer;
+}
+
 #userProfile h1 {
     font-family: var(--AdventFont);
     font-size: 30px;

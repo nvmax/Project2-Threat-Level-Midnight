@@ -29,15 +29,23 @@ router.get('/:id', async (req, res) => {
 
 // uses string to return gpu matches
 router.get('/search/:terms', async (req, res) => {
-    try{
-        const gpuData = await GpuInfo.findOne({
-            where: { gpu: { [Op.like]: `%${req.params.match}%` } },
-          });
-          res.status.json(gpuData)
+    try {
+        const gpuinfoData = await GpuInfo.findAll({
+            where: {
+                gpu: {
+                    [Op.like]: '%' + req.params.terms + '%'
+                }
+            }
+        });
+        if (!gpuinfoData) {
+            res.status(404).json({ message: 'No gpuinfo found with this id!' });
+            return;
+        }
+        res.status(200).json(gpuinfoData);
     } catch (err) {
         res.status(500).json(err);
     }
-})
+});
 
 
 // put /api/gpuinfo/

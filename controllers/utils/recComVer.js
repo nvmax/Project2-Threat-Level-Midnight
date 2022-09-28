@@ -203,6 +203,33 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
     // console.log(storage[0][0]);
     // console.log(storage[1][0]);
 
+    let verdict = 
+    cpuMeetsMin
+    cpuMeetsRec
+    gpuMeetsMin
+    gpuMeetsRec
+    ramMeetsMin
+    ramMeetsRec
+    storageMeetsMin
+    storageMeetsRec
+
+    if (userCPUBench >= gameCPUBenchRec){
+
+    }    if (userGPUBench >= gameGPUBenchRec){
+      
+    }    if (userRam >= mem[1][0]){
+      
+    }    if (userStorage >= storage[1][0]){
+      
+    }    if (userCPUBench >= gameCPUBenchMin){
+
+    }    if (userGPUBench >= gameGPUBenchMin){
+      
+    }    if (userRam >= mem[0][0]){
+      
+    }    if (userStorage >= storage[0][0]){
+      
+    }
     if (
       userCPUBench >= gameCPUBenchRec &&
       userGPUBench >= gameGPUBenchRec &&
