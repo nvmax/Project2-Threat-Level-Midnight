@@ -72,9 +72,10 @@ const searchedGamesHandler = async (event) => {
     document.querySelector("#name").textContent = name;
     document.querySelector("#date").textContent = date;
     document.querySelector("#description").textContent = description;
+    
     const backgroundEl = document.querySelector(".modCard");
-
     backgroundEl.style.backgroundImage = `url('${background}')`;
+
     document.querySelector("#recommended").innerHTML = recommended;
     document.querySelector("#website").innerHTML = website;
 
