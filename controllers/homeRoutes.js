@@ -70,7 +70,7 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/index", (req, res) => {
+router.get("/", (req, res) => {
   res.render("index", { logged_in: req.session.logged_in });
 });
 
