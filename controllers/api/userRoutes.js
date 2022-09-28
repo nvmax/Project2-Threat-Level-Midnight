@@ -17,26 +17,25 @@ router.get('/', (req, res) => {
 });
 
 // GET /api/users/:id and steam info through steamuser table
-router.get('/:id', (req, res) => {
-    User.findOne({
-        attributes: { exclude: ['password'] },
-        where: {
-            id: req.params.id
-        },
-        include: [{model: GpuInfo},{ model: CpuInfo}, {model: Steam,  Through: SteamUsers, as : 'steam_users'}]
-    })
-    .then(dbUserData => {
+router.get ('/:id', async (req, res) => {
+    try {
+        const dbUserData = await User.findOne({
+            attributes: { exclude: ['password'] },
+            where: {
+                id: req.params.id
+            },
+            include: [{model: GpuInfo},{ model: CpuInfo}, {model: Steam,  Through: SteamUsers, as : 'steam_users'}]
+        });
         if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
+            res.status(404).json({ message: 'No user found with this id!' });
             return;
         }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
+        res.status(200).json(dbUserData);
+    } catch (err) {
         res.status(500).json(err);
-    });
+    }
 });
+
 
 // post route for new user
 router.post('/', async (req, res) => {
@@ -56,25 +55,22 @@ router.post('/', async (req, res) => {
 });
 
 // put route for user
-router.put('/:id', (req, res) => {
-    // using sessions to check if the user is logged in
-    User.update(req.body, {
-        individualHooks: true,
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(dbUserData => {
-        if (!dbUserData[0]) {
-            res.status(404).json({ message: 'No user found with this id' });
+router.put('/:id', async (req, res) => {
+    try {
+        const dbUserData = await User.update(req.body, {
+            individualHooks: true,
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!dbUserData) {
+            res.status(404).json({ message: 'No user found with this id!' });
             return;
         }
-        res.json(dbUserData);
-    })
-    .catch(err => { 
-        console.log(err);
+        res.status(200).json(dbUserData);
+    } catch (err) {
         res.status(500).json(err);
-    });
+    }
 });
 
 // delete user
@@ -151,13 +147,8 @@ router.get('/email/:email', async (req, res) => {
     }
 });
 
-
-
-
-  
   // Logout
-  router.post('/logout', (req, res) => {
-    // When the user logs out, the session is destroyed
+router.post('/logout', async (req, res) => {
     if (req.session.logged_in) {
       req.session.destroy(() => {
         res.status(204).end();
