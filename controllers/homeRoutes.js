@@ -5,6 +5,8 @@ const { Steam } = require("../models");
 const sequelize = require("../config/connection");
 const { Op } = require("sequelize");
 const recComVer = require("./utils/recComVer");
+require ("dotenv").config();
+process.env.ST_KEY
 
 router.get("/search", withAuth, async (req, res) => {
   systemReadiness = await recComVer.specCompare(10,1);
@@ -15,7 +17,7 @@ router.get("/search", withAuth, async (req, res) => {
   try {
     // https://intense-inlet-78981.herokuapp.com/
     const games =
-      "https://api.steampowered.com/ISteamChartsService/GetGamesByConcurrentPlayers/v1/?";
+      "https://api.steampowered.com/ISteamChartsService/GetGamesByConcurrentPlayers/v1/?key=" + process.env.ST_KEY;
 
     const response = await axios.get(games);
     gameArray.push(...response.data.response.ranks.map((game) => game.appid));
@@ -28,7 +30,7 @@ router.get("/search", withAuth, async (req, res) => {
     try {
       const data = (
         await axios.get(
-          `https://store.steampowered.com/api/appdetails?appids=${id}`
+          `https://store.steampowered.com/api/appdetails?appids=${id}&?key=${process.env.ST_KEY}`
         )
       ).data;
       if (data) {
