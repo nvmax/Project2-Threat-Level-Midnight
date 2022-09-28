@@ -20,6 +20,10 @@ Steam.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        isgame: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        }
     },
     {
         sequelize: sequelize,
