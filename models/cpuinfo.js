@@ -29,7 +29,7 @@ CpuInfo.init(
     {
         sequelize: sequelize,
         timestamps: false,
-        freezeTableName: true,        
+        freezeTableName: true,
         modelName: 'cpuinfo'
     }
 );

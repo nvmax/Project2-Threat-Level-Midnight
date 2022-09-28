@@ -9,17 +9,20 @@ const e = require("express");
 require("dotenv").config();
 
 router.get("/readiness", withAuth, async (req, res) => {
-  systemReadiness = await recComVer.specCompare(req.appid, req.uid);
+  systemReadiness = await recComVer.specCompare(626600, 1);
   // systemReadiness = await recComVer.specCompare(req.appid,req.uid);
   console.log(systemReadiness);
-  res.render("readiness", {
-    readyStatus: systemReadiness,
-  });
+  // res.render("readiness", {
+  //   readyStatus: systemReadiness,
+  // });
 });
 
 router.get("/profileupdate", withAuth, async (req, res) => {});
 
 router.get("/search", withAuth, async (req, res) => {
+  systemReadiness = await recComVer.specCompare(626600, 59);
+  // systemReadiness = await recComVer.specCompare(req.appid,req.uid);
+  console.log(systemReadiness);
   const gameArray = [];
   try {
     // https://intense-inlet-78981.herokuapp.com/

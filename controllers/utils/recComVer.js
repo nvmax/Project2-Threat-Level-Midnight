@@ -1,6 +1,6 @@
 const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("../../models");
-
-require ("dotenv").config();
+const Op = require("sequelize").Op;
+require("dotenv").config();
 
 // Parse normally formatted requirements
 function parseNormSpecs(specs) {
@@ -126,139 +126,132 @@ function finalizeParse(specs, parsed) {
   }
 }
 
-// Use requirements tp generate sequelize calls
+// Compare user hardware to game hardware reqs
 async function compareToUser(proc, mem, gpu, storage, userId) {
-  // convert to GB if needed
-  if (mem.length) {
-    if (mem[0].length) {
-      if (mem[0][1].match(/mb/i)) mem[0][0] = mem[0][0] / 1000;
-    }
-    if (mem[1].length) {
-      if (mem[1][1].match(/mb/i)) mem[1][0] = mem[1][0] / 1000;
-    }
-  }
-  if (storage.length) {
-    if (storage[0].length) {
-      if (storage[0][1].match(/mb/i)) storage[0][0] = storage[0][0] / 1000;
-    }
-    if (storage[1].length) {
-      if (storage[1][1].match(/mb/i)) storage[1][0] = storage[1][0] / 1000;
-    }
-  }
-  // console.log(proc);
-  if (proc.length && gpu.length) {
+  // Use get user info using id
+  const user = await User.findOne({
+    attributes: { exclude: ["password"] },
+    where: {
+      id: userId,
+    },
+    include: [
+      { model: GpuInfo },
+      { model: CpuInfo },
+      { model: Steam, Through: SteamUsers, as: "steam_users" },
+    ],
+  });
+  let verdict = {};
+
+  // cpu compare
+  if (proc.length && user.cpuinfo) {
     procMin = proc[0].join("%");
     procRec = proc[1].join("%");
+    const cpuDataMin = await CpuInfo.findOne({
+      where: { cpu: { [Op.like]: `%${procMin}%` } },
+    });
+    const cpuDataRec = await CpuInfo.findOne({
+      where: { cpu: { [Op.like]: `%${procRec}%` } },
+    });
 
+    if (user.cpuinfo.benchmark >= cpuDataMin.dataValues.benchmark) {
+      verdict.cpuMeetsMin = true;
+    } else {
+      verdict.cpuMeetsMin = false;
+    }
+    if (user.cpuinfo.benchmark >= cpuDataRec.dataValues.benchmark) {
+      verdict.cpuMeetsRec = true;
+    } else {
+      verdict.cpuMeetsRec = false;
+    }
+  }
+  // gpu compare
+  if (gpu.length && user.gpuinfo) {
     gpuMin = gpu[0].join("%");
     gpuRec = gpu[1].join("%");
 
-    const cpuDataMin = await CpuInfo.findOne({
-      where: { cpu: { [Op.like]: `%${procMin}%` } },
-      // attributes: ["benchmark"],
-    });
-    const gameCPUBenchMin = cpuDataMin.dataValues.benchmark;
-    const cpuDataRec = await CpuInfo.findOne({
-      where: { cpu: { [Op.like]: `%${procRec}%` } },
-      // attributes: ["benchmark"],
-    });
-    const gameCPUBenchRec = cpuDataRec.dataValues.benchmark;
-
     const gpuDataMin = await GpuInfo.findOne({
       where: { gpu: { [Op.like]: `%${gpuMin}%` } },
-      // attributes: ["benchmark"],
     });
-    const gameGPUBenchMin = gpuDataMin.dataValues.benchmark;
     const gpuDataRec = await GpuInfo.findOne({
       where: { gpu: { [Op.like]: `%${gpuRec}%` } },
-      // attributes: ["benchmark"],
     });
-    const gameGPUBenchRec = gpuDataRec.dataValues.benchmark;
-    const user = await User.findOne({
-      attributes: { exclude: ["password"] },
-      where: {
-        id: userId,
-      },
-      include: [
-        { model: GpuInfo },
-        { model: CpuInfo },
-        { model: Steam, Through: SteamUsers, as: "steam_users" },
-      ],
-    });
-    userCPUBench = user.cpuinfo.benchmark;
-    userGPUBench = user.gpuinfo.benchmark;
-    userRam = user.ramsize;
-    userStorage = user.hddsize;
 
-    // console.log(userCPUBench);
-    // console.log(gameCPUBenchMin);
-    // console.log(gameCPUBenchRec);
-    // console.log(userGPUBench);
-    // console.log(gameGPUBenchMin);
-    // console.log(gameGPUBenchRec);
-    // console.log(userRam);
-    // console.log(mem[0][0]);
-    // console.log(mem[1][0]);
-    // console.log(userStorage);
-    // console.log(storage[0][0]);
-    // console.log(storage[1][0]);
-
-    let verdict = 
-    cpuMeetsMin
-    cpuMeetsRec
-    gpuMeetsMin
-    gpuMeetsRec
-    ramMeetsMin
-    ramMeetsRec
-    storageMeetsMin
-    storageMeetsRec
-
-    if (userCPUBench >= gameCPUBenchRec){
-
-    }    if (userGPUBench >= gameGPUBenchRec){
-      
-    }    if (userRam >= mem[1][0]){
-      
-    }    if (userStorage >= storage[1][0]){
-      
-    }    if (userCPUBench >= gameCPUBenchMin){
-
-    }    if (userGPUBench >= gameGPUBenchMin){
-      
-    }    if (userRam >= mem[0][0]){
-      
-    }    if (userStorage >= storage[0][0]){
-      
-    }
-    if (
-      userCPUBench >= gameCPUBenchRec &&
-      userGPUBench >= gameGPUBenchRec &&
-      userRam >= mem[1][0] &&
-      userStorage >= storage[1][0]
-    ) {
-      // console.log("This game should run well on your system!");
-      return "Recommended";
-    } else if (
-      userCPUBench >= gameCPUBenchMin &&
-      userGPUBench >= gameGPUBenchMin &&
-      userRam >= mem[0][0] &&
-      userStorage >= storage[0][0]
-    ) {
-      // console.log("This game should somewhat run on your system!");
-      return "Minimum";
+    if (user.gpuinfo.benchmark >= gpuDataMin.dataValues.benchmark) {
+      verdict.gpuMeetsMin = true;
     } else {
-      // console.log("Your system is beneath this game. Don't insult it by trying to run it.");
-      return "Potato";
+      verdict.gpuMeetsMin = false;
     }
-  } else {
-    // console.log("Unclear. It's an older game, so you should be good to go.");
-    return "Default";
+    if (user.gpuinfo.benchmark >= gpuDataRec.dataValues.benchmark) {
+      verdict.gpuMeetsRec = true;
+    } else {
+      verdict.gpuMeetsRec = false;
+    }
   }
+  // convert to GB if needed and compare mem
+  if (mem.length && user.ramsize !== null) {
+    if (mem[0].length) {
+      if (mem[0][1].match(/mb/i)) mem[0][0] = mem[0][0] / 1000;
+      if (user.ramsize >= mem[0][0]) {
+        verdict.ramMeetsMin = true;
+      } else {
+        verdict.ramMeetsMin = false;
+      }
+    }
+    if (mem[1].length) {
+      if (mem[1][1].match(/mb/i)) mem[1][0] = mem[1][0] / 1000;
+      if (user.ramsize >= mem[1][0]) {
+        verdict.ramMeetsRec = true;
+      } else {
+        verdict.ramMeetsRec = false;
+      }
+    }
+  }
+  // convert to GB if needed and compare storage
+  if (storage.length && user.hddsize !== null) {
+    if (storage[0].length) {
+      if (storage[0][1].match(/mb/i)) storage[0][0] = storage[0][0] / 1000;
+      if (user.hddsize >= storage[0][0]) {
+        verdict.hddMeetsMin = true;
+      } else {
+        verdict.hddMeetsMin = false;
+      }
+    }
+    if (storage[1].length) {
+      if (storage[1][1].match(/mb/i)) storage[1][0] = storage[1][0] / 1000;
+      if (user.hddsize >= storage[1][0]) {
+        verdict.hddMeetsRec = true;
+      } else {
+        verdict.hddMeetsRec = false;
+      }
+    }
+  }
+  verdict.overall = 0;
+  if (Object.keys(verdict).length === 9) {
+    if (
+      verdict.cpuMeetsRec &&
+      verdict.gpuMeetsRec &&
+      verdict.ramMeetsRec &&
+      verdict.hddMeetsRec
+    ) {
+      verdict.overall = 3;
+    } else if (
+      verdict.cpuMeetsMin &&
+      verdict.gpuMeetsMin &&
+      verdict.ramMeetsMin &&
+      verdict.hddMeetsMin
+    ) {
+      verdict.overall = 2;
+    } else {
+      verdict.overall = 1;
+    }
+  }
+
+  return verdict;
 }
 
 // Fetch from api, print other general data, pull out requirements section, call parser and sql functions
 async function specCompare(appid, userId) {
-  let systemReadiness = "Default";
+  let systemReadiness = {};
   const url = `https://store.steampowered.com/api/appdetails?appids=${appid}&?key=${process.env.ST_KEY}`;
   try {
     const data = await (await fetch(url)).json();
