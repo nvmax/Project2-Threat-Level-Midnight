@@ -6,7 +6,6 @@ const sequelize = require("../config/connection");
 const { Op } = require("sequelize");
 const recComVer = require("./utils/recComVer");
 require ("dotenv").config();
-process.env.ST_KEY
 
 router.get("/search", withAuth, async (req, res) => {
   systemReadiness = await recComVer.specCompare(10,1);

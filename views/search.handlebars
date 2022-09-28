@@ -1,55 +1,68 @@
-<section class='search-showcase'>
-  <div class='search-header'>
+<section class="search-showcase">
+  <div class="search-header">
     <h2>Search for a game!</h2>
   </div>
-  <div class='search-bar-btn'>
-    <form id='search' class='search-form'>
-      <input id="search-input" class='search-input' type='text' placeholder='Search..' />
-      <button class='search-btn' type="submit">Search</button>
+  <div class="search-bar-btn">
+    <form id="search" class="search-form">
+      <input
+        id="search-input"
+        class="search-input"
+        type="text"
+        placeholder="Search.."
+      />
+      <button class="search-btn" type="submit">Search</button>
     </form>
 
   </div>
 </section>
 
-<div class='search-page-container'>
-  <div class='searched-games-container'>
-    <section class='main-card-container'>
+<div class="search-page-container">
+  <div class="searched-games-container">
+    <section class="main-card-container">
+      <div class="spinner"></div>
       {{#each game as |games|}}
 
-      <div class='card-img-container'>
-        <img onerror="this.style.display='none';this.parentElement.remove()" class='card'
-          src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/header.jpg">
-        <div class='card-title-container'>
-          <p class='card-title'>{{name}}</p>
+        <div class="card-img-container">
+          <img
+            onerror="this.style.display='none';this.parentElement.remove()"
+            class="card"
+            src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/header.jpg"
+          />
+          <div class="card-title-container">
+            <p class="card-title">{{name}}</p>
+          </div>
         </div>
-      </div>
       {{else}}
-      <div class='no-game-container'>
-        <h4>No games found, Please try again.</h4>
-      </div>
+        <div class="no-game-container">
+          <h4>No games found, Please try again.</h4>
+        </div>
 
       {{/each}}
     </section>
   </div>
 </div>
 
-<div class='search-page-container'>
-  <div class='card-section-container'>
-    <h2 class='card-section-title'>Top 20 Games In The Last Week</h2>
+<div class="search-page-container">
+  <div class="card-section-container">
+    <h2 class="card-section-title">Top 20 Games In The Last Week</h2>
   </div>
-  <section class='main-card-container'>
+  <section class="main-card-container">
+    <div class="spinner"></div>
     {{#each top20 as |t20|}}
-    <div class='card-img-container' data-appid='{{appid}}'>
-      <img class='card' data-appid='{{appid}}'
-        src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg">
-      <div class='card-title-container' data-appid='{{appid}}'>
-        <p class='card-title'>{{name}}</p>
+      <div class="card-img-container" data-appid="{{appid}}">
+        <img
+          class="card"
+          data-appid="{{appid}}"
+          src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg"
+        />
+        <div class="card-title-container" data-appid="{{appid}}">
+          <p class="card-title">{{name}}</p>
+        </div>
       </div>
-    </div>
     {{else}}
-    <div class='no-game-container'>
-      <h4>No games found, Please try again.</h4>
-    </div>
+      <div class="no-game-container">
+        <h4>No games found, Please try again.</h4>
+      </div>
     {{/each}}
   </section>
 </div>
@@ -72,19 +85,20 @@
   </div>
 </div>
 
-<div id="profileToggle">toggle profile <i class="fas fa-user"></i></div>
+<div id="profileToggle">click to toggle profile</div>
 <section id="userProfile">
   <h1>User Name</h1>
   <h3>email@domain.com</h3>
 
-  <form id='manageDevices1'>
-    <button type="button" class="manageButton" id="manageButton">add or update device</button>
+  <form id="manageDevices1">
+    <button type="button" class="manageButton" id="manageButton">add or update
+      device</button>
   </form>
-  <form id='manageDevices2'>
-    <input type="checkbox" id="desktop" name="desktop" value="desktop">
+  <form id="manageDevices2">
+    <input type="checkbox" id="desktop" name="desktop" value="desktop" />
     <label for="desktop"> Desktop </label>
 
-    <input type="checkbox" id="laptop" name="laptop" value="laptop">
+    <input type="checkbox" id="laptop" name="laptop" value="laptop" />
     <label for="laptop"> Laptop </label>
 
     <select id="RAM" name="ram">
@@ -97,11 +111,11 @@
       <option value="onetwentyeight">128 GB</option>
     </select>
 
-    <label for="CPU">CPU:</label><br>
-    <input type="text" id="CPU" name="CPU">
+    <label for="CPU">CPU:</label><br />
+    <input type="text" id="CPU" name="CPU" />
 
-    <label for="GPU">GPU:</label><br>
-    <input type="text" id="GPU" name="GPU">
+    <label for="GPU">GPU:</label><br />
+    <input type="text" id="GPU" name="GPU" />
 
     <button type="button" class="manageButton" id="submitDevice">submit</button>
   </form>

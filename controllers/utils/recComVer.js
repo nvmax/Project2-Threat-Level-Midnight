@@ -1,7 +1,6 @@
 const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("../../models");
 const { Op } = require("sequelize");
 require ("dotenv").config();
-process.env.ST_KEY
 
 // Parse normally formatted requirements
 function parseNormSpecs(specs) {
