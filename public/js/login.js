@@ -17,6 +17,10 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      let userEmail = document.getElementById('login-email').value;
+
+      window.localStorage.setItem('email', JSON.stringify(userEmail));
+
       document.location.replace('/search');
     } else {
       const warning = document.getElementById('warning');
@@ -29,7 +33,7 @@ const loginFormHandler = async (event) => {
   } else {
     const warning = document.getElementById('warning');
     warning.innerHTML = 'Please enter your information first.';
-    
+
     setTimeout(() => {
       document.getElementById('warning').innerHTML = '';
     }, 2500);
