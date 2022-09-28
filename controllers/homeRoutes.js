@@ -58,6 +58,7 @@ router.get("/search", withAuth, async (req, res) => {
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/search");
+    console.log("we got here");
     return;
   }
   res.render("login");
