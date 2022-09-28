@@ -31,9 +31,10 @@ router.get('/:id', async (req, res) => {
 router.get('/search/:terms', async (req, res) => {
     try {
         const gpuinfoData = await GpuInfo.findAll({
+            
             where: {
                 gpu: {
-                    [Op.like]: '%' + req.params.terms + '%'
+                    [Op.like]: `%${req.params.terms}`,
                 }
             }
         });

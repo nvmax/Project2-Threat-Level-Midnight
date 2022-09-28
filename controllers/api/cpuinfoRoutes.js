@@ -4,59 +4,52 @@ const Op = require('sequelize').Op;
 
 
 
-// get CPU info
-router.get('/', (req, res) => {
-    CpuInfo.findAll({
-        // no attributes
-    })
-    .then(dbCpuData => res.json(dbCpuData))
-    .catch(err => {
-        console.log(err);
+//get CPU info
+router.get('/', async (req, res) => {
+    try {
+        const cpuinfoData = await CpuInfo.findAll();
+        res.status(200).json(cpuinfoData);
+    } catch (err) {
         res.status(500).json(err);
-    });
+    }
 });
 
-
 // get CPU info by id
-router.get('/:id', (req, res) => {
-    CpuInfo.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(dbCpuData => {
-        if (!dbCpuData) {
-            res.status(404).json({ message: 'No CPU found with this id' });
+router.get('/:id', async (req, res) => {
+    try {
+        const cpuData = await CpuInfo.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!cpuData) {
+            res.status(404).json({ message: 'No cpu found with this id!' });
             return;
         }
-        res.json(dbCpuData);
-    })
-    .catch(err => {
-        console.log(err);
+        res.status(200).json(cpuData);
+    } catch (err) {
         res.status(500).json(err);
-    });
+    }
 });
 
 // uses string to return cpu matches
-router.get('/search/:cpu', (req, res) => {
-    CpuInfo.findAll({
-        where: {
-            cpu: {
-                [Op.like]: '%' + req.params.cpu + '%'
+router.get('/search/:cpu', async (req, res) => {
+    try {
+        const cpuData = await CpuInfo.findAll({
+            where: {
+                cpu: {
+                    [Op.like]: `%${req.params.cpu}%`
+                }
             }
-        }
-    })
-    .then(dbCpuData => {
-        if (!dbCpuData) {
-            res.status(404).json({ message: 'No CPU found with this id' });
+        });
+        if (!cpuData) {
+            res.status(404).json({ message: 'No cpu found with this id!' });
             return;
         }
-        res.json(dbCpuData);
-    })
-    .catch(err => {
-        console.log(err);
+        res.status(200).json(cpuData);
+    } catch (err) {
         res.status(500).json(err);
-    });
+    }
 });
 
 
