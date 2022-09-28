@@ -12,6 +12,8 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@300&family=Roboto:wght@300&display=swap");
   </style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <title>Unplayable</title>
 </head>
 
@@ -19,11 +21,11 @@
   <nav></nav>
   <section class='link'>
     {{#if logged_in}}
-    <a href='/index'>Home</a>
+    <a href='/'>Home</a>
     <a href='/search'>Search</a>
-    <a id="logout" href='/index'>Logout</a>
+    <a id="logout" href='/'>Logout</a>
     {{else}}
-    <a href='/index'>Home</a>
+    <a href='/'>Home</a>
     <a href='/login'>Login</a>
     <a href='/register'>Register</a>
     {{/if}}
