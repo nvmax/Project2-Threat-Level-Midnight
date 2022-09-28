@@ -7,9 +7,21 @@ const { Op } = require("sequelize");
 const recComVer = require("./utils/recComVer");
 require ("dotenv").config();
 
-router.get("/search", withAuth, async (req, res) => {
-  systemReadiness = await recComVer.specCompare(10,1);
+
+router.get("/readiness", withAuth, async (req, res) => {
+  systemReadiness = await recComVer.specCompare(req.appid,req.uid);
+  // systemReadiness = await recComVer.specCompare(req.appid,req.uid);
   console.log(systemReadiness);
+  res.render("readiness", {
+    readyStatus: systemReadiness,
+  });
+})
+
+router.get("/profileupdate", withAuth, async (req, res) => {
+
+})
+
+router.get("/search", withAuth, async (req, res) => {
 
   const gameArray = [];
   const goodGames = [];

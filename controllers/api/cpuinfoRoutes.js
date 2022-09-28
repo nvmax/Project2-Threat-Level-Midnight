@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, GpuInfo, CpuInfo } = require('../../models');
+const { User, cpuInfo, CpuInfo } = require('../../models');
 
 
 
@@ -36,6 +36,17 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// uses string to return cpu matches
+router.get('/search/:terms', async (req, res) => {
+    try{
+        const cpuData = await CpuInfo.findOne({
+            where: { cpu: { [Op.like]: `%${req.params.match}%` } },
+          });
+          res.status.json(cpuData)
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 // post route for new CPU
 router.post('/', async (req, res) => {
