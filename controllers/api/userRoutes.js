@@ -131,6 +131,29 @@ router.post('/login', async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+
+router.get('/email/:email', async (req, res) => {
+    try {
+        const userData = await User.findOne({
+          attributes: { exclude: ['password'] },
+          where: {
+            email: req.params.email,
+          },
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user found with this email!' });
+            return;
+        }
+        res.status(200).json(userData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+
+
   
   // Logout
   router.post('/logout', (req, res) => {
