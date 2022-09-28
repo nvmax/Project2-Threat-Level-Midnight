@@ -22,6 +22,7 @@ router.get("/:name", async (req, res) => {
   try {
     if (req.params.name.match(/^\s*\d+\s*$/g)) {
       const steamData = await Steam.findAll({
+        limit : 15,
         where: {
           appid: {
             [Op.like]: `${req.params.name.trim()}`,
@@ -31,6 +32,7 @@ router.get("/:name", async (req, res) => {
       });
     } else if (req.params.name.includes("%")) {
       const steamData = await Steam.findAll({
+        limit : 15,
         where: {
           name: {
             [Op.contains]: `%${req.params.name}%`,
@@ -43,6 +45,7 @@ router.get("/:name", async (req, res) => {
       const name = nameArr.join("%");
 
       const steamData = await Steam.findAll({
+        limit : 15,
         where: {
           name: {
             [Op.like]: `%${name}%`,
