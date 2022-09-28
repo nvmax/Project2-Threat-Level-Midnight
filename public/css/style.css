@@ -250,7 +250,6 @@ footer {
     color: var(--MainColor);
     box-shadow: 0px 0px 10px;
     padding: 50px 10px;
-    text-align: right;
     visibility: hidden;
 }
 
@@ -259,12 +258,14 @@ footer {
     font-size: 30px;
     font-weight: bold;
     line-height: 160%;
+    text-align: right;
 }
 
 #userProfile h3 {
     font-family: var(--RobotoFont);
     font-size: 18px;
     line-height: 100%;
+    text-align: right;
 }
 
 #userProfile h4 {
@@ -289,6 +290,43 @@ footer {
 #userProfile ul li b, #userProfile ol li b {
     font-family: var(--RobotoFont);
     font-weight: bold;
+}
+
+/* --- manage devices form --- */
+#manageDevices1, #manageDevices2 {
+    width: 100%;
+    font-family: var(--AdventFont);
+    color: var(--MainColor);
+    font-weight: bold;
+} 
+
+.manageButton {
+    font-size: 25px;
+    margin:  10px auto;
+    padding: 5px 10px;
+    letter-spacing: 1px;
+    display: block;
+}
+
+#manageDevices2 {
+   display: none; 
+}
+
+#manageDevices label {
+    width: 40%;
+    font-size: 15px;
+    margin: 5px 0;
+}
+#manageDevices input {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+#CPU, #GPU, #RAM {
+    display: block;
+    font-size: 20px;
+    width: 100%;
+    margin: 5px 0;
 }
 
 /* larger devices */

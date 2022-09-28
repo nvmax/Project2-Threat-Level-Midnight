@@ -42,9 +42,10 @@
   <section class='main-card-container'>
     {{#if t20.isFulFilled}}
     {{#each top20 as |t20|}}
-    <div class='card-img-container'data-appid='{{appid}}'>
-      <img class='card' data-appid='{{appid}}' src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg">
-      <div class='card-title-container'data-appid='{{appid}}'>
+    <div class='card-img-container' data-appid='{{appid}}'>
+      <img class='card' data-appid='{{appid}}'
+        src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg">
+      <div class='card-title-container' data-appid='{{appid}}'>
         <p class='card-title'>{{name}}</p>
       </div>
     </div>
@@ -60,20 +61,20 @@
 </div>
 
 <div class="modal">
-  <div class="modCard" >
+  <div class="modCard">
     <div class="modFlex">
       <div class="modImg"></div>
-      <h1 id = "name"></h1>
+      <h1 id="name"></h1>
       <center>
-        <h3 id ="date"></h3>
+        <h3 id="date"></h3>
       </center>
     </div>
     <div class="modFlex">
       <p id="description"></p>
-      <p id ="recommended"></p>
-      <p id ="website"></p>
+      <p id="recommended"></p>
+      <p id="website"></p>
     </div>
-   
+
   </div>
 </div>
 
@@ -81,6 +82,35 @@
 <section id="userProfile">
   <h1>User Name</h1>
   <h3>email@domain.com</h3>
+
+  <form id='manageDevices1'>
+    <button type="button" class="manageButton" id="manageButton">add or update device</button>
+  </form>
+  <form id='manageDevices2'>
+    <input type="checkbox" id="desktop" name="desktop" value="desktop">
+    <label for="desktop"> Desktop </label>
+
+    <input type="checkbox" id="laptop" name="laptop" value="laptop">
+    <label for="laptop"> Laptop </label>
+
+    <select id="RAM" name="ram">
+      <option value="none" selected disabled hidden>select your RAM size</option>
+      <option value="four">4 GB</option>
+      <option value="eight">8 GB</option>
+      <option value="sixteen">16 GB</option>
+      <option value="thirtytwo">32 GB</option>
+      <option value="sixtyfour">64 BG</option>
+      <option value="onetwentyeight">128 GB</option>
+    </select>
+
+    <label for="CPU">CPU:</label><br>
+    <input type="text" id="CPU" name="CPU">
+
+    <label for="GPU">GPU:</label><br>
+    <input type="text" id="GPU" name="GPU">
+
+    <button type="button" class="manageButton" id="submitDevice">submit</button>
+  </form>
 
   <h4>device information</h4>
   <ul>
@@ -98,7 +128,6 @@
     <li> game four </li>
     <li> game five </li>
   </ol>
-
 </section>
 
 <script src="/js/search.js"></script>
