@@ -38,9 +38,6 @@ router.get('/:id', (req, res) => {
     });
 });
 
-
-          
-
 // post route for new user
 router.post('/', async (req, res) => {
     try {
@@ -98,7 +95,6 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-
 // Login
 router.post('/login', async (req, res) => {
     try {
@@ -115,7 +111,7 @@ router.post('/login', async (req, res) => {
         return;
       }
   
-      const validPassword = await dbUserData.checkPassword(req.body.password);
+      const validPassword = dbUserData.checkPassword(req.body.password);
   
       if (!validPassword) {
         res

@@ -1,5 +1,5 @@
 const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("../../models");
-const { Op } = require("sequelize");
+
 require ("dotenv").config();
 
 // Parse normally formatted requirements
