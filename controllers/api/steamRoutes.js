@@ -49,7 +49,7 @@ router.get("/:name", async (req, res) => {
         limit: 50,
         where: {
           name: {
-            [Op.like]: `%${name}%`,
+            [Op.like]: `${name}%`,
           },
         },
         raw: true,

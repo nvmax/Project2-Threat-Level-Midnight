@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, cpuInfo, CpuInfo } = require('../../models');
+const Op = require('sequelize').Op;
 
 
 
@@ -37,16 +38,27 @@ router.get('/:id', (req, res) => {
 });
 
 // uses string to return cpu matches
-router.get('/search/:terms', async (req, res) => {
-    try{
-        const cpuData = await CpuInfo.findOne({
-            where: { cpu: { [Op.like]: `%${req.params.match}%` } },
-          });
-          res.status.json(cpuData)
-    } catch (err) {
+router.get('/search/:cpu', (req, res) => {
+    CpuInfo.findAll({
+        where: {
+            cpu: {
+                [Op.like]: '%' + req.params.cpu + '%'
+            }
+        }
+    })
+    .then(dbCpuData => {
+        if (!dbCpuData) {
+            res.status(404).json({ message: 'No CPU found with this id' });
+            return;
+        }
+        res.json(dbCpuData);
+    })
+    .catch(err => {
+        console.log(err);
         res.status(500).json(err);
-    }
-})
+    });
+});
+
 
 // post route for new CPU
 router.post('/', async (req, res) => {
