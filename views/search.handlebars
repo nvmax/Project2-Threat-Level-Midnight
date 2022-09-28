@@ -14,8 +14,8 @@
 <div class='search-page-container'>
   <div class='searched-games-container'>
     <section class='main-card-container'>
+      {{#if games.isFulFilled}}
       {{#each game as |games|}}
-
       <div class='card-img-container'>
         <img onerror="this.style.display='none';this.parentElement.remove()" class='card'
           src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/header.jpg">
@@ -27,8 +27,10 @@
       <div class='no-game-container'>
         <h4>No games found, Please try again.</h4>
       </div>
-
       {{/each}}
+      {{else}}
+      <div class="loader"></div>
+      {{/if}}
     </section>
   </div>
 </div>
@@ -38,6 +40,7 @@
     <h2 class='card-section-title'>Top 20 Games In The Last Week</h2>
   </div>
   <section class='main-card-container'>
+    {{#if bigData.isFulFilled}}
     {{#each top20 as |t20|}}
     <div class='card-img-container'data-appid='{{appid}}'>
       <img class='card' data-appid='{{appid}}' src="https://cdn.akamai.steamstatic.com/steam/apps/{{appid}}/capsule_616x353.jpg">
@@ -50,6 +53,9 @@
       <h4>No games found, Please try again.</h4>
     </div>
     {{/each}}
+    {{else}}
+    <div class="loader"></div>
+    {{/if}}
   </section>
 </div>
 

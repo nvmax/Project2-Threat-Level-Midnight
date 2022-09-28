@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Steam } = require("../../models");
 const Op = require("sequelize").Op;
 const axios = require("axios");
+require ("dotenv").config();
 
 // GET /api/steam
 

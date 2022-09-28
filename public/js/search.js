@@ -2,6 +2,7 @@ const searchFormHandler = async (event) => {
     event.preventDefault();
 const searchInput = document.querySelector('#search-input').value.trim();
 const parse = new DOMParser();
+require ("dotenv").config();
 
 
 if (searchInput) {
@@ -13,7 +14,7 @@ if (searchInput) {
     // return appid and name to console.log
     if (response.ok) {
        const games = await response.text();
-    //    console.log(games);
+       console.log(games);
        const gamehtml = parse.parseFromString(games, 'text/html');
 
        const gameinfo = gamehtml.querySelector('.searched-games-container');
@@ -35,7 +36,7 @@ const searchedGamesHandler = async (event) => {
     // get id after apps/
     const appid = image.split('/')[5];
     console.log(appid);
-    const response = await fetch('https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=' + appid + '&l=en', {
+    const response = await fetch(`https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     });
@@ -88,7 +89,7 @@ const gameInfoHandler = async (event) => {
     // get id after apps/
     const appid = image.split('/')[5];
     console.log(appid);
-    const response = await fetch('https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=' + appid + '&l=en', {
+    const response = await fetch(`https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     });
@@ -153,7 +154,7 @@ const toggleProfile = async (event) => {
 
 
 
-
+// &key=${process.env.ST_KEY}
 
 
 
