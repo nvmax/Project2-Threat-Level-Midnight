@@ -55,6 +55,12 @@
   border-radius: 0 5px 5px 0;
 }
 
+.search-btn:hover {
+  background-color: var(--Neut1Color);
+  transition: 500ms;  
+  cursor: pointer;
+}
+
 /* Card Header */
 
 .card-section-container {
@@ -79,6 +85,12 @@
   box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 1px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-container:hover {
+  background-color: var(--Neut1Color);
+  transition: 500ms;  
+  cursor: pointer;
 }
 
 .card {
