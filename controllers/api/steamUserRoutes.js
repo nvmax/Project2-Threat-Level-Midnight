@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { SteamUsers, User, Steam } = require('../../models');
 const Op = require('sequelize').Op;
 
-
-
 // create steamuser association
 router.post('/', async (req, res) => {
     try {
@@ -17,8 +15,6 @@ router.post('/', async (req, res) => {
         res.status(400).json(err);
     }
 });
-
-
 
 // delete specific game from user's library
 router.delete('/:id', async (req, res) => {

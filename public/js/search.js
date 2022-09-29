@@ -10,9 +10,7 @@ const hideLoading = () => {
 const searchFormHandler = async (event) => {
   event.preventDefault();
   const searchInput = document.querySelector("#search-input").value.trim();
-
   const parse = new DOMParser();
-
   if (searchInput) {
     // displayLoading();
     // get appid from api/steam/ + searchInput
@@ -43,11 +41,9 @@ const searchedGamesHandler = async (event) => {
   event.preventDefault();
   // get image src link
   const image = event.target.getAttribute("src");
-  console.log(image);
   // https://cdn.akamai.steamstatic.com/steam/apps/1188540/header.jpg
   // get id after apps/
   const appid = image.split("/")[5];
-  console.log(appid);
   const response = await fetch(
     `https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`,
     {
@@ -60,7 +56,6 @@ const searchedGamesHandler = async (event) => {
     const game = await response.json();
     // break out data to be used
     const gameinfo = game[appid].data;
-    console.log(gameinfo);
     const name = gameinfo.name;
     const date = gameinfo.release_date.date;
     const description = gameinfo.short_description;
@@ -68,16 +63,19 @@ const searchedGamesHandler = async (event) => {
     const recommended = gameinfo.pc_requirements.recommended;
     const website = gameinfo.website;
     const headerimage = gameinfo.header_image;
+<<<<<<< HEAD
 
     document.querySelector("#modName").textContent = name;
     document.querySelector("#modDate").textContent = date;
+=======
+    document.querySelector("#name").textContent = name;
+    document.querySelector("#date").textContent = date;
+>>>>>>> c17c011c04c93328fff67b83eb6cbea2bc12092d
     document.querySelector("#description").textContent = description;
     const backgroundEl = document.querySelector(".modCard");
-
     backgroundEl.style.backgroundImage = `url('${background}')`;
     document.querySelector("#recommended").innerHTML = recommended;
     document.querySelector("#website").innerHTML = website;
-
     const mod1Img = document.querySelector(".modImg");
     mod1Img.style.backgroundImage = `url('${headerimage}')`;
   } else {
@@ -96,11 +94,9 @@ const gameInfoHandler = async (event) => {
   event.preventDefault();
   // get image src link
   const image = event.target.getAttribute("src");
-  console.log(image);
   // https://cdn.akamai.steamstatic.com/steam/apps/1188540/header.jpg
   // get id after apps/
   const appid = image.split("/")[5];
-  console.log(appid);
   const response = await fetch(
     `https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`,
     {
@@ -113,7 +109,6 @@ const gameInfoHandler = async (event) => {
     const game = await response.json();
     // break out data to be used
     const gameinfo = game[appid].data;
-    console.log(gameinfo);
     const name = gameinfo.name;
     const date = gameinfo.release_date.date;
     const description = gameinfo.short_description;
@@ -122,22 +117,23 @@ const gameInfoHandler = async (event) => {
     const website = gameinfo.website;
     const headerimage = gameinfo.header_image;
 
+<<<<<<< HEAD
     console.log(headerimage);
 
     document.querySelector("#modName").textContent = name;
 
     document.querySelector("#modDate").textContent = date;
 
+=======
+    document.querySelector("#name").textContent = name;
+    document.querySelector("#date").textContent = date;
+>>>>>>> c17c011c04c93328fff67b83eb6cbea2bc12092d
     document.querySelector("#description").textContent = description;
-
     const backgroundEl = document.querySelector(".modCard");
     backgroundEl.style.backgroundImage = `url('${background}')`;
-
     const modImg = document.querySelector(".modImg");
     modImg.style.backgroundImage = `url('${headerimage}')`;
-
     document.querySelector("#recommended").innerHTML = recommended;
-
     document.querySelector("#website").innerHTML = website;
   } else {
     console.log("Failed to get game info");
@@ -164,7 +160,6 @@ const toggleProfile = async (event) => {
 
 const displayManageForm = async (event) => {
   event.preventDefault();
-
   const manageForm2 = document.getElementById("manageDevices2");
   const manageForm1 = document.getElementById("manageDevices1");
   if (window.getComputedStyle(manageForm2).display === "none") {
@@ -175,15 +170,12 @@ const displayManageForm = async (event) => {
 
 const manageDeviceData = async (event) => {
   event.preventDefault();
-
   const manageForm2 = document.getElementById("manageDevices2");
   const manageForm1 = document.getElementById("manageDevices1");
   if (window.getComputedStyle(manageForm2).display === "none") {
     manageForm2.style.display = "none";
     manageForm1.style.display = "block";
   }
-
-  // whatever you want to do with the data
 };
 
 const searchPageContainer = document.querySelector(".search-page-container");

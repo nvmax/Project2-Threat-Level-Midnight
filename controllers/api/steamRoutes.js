@@ -44,7 +44,6 @@ router.get("/:name", async (req, res) => {
     } else {
       const nameArr = req.params.name.split(" ");
       const name = nameArr.join("%");
-
       steamData = await Steam.findAll({
         limit: 50,
         where: {
