@@ -52,7 +52,6 @@ router.get('/search/:cpu', async (req, res) => {
     }
 });
 
-
 // post route for new CPU
 router.post('/', async (req, res) => {
     try {
@@ -63,7 +62,6 @@ router.post('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 // put route for updating CPU
 router.put('/:id', async (req, res) => {
@@ -83,7 +81,6 @@ router.put('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 // delete route for CPU
 router.delete('/:id', async (req, res) => {

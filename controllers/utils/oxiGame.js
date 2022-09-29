@@ -18,7 +18,6 @@ async function discriminateGames(dirtyArray) {
   const purifiedArray = [];
   let i = 0;
   for (suspect of dirtyArray) {
-    console.log(i);
     i++;
     if (suspect.isgame !== null) {
       if (suspect.isgame === 1) {

@@ -2,13 +2,6 @@ const profileFormHandler = async (event) => {
     event.preventDefault();
     // get user email from local storage
     let email = JSON.parse(localStorage.getItem('email'));
-    // get which is checked laptop or desktop 
-    // const device = document.querySelector('input[type="checkbox"]:checked').value;
-    // console.log(device);
-    // get ram from form
-    // const ram = document.querySelector('#ram').value.trim();
-    // console.log(ram);
-    let id = "";
 
     if (email) {
         const response = await fetch(`/api/user/email/${email}`, {
@@ -24,21 +17,21 @@ const profileFormHandler = async (event) => {
                 const ram = user.ramsize;
                 const cpu = JSON.parse(localStorage.getItem('cpu'));
                 const gpu = JSON.parse(localStorage.getItem('gpu'));
-    
+
                 // setting data to the html
                 document.getElementById("uname").textContent = username;
                 document.getElementById("email").textContent = email;
                 document.getElementById("profileRAM").innerHTML = `<b>Ram Size:</b> ${ram} GB`;
                 document.getElementById("profileCPU").innerHTML = `<b>CPU ID:</b> ${cpu}`;
                 document.getElementById("profileGPU").innerHTML = `<b>GPU ID:</b> ${gpu}`;
-    
+
                 // storing data in localstorage
                 localStorage.setItem('id', JSON.stringify(id));
                 localStorage.setItem('username', JSON.stringify(username));
-        } else {
-            console.log('Failed to get user info');
+            } else {
+                console.log('Failed to get user info');
+            }
         }
-    }
     } else {
         console.log('Please enter your email first');
     }
@@ -54,7 +47,7 @@ const ProfileUpdateHandler = async (event) => {
     const cpuID = JSON.parse(localStorage.getItem('cpu_info'));
     const response = await fetch(`/api/user/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ username, email, ramsize: ram, cpu_id: cpuID, gpu_id: gpuID,  }),
+        body: JSON.stringify({ username, email, ramsize: ram, cpu_id: cpuID, gpu_id: gpuID, }),
         headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
@@ -65,9 +58,6 @@ const ProfileUpdateHandler = async (event) => {
     }
 };
 
-
-
-// create function to handle grabbing cpu info from database as key clicks are happening
 const cpuHandler = async (event) => {
     event.preventDefault();
     // when user types in id="CPU" grab the value and look it up in the database
@@ -131,10 +121,8 @@ const cpuLookupHandler = async (event) => {
 
 
 
-// add event listern to keyup event to send to cpuHandler function to grab cpu info from database
 document.querySelector('#CPU').addEventListener('keyup', cpuHandler);
 document.querySelector('#GPU').addEventListener('keyup', gpuHandler);
-// using id="submitDevice" in profile.handlebars to call profileUpdateHandler
 document.querySelector('#submitDevice').addEventListener('click', cpuLookupHandler);
 document.querySelector('#submitDevice').addEventListener('click', gpuLookupHandler);
 document.querySelector('#submitDevice').addEventListener('click', ProfileUpdateHandler);
@@ -142,3 +130,4 @@ document.querySelector('#ram').addEventListener('change', profileFormHandler);
 document.querySelector('#desktop').addEventListener('change', profileFormHandler);
 document.querySelector('#laptop').addEventListener('change', profileFormHandler);
 document.addEventListener('DOMContentLoaded', profileFormHandler);
+document.querySelector('#submitDevice').addEventListener('click', profileFormHandler);

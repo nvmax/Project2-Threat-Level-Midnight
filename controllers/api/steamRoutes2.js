@@ -2,11 +2,10 @@ const router = require("express").Router();
 const { Steam } = require("../../models");
 const Op = require("sequelize").Op;
 const axios = require("axios");
-require ("dotenv").config();
+require("dotenv").config();
 process.env.ST_KEY
 
 // GET /api/steam
-
 router.get("/", async (req, res) => {
   // Access our User model and run .findAll() method)
   try {
@@ -50,10 +49,10 @@ router.get("/:name", async (req, res) => {
         },
         raw: true,
       });
-    //   console.log(steamData);
-        const cleanedData = [];
-        let i = 0;
-        // looop through list and check content type to only show games
+      //   console.log(steamData);
+      const cleanedData = [];
+      let i = 0;
+      // looop through list and check content type to only show games
       for (item of steamData) {
         console.log(i);
         i++;
@@ -61,7 +60,7 @@ router.get("/:name", async (req, res) => {
           const data = (await axios.get(
             `https://store.steampowered.com/api/appdetails?appids=${item.appid}&?key=${process.env.ST_KEY}`
           )).data;
-        //   console.log(data);
+          //   console.log(data);
           if (data) {
             if (data[item.appid].data) {
               // console.log(data[Object.keys(data)[0]].data);
@@ -75,7 +74,7 @@ router.get("/:name", async (req, res) => {
           console.log(error.message);
         }
       }
-    //   console.log(cleanedData);
+      //   console.log(cleanedData);
       res.status(200).render("search", { game: cleanedData });
     }
   } catch (err) {
@@ -84,7 +83,6 @@ router.get("/:name", async (req, res) => {
 });
 
 module.exports = router;
-
 
 // It work but takes a long time and is prone to hitting the api call limit. A good solution might be to add an isGame column to our existing steam db
 // and prefer to use our table values instead, if we have them. I reckon after only a relatively few searches and updates we'll have most of the popular
