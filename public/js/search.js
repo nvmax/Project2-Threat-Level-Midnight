@@ -63,8 +63,14 @@ const searchedGamesHandler = async (event) => {
     const recommended = gameinfo.pc_requirements.recommended;
     const website = gameinfo.website;
     const headerimage = gameinfo.header_image;
+<<<<<<< HEAD
+
+    document.querySelector("#modName").textContent = name;
+    document.querySelector("#modDate").textContent = date;
+=======
     document.querySelector("#name").textContent = name;
     document.querySelector("#date").textContent = date;
+>>>>>>> c17c011c04c93328fff67b83eb6cbea2bc12092d
     document.querySelector("#description").textContent = description;
     const backgroundEl = document.querySelector(".modCard");
     backgroundEl.style.backgroundImage = `url('${background}')`;
@@ -111,8 +117,17 @@ const gameInfoHandler = async (event) => {
     const website = gameinfo.website;
     const headerimage = gameinfo.header_image;
 
+<<<<<<< HEAD
+    console.log(headerimage);
+
+    document.querySelector("#modName").textContent = name;
+
+    document.querySelector("#modDate").textContent = date;
+
+=======
     document.querySelector("#name").textContent = name;
     document.querySelector("#date").textContent = date;
+>>>>>>> c17c011c04c93328fff67b83eb6cbea2bc12092d
     document.querySelector("#description").textContent = description;
     const backgroundEl = document.querySelector(".modCard");
     backgroundEl.style.backgroundImage = `url('${background}')`;
