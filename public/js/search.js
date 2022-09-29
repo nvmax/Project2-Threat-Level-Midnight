@@ -60,28 +60,63 @@ const searchedGamesModalHandler = async (event) => {
   // return data to console.log
   if (response.ok) {
     const game = await response.json();
-    // break out data to be used
-    const gameinfo = game[appid].data;
-    // console.log(gameinfo);
-    const name = gameinfo.name;
-    const date = gameinfo.release_date.date;
-    const description = gameinfo.short_description;
-    const background = gameinfo.background;
-    const recommended = gameinfo.pc_requirements.recommended;
-    const website = gameinfo.website;
-    const headerimage = gameinfo.header_image;
+    const uid = JSON.parse(localStorage.getItem("id"));
 
-    document.querySelector("#name").textContent = name;
-    document.querySelector("#date").textContent = date;
-    document.querySelector("#description").textContent = description;
-    const backgroundEl = document.querySelector(".modCard");
+    // use user id and game id to run comparison
+    const response2 = await fetch(`/api/steamuser/compare/${uid}/${appid}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    // return appid and name to console.log
+    if (response2.ok) {
+      const executioner = await response2.json();
+      // break out data to be used
+      const gameinfo = game[appid].data;
+      // console.log(gameinfo);
+      const name = gameinfo.name;
+      const date = gameinfo.release_date.date;
+      const description = gameinfo.short_description;
+      const background = gameinfo.background;
+      const recommended = gameinfo.pc_requirements.recommended;
+      const website = gameinfo.website;
+      const headerimage = gameinfo.header_image;
 
-    backgroundEl.style.backgroundImage = `url('${background}')`;
-    document.querySelector("#recommended").innerHTML = recommended;
-    document.querySelector("#website").innerHTML = website;
+      // console.log(headerimage);
 
-    const mod1Img = document.querySelector(".modImg");
-    mod1Img.style.backgroundImage = `url('${headerimage}')`;
+      document.querySelector("#name").textContent = name;
+
+      document.querySelector("#date").textContent = date;
+
+      document.querySelector("#description").textContent = description;
+
+      const backgroundEl = document.querySelector(".modCard");
+      backgroundEl.style.backgroundImage = `url('${background}')`;
+
+      const modImg = document.querySelector(".modImg");
+      modImg.style.backgroundImage = `url('${headerimage}')`;
+
+      document.querySelector("#website").innerHTML = website;
+
+     
+      document.querySelector("#recommended").innerHTML = recommended;
+
+      console.log(executioner);
+      ["cpu", "gpu", "ram"].forEach((key) => {
+        const elem = document.getElementById(`${key}Status`);
+        result = executioner[`${key}MeetsRec`];
+        if (result) {
+          if (result === true) {
+            elem.innerHTML = "✔️";
+          } else {
+            elem.innerHTML = "❌";
+          }
+        } else {
+          elem.innerHTML = "❔";
+        }
+      });
+    } else {
+      console.log("Failed to get compare info");
+    }
   } else {
     console.log("Failed to get game info");
   }
