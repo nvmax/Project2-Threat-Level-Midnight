@@ -4,9 +4,9 @@ const axios = require("axios");
 require("dotenv").config();
 
 // function to filter out non-game data
-async function discriminateGames(dirtyArray) {
+async function discriminateGames(dirtyArray, returnAmount = "partial") {
   // identify if appid or full steam object and get steam object if needed
-  if (!dirtyArray[0].id) {
+  if (typeof dirtyArray[0] === "number") {
     dirtyArray = await Steam.findAll({
       where: {
         appid: { [Op.or]: dirtyArray },
@@ -26,6 +26,7 @@ async function discriminateGames(dirtyArray) {
       }
     } else {
       try {
+        console.log(suspect);
         const data = (
           await axios.get(
             `https://store.steampowered.com/api/appdetails?appids=${suspect.appid}&?key=${process.env.ST_KEY}`
@@ -46,7 +47,10 @@ async function discriminateGames(dirtyArray) {
                   },
                 }
               );
-              purifiedArray.push(suspect);
+              if (returnAmount === "all") {
+                purifiedArray.push(data[suspect.appid].data);
+              }
+              else{purifiedArray.push(suspect);}
               continue;
             }
           }

@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 const cors = require("cors");
+const top20 = require("./controllers/utils/top20save")
 
 const sequelize = require('./config/connection');
 
@@ -26,6 +27,9 @@ const sess = {
     db: sequelize
   })
 };
+
+// save top20 to file for reference on server start
+const startTop20 = top20.updateTop20();
 
 // tells the app to use the session
 app.use(session(sess));
