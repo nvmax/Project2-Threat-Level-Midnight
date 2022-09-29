@@ -277,6 +277,12 @@ footer {
     z-index: 999;
 }
 
+#profileToggle:hover {
+    background-color: var(--Neut1Color);
+    transition: 500ms;  
+    cursor: pointer;
+}
+
 #userProfile {
     position: fixed;
     top: 0;
@@ -288,12 +294,6 @@ footer {
     box-shadow: 0px 0px 10px;
     padding: 50px 10px;
     visibility: hidden;
-}
-
-#userProfile:hover {
-    background-color: var(--Neut1Color);
-    transition: 500ms;  
-    cursor: pointer;
 }
 
 #userProfile h1 {
