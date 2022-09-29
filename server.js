@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 require ("dotenv").config();
-process.env.SC_KEY
+
 
 const sequelize = require('./config/connection');
 
