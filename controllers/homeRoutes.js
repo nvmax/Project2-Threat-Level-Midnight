@@ -17,7 +17,7 @@ router.get("/readiness", withAuth, async (req, res) => {
   // });
 });
 
-router.get("/profileupdate", withAuth, async (req, res) => {});
+router.get("/profileupdate", withAuth, async (req, res) => { });
 
 router.get("/search", withAuth, async (req, res) => {
   systemReadiness = await recComVer.specCompare(626600, 59);
@@ -29,7 +29,6 @@ router.get("/search", withAuth, async (req, res) => {
     const games =
       "https://api.steampowered.com/ISteamChartsService/GetGamesByConcurrentPlayers/v1/?key=" +
       process.env.ST_KEY;
-
     const response = await axios.get(games);
     gameArray.push(...response.data.response.ranks.map((game) => game.appid));
   } catch (error) {
@@ -41,7 +40,6 @@ router.get("/search", withAuth, async (req, res) => {
     toptwenty.push(...(await purifier.discriminateGames([gameArray[i]])));
     i++;
   }
-
   res.render("search", {
     top20: toptwenty,
     logged_in: req.session.logged_in,

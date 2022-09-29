@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
 router.get('/search/:terms', async (req, res) => {
     try {
         const gpuinfoData = await GpuInfo.findAll({
-            
+
             where: {
                 gpu: {
                     [Op.like]: `%${req.params.terms}`,
@@ -47,7 +47,6 @@ router.get('/search/:terms', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 // put /api/gpuinfo/
 router.put('/', async (req, res) => {
@@ -78,7 +77,6 @@ router.post('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 // delete route for gpu
 router.delete('/:id', async (req, res) => {
