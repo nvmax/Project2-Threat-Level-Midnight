@@ -69,8 +69,8 @@ const searchedGamesHandler = async (event) => {
     const website = gameinfo.website;
     const headerimage = gameinfo.header_image;
 
-    document.querySelector("#name").textContent = name;
-    document.querySelector("#date").textContent = date;
+    document.querySelector("#modName").textContent = name;
+    document.querySelector("#modDate").textContent = date;
     document.querySelector("#description").textContent = description;
     const backgroundEl = document.querySelector(".modCard");
 
@@ -124,9 +124,9 @@ const gameInfoHandler = async (event) => {
 
     console.log(headerimage);
 
-    document.querySelector("#name").textContent = name;
+    document.querySelector("#modName").textContent = name;
 
-    document.querySelector("#date").textContent = date;
+    document.querySelector("#modDate").textContent = date;
 
     document.querySelector("#description").textContent = description;
 
