@@ -6,7 +6,7 @@ const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 const top20 = require("./controllers/utils/top20save")
 require ("dotenv").config();
-onst cors = require("cors");
+
 
 const sequelize = require('./config/connection');
 
