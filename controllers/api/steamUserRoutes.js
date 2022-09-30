@@ -16,6 +16,7 @@ router.get('/compare/uid/:uid/appid/:appid', async (req, res) => {
         }
         res.status(200).json(jury);
     } catch (err){
+        console.log(err);
         res.status(500).json(err);
     }
 })

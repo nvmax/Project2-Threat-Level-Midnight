@@ -77,26 +77,38 @@ function parseSpecs(requirements, parsed) {
     }
   }
 
-  // console.log(rec);
-  // console.log(min);
+  console.log(rec);
+  console.log(min);
   finalizeParse(min, parsed);
   finalizeParse(rec, parsed);
 }
 
 // Format generated requirement data into the structure we need for query use
 function finalizeParse(specs, parsed) {
+  console.log(parsed);
   for (item of specs) {
     if (item.Processor) {
       // console.log(item.Processor);
       // we will use the intel example to compare benchmarks
-      if (item.Processor.match(/intel/i)) {
+      if (item.Processor.match(/intel|pentium|core/i)) {
         parsed[0].push(
-          item.Processor.replace(/ or /gi, " / ")
-            .match(/(intel[\w- .]+h?z?) ?\/?/i)[1]
-            .replace(/cpu /gi, "")
+          item.Processor.replace(/ or | ?\/ ?/gi, " / ")
+            .match(/((intel)?[\w- .]+h?z?) ?\/?/i)[1]
+            .replace(/cpu |processor |generation /gi, "")
+            .replace(/\-/, " ")
+            .replace(/(\d\d?)th/i, "$1500")
+            .replace(/(\d\.\d)\d/, "$10")
+            .replace(/(\d.\d\d) ?(ghz) ?(intel) ?(i\d)/, "$3 $4 $1 $2")
             .match(/\d.\d\d?|[\w-]+|[gm]hz/gi)
         );
         // console.log(parsed[0]);
+      } else if (item.Processor.match(/amd|ryzen|threadripper|FX|athlon/i)) {
+        parsed[0].push(
+          item.Processor.replace(/ or | ?\/ ?/gi, " / ")
+            .match(/((amd)?ryzen \w+( \w+)?( \w+)?)\/?/i)[1]
+            .replace(/cpu |processor |generation /gi, "")
+            .match(/\w+/gi)
+        );
       }
     } else if (item.Memory) {
       // console.log(item.Memory);
@@ -112,11 +124,28 @@ function finalizeParse(specs, parsed) {
       // console.log(cosa);
       // console.log(item.VideoCard);
       // we will use nvidia examples to compare benchmarks
-      if (cosa.match(/nvidia/i)) {
+      if (cosa.match(/nvidia|gtx|rtx/i)) {
         parsed[2].push(
-          cosa.match(/nvidia (gpu )?([\w]+ ?[\w]+? [\d]+)/i)[2].match(/\w+/gi)
+          cosa
+            .replace(/ or | ?\/ ?/gi, " / ")
+            .replace(/better ?|equivalent ?/, "")
+            .replace(/ or | ?\/ ?/gi, " / ")
+            .match(
+              /(nvidia)? ?(gpu )?([\w]+ ?[\w]+? [\d]{2,}\w? ?(super)?(\w+)?\+?)/i
+            )[3]
+            .replace(/nvidia |gpu |\d\d?gb?/gi, "")
+            .replace(/(\d\d\d)(ti)/i, "$1 $2")
+            .match(/\w+/gi)
         );
-        // console.log(parsed[2]);
+        console.log(parsed[2]);
+      } else if (cosa.match(/radeon/i)) {
+        parsed[2].push(
+          cosa
+            .replace(/ or /gi, " / ")
+            .match(/(gpu )?([\w]+ ?[\w]+? [\d]{2,})/i)[3]
+            .replace(/amd |gpu /gi, "")
+            .match(/\w+/gi)
+        );
       }
     } else if (item.Storage) {
       // console.log(item.Storage);
@@ -149,52 +178,68 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
 
   // cpu compare
   if (proc.length && user.cpuinfo) {
-    procMin = proc[0].join("%");
-    procRec = proc[1].join("%");
-    const cpuDataMin = await CpuInfo.findOne({
-      where: { cpu: { [Op.like]: `%${procMin}%` } },
-    });
-    const cpuDataRec = await CpuInfo.findOne({
-      where: { cpu: { [Op.like]: `%${procRec}%` } },
-    });
+    if (proc[0]) {
+      const procMin = proc[0].join("%");
 
-    if (user.cpuinfo.benchmark >= cpuDataMin.dataValues.benchmark) {
-      verdict.cpuMeetsMin = true;
-    } else {
-      verdict.cpuMeetsMin = false;
+      const cpuDataMin = await CpuInfo.findOne({
+        where: { cpu: { [Op.like]: `%${procMin}%` } },
+      });
+      if (cpuDataMin) {
+        if (user.cpuinfo.benchmark >= cpuDataMin.dataValues.benchmark) {
+          verdict.cpuMeetsMin = true;
+        } else {
+          verdict.cpuMeetsMin = false;
+        }
+      }
     }
-    if (user.cpuinfo.benchmark >= cpuDataRec.dataValues.benchmark) {
-      verdict.cpuMeetsRec = true;
-    } else {
-      verdict.cpuMeetsRec = false;
+    if (proc[1]) {
+      console.log(proc[1]);
+      const procRec = proc[1].join("%");
+      const cpuDataRec = await CpuInfo.findOne({
+        where: { cpu: { [Op.like]: `%${procRec}%` } },
+      });
+      if (cpuDataRec) {
+        if (user.cpuinfo.benchmark >= cpuDataRec.dataValues.benchmark) {
+          verdict.cpuMeetsRec = true;
+        } else {
+          verdict.cpuMeetsRec = false;
+        }
+      }
     }
   }
   // gpu compare
+  console.log(gpu);
   if (gpu.length && user.gpuinfo) {
-    gpuMin = gpu[0].join("%");
-    gpuRec = gpu[1].join("%");
-
-    const gpuDataMin = await GpuInfo.findOne({
-      where: { gpu: { [Op.like]: `%${gpuMin}%` } },
-    });
-    const gpuDataRec = await GpuInfo.findOne({
-      where: { gpu: { [Op.like]: `%${gpuRec}%` } },
-    });
-
-    if (user.gpuinfo.benchmark >= gpuDataMin.dataValues.benchmark) {
-      verdict.gpuMeetsMin = true;
-    } else {
-      verdict.gpuMeetsMin = false;
+    if (gpu[0]) {
+      const gpuMin = gpu[0].join("%");
+      const gpuDataMin = await GpuInfo.findOne({
+        where: { gpu: { [Op.like]: `%${gpuMin}%` } },
+      });
+      if (gpuDataMin) {
+        if (user.gpuinfo.benchmark >= gpuDataMin.dataValues.benchmark) {
+          verdict.gpuMeetsMin = true;
+        } else {
+          verdict.gpuMeetsMin = false;
+        }
+      }
     }
-    if (user.gpuinfo.benchmark >= gpuDataRec.dataValues.benchmark) {
-      verdict.gpuMeetsRec = true;
-    } else {
-      verdict.gpuMeetsRec = false;
+    if (gpu[1]) {
+      const gpuRec = gpu[1].join("%");
+      const gpuDataRec = await GpuInfo.findOne({
+        where: { gpu: { [Op.like]: `%${gpuRec}%` } },
+      });
+      if (gpuDataRec) {
+        if (user.gpuinfo.benchmark >= gpuDataRec.dataValues.benchmark) {
+          verdict.gpuMeetsRec = true;
+        } else {
+          verdict.gpuMeetsRec = false;
+        }
+      }
     }
   }
   // convert to GB if needed and compare mem
   if (mem.length && user.ramsize !== null) {
-    if (mem[0].length) {
+    if (mem[0] && mem[0].length) {
       if (mem[0][1].match(/mb/i)) mem[0][0] = mem[0][0] / 1000;
       if (user.ramsize >= mem[0][0]) {
         verdict.ramMeetsMin = true;
@@ -202,7 +247,7 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
         verdict.ramMeetsMin = false;
       }
     }
-    if (mem[1].length) {
+    if (mem[1] && mem[1].length) {
       if (mem[1][1].match(/mb/i)) mem[1][0] = mem[1][0] / 1000;
       if (user.ramsize >= mem[1][0]) {
         verdict.ramMeetsRec = true;
