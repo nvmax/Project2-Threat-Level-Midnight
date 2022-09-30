@@ -29,9 +29,10 @@ async function updateTop20() {
 
 async function getTop20() {
   try {
-    const top20 = fs.readFile("./assets/top20.json", "utf-8");
+    const top20 = await fs.readFile("./assets/top20.json", "utf-8");
 
-    return top20;
+    const games = JSON.parse(top20);
+    return games;
   } catch (err) {
     console.log(err);
   }

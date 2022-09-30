@@ -59,10 +59,11 @@ const gamesModalHandler = async (event) => {
   // return data to console.log
   if (response.ok) {
     const game = await response.json();
-    const uid = JSON.parse(localStorage.getItem("id"));
-
+    const uid = await JSON.parse(localStorage.getItem("id"));
+    console.log(appid,uid);
+    console.log(JSON.stringify(uid));
     // use user id and game id to run comparison
-    const response2 = await fetch(`/api/steamuser/compare/${uid}/${appid}`, {
+    const response2 = await fetch(`/api/steamuser/compare/uid/${JSON.stringify(uid)}/appid/${appid}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -166,7 +167,7 @@ const manageDeviceData = async (event) => {
 const searchPageContainer = document.querySelector(".search-page-container");
 searchPageContainer.addEventListener("click", gamesModalHandler);
 
-[...document.getElementsByClassName("main-card-container")].forEach((e) =>
+[...document.getElementsByClassName("card-img-container")].forEach((e) =>
   e.addEventListener("click", gamesModalHandler)
 );
 

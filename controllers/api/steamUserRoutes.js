@@ -3,8 +3,9 @@ const { SteamUsers, User, Steam } = require('../../models');
 const judge = require("../utils/recComVer");
 const Op = require('sequelize').Op;
 
-
-router.get('/compare/:uid/:appid', async (req, res) => {
+// get compare info
+router.get('/compare/uid/:uid/appid/:appid', async (req, res) => {
+    console.log(req.params);
     try {
         // const jury = await judge.specCompare(1, 1599340);
         const jury = await judge.specCompare(req.params.uid, req.params.appid);
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
             steam_id: req.body.steam_id,
             user_id: req.body.user_id,
         });
-        console.log(steamuser);
+        // console.log(steamuser);
         res.status(200).json(steamuser);
     } catch (err) {
         res.status(400).json(err);

@@ -15,10 +15,10 @@ const loginFormHandler = async (event) => {
         'Content-Type': 'application/json'
       }
     });
-
+    // console.log(response);
     if (response.ok) {
-      let userEmail = document.getElementById('login-email').value;
-
+      let userEmail = await document.getElementById('login-email').value;
+      // console.log(userEmail);
       window.localStorage.setItem('email', JSON.stringify(userEmail));
 
       document.location.replace('/search');

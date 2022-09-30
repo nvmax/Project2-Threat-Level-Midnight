@@ -8,7 +8,6 @@ const profileFormHandler = async (event) => {
     // get ram from form
     // const ram = document.querySelector('#ram').value.trim();
     // console.log(ram);
-    let id = "";
 
     if (email) {
         const response = await fetch(`/api/user/email/${email}`, {
@@ -52,6 +51,7 @@ const ProfileUpdateHandler = async (event) => {
     const ram = document.querySelector('#ram').value.trim();
     const gpuID = JSON.parse(localStorage.getItem('gpu_info'));
     const cpuID = JSON.parse(localStorage.getItem('cpu_info'));
+    // console.log(cpuID);
     const response = await fetch(`/api/user/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ username, email, ramsize: ram, cpu_id: cpuID, gpu_id: gpuID,  }),
@@ -59,7 +59,7 @@ const ProfileUpdateHandler = async (event) => {
     });
     if (response.ok) {
         const user = await response.json();
-        console.log(user);
+        // console.log(user);
     } else {
         console.log('Failed to update user info');
     }
@@ -72,7 +72,7 @@ const cpuHandler = async (event) => {
     event.preventDefault();
     // when user types in id="CPU" grab the value and look it up in the database
     const cpu = document.querySelector('#CPU').value.trim();
-    console.log(cpu);
+    // console.log(cpu);
     // save cpu to localstorage 
     localStorage.setItem('cpu', JSON.stringify(cpu));
 };
@@ -81,7 +81,7 @@ const gpuHandler = async (event) => {
     event.preventDefault();
     // when user types in id="GPU" grab the value and look it up in the database
     const gpu = document.querySelector('#GPU').value.trim();
-    console.log(gpu);
+    // console.log(gpu);
     // save gpu to localstorage
     localStorage.setItem('gpu', JSON.stringify(gpu));
 };
@@ -90,14 +90,14 @@ const gpuLookupHandler = async (event) => {
     event.preventDefault();
     // get gpu id from api call
     const gpu = JSON.parse(localStorage.getItem('gpu'));
-    console.log(gpu);
+    // console.log(gpu);
     // get gpu info from database
     const response = await fetch(`/api/gpuinfo/search/${gpu}`, {
         method: 'GET',
     });
     if (response.ok) {
         const gpuinfo = await response.json();
-        console.log(gpuinfo);
+        // console.log(gpuinfo);
         // save gpu info to localstorage
         const gpuID = JSON.stringify(gpuinfo[0].id);
         localStorage.setItem('gpu_info', gpuID);
@@ -110,14 +110,14 @@ const cpuLookupHandler = async (event) => {
     event.preventDefault();
     // get cpu id from api call
     const cpu = JSON.parse(localStorage.getItem('cpu'));
-    console.log(cpu);
+    // console.log(cpu);
     // get cpu info from database
     const response = await fetch(`/api/cpuinfo/search/${cpu}`, {
         method: 'GET',
     });
     if (response.ok) {
         const cpuinfo = await response.json();
-        console.log(cpuinfo);
+        // console.log(cpuinfo);
         // save cpu info to localstorage
         const cpuID = JSON.stringify(cpuinfo[0].id);
         localStorage.setItem('cpu_info', cpuID);
