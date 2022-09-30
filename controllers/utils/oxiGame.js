@@ -18,7 +18,6 @@ async function discriminateGames(dirtyArray, returnAmount = "partial") {
   const purifiedArray = [];
   let i = 0;
   for (suspect of dirtyArray) {
-    console.log(i);
     i++;
     if (suspect.isgame !== null) {
       if (suspect.isgame === 1) {
@@ -26,7 +25,7 @@ async function discriminateGames(dirtyArray, returnAmount = "partial") {
       }
     } else {
       try {
-        console.log(suspect);
+        // console.log(suspect);
         const data = (
           await axios.get(
             `https://store.steampowered.com/api/appdetails?appids=${suspect.appid}&?key=${process.env.ST_KEY}`

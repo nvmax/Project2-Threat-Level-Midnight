@@ -10,9 +10,7 @@ const hideLoading = () => {
 const searchFormHandler = async (event) => {
   event.preventDefault();
   const searchInput = document.querySelector("#search-input").value.trim();
-
   const parse = new DOMParser();
-
   if (searchInput) {
     // displayLoading();
     // get appid from api/steam/ + searchInput
@@ -41,14 +39,11 @@ const searchFormHandler = async (event) => {
 
 const gamesModalHandler = async (event) => {
   event.preventDefault();
-  console.log(event.target);
   // get image src link
   const image = event.target.getAttribute("src");
-  // console.log(image);
   // https://cdn.akamai.steamstatic.com/steam/apps/1188540/header.jpg
   // get id after apps/
   const appid = image.split("/")[5];
-  console.log(appid);
   const response = await fetch(
     `https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`,
     {
@@ -60,13 +55,19 @@ const gamesModalHandler = async (event) => {
   if (response.ok) {
     const game = await response.json();
     const uid = await JSON.parse(localStorage.getItem("id"));
-    console.log(appid,uid);
+    console.log(appid, uid);
     console.log(JSON.stringify(uid));
     // use user id and game id to run comparison
-    const response2 = await fetch(`/api/steamuser/compare/uid/${JSON.stringify(uid)}/appid/${appid}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    const response2 = await fetch(
+      `/api/steamuser/compare/uid/${JSON.stringify(uid)}/appid/${appid.replace(
+        /"/g,
+        ""
+      )}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     // return appid and name to console.log
     if (response2.ok) {
       const executioner = await response2.json();
@@ -83,9 +84,9 @@ const gamesModalHandler = async (event) => {
 
       // console.log(headerimage);
 
-      document.querySelector("#name").textContent = name;
+      document.querySelector("#modName").textContent = name;
 
-      document.querySelector("#date").textContent = date;
+      document.querySelector("#modDate").textContent = date;
 
       document.querySelector("#description").textContent = description;
 
@@ -97,17 +98,22 @@ const gamesModalHandler = async (event) => {
 
       document.querySelector("#website").innerHTML = website;
 
-     
       document.querySelector("#recommended").innerHTML = recommended;
 
       console.log(executioner);
       ["cpu", "gpu", "ram"].forEach((key) => {
         const elem = document.getElementById(`${key}Status`);
-        result = executioner[`${key}MeetsRec`];
-        if (result) {
+        console.log(elem);
+        const hardware = `${key}MeetsRec`;
+        console.log(hardware);
+        let result = executioner[hardware];
+
+        if (result ===true || result === false) {
+          console.log(result);
           if (result === true) {
             elem.innerHTML = "✔️";
-          } else {
+          } else if (result === false) {
+            console.log('que pasa');
             elem.innerHTML = "❌";
           }
         } else {
@@ -142,7 +148,6 @@ const toggleProfile = async (event) => {
 
 const displayManageForm = async (event) => {
   event.preventDefault();
-
   const manageForm2 = document.getElementById("manageDevices2");
   const manageForm1 = document.getElementById("manageDevices1");
   if (window.getComputedStyle(manageForm2).display === "none") {
@@ -153,15 +158,12 @@ const displayManageForm = async (event) => {
 
 const manageDeviceData = async (event) => {
   event.preventDefault();
-
   const manageForm2 = document.getElementById("manageDevices2");
   const manageForm1 = document.getElementById("manageDevices1");
   if (window.getComputedStyle(manageForm2).display === "none") {
     manageForm2.style.display = "none";
     manageForm1.style.display = "block";
   }
-
-  // whatever you want to do with the data
 };
 
 const searchPageContainer = document.querySelector(".search-page-container");

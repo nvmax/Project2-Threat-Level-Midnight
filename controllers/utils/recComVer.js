@@ -128,6 +128,10 @@ function finalizeParse(specs, parsed) {
 
 // Compare user hardware to game hardware reqs
 async function compareToUser(proc, mem, gpu, storage, userId) {
+  console.log(proc);
+  console.log(mem);
+  console.log(storage);
+  console.log(gpu);
   // Use get user info using id
   const user = await User.findOne({
     attributes: { exclude: ["password"] },
@@ -140,7 +144,7 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
       { model: Steam, Through: SteamUsers, as: "steam_users" },
     ],
   });
-  console.log(user);
+  // console.log(user);
   let verdict = {};
 
   // cpu compare
@@ -285,6 +289,7 @@ async function specCompare(userId, appid) {
             requirements = game.pc_requirements;
             // console.log(`Runs on PC`);
             parseSpecs(requirements, parsed);
+            // console.log(parsed);
           }
           systemReadiness = compareToUser(...parsed, userId);
         }
@@ -296,7 +301,6 @@ async function specCompare(userId, appid) {
   // console.log(systemReadiness);
   return systemReadiness;
 }
-
 
 // returns json object
 // object will be either in form:

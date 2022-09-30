@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const { SteamUsers, User, Steam } = require('../../models');
-const judge = require("../utils/recComVer");
+const judge = require('../utils/recComVer')
 const Op = require('sequelize').Op;
 
 // get compare info
 router.get('/compare/uid/:uid/appid/:appid', async (req, res) => {
     console.log(req.params);
     try {
-        // const jury = await judge.specCompare(1, 1599340);
+        // const jury = await judge.specCompare(75, 578080);
+        console.log("here");
         const jury = await judge.specCompare(req.params.uid, req.params.appid);
         console.log(jury);
         if(!jury){

@@ -15,17 +15,13 @@ const loginFormHandler = async (event) => {
         'Content-Type': 'application/json'
       }
     });
-    // console.log(response);
     if (response.ok) {
-      let userEmail = await document.getElementById('login-email').value;
-      // console.log(userEmail);
+      let userEmail = document.getElementById('login-email').value;
       window.localStorage.setItem('email', JSON.stringify(userEmail));
-
       document.location.replace('/search');
     } else {
       const warning = document.getElementById('warning');
       warning.innerHTML = 'Email or password is incorrect';
-
       setTimeout(() => {
         document.getElementById('warning').innerHTML = '';
       }, 2500);

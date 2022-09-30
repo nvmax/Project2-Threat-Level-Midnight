@@ -17,7 +17,7 @@ router.get("/readiness", withAuth, async (req, res) => {
   // });
 });
 
-router.get("/profileupdate", withAuth, async (req, res) => {});
+router.get("/profileupdate", withAuth, async (req, res) => { });
 
 router.get("/search", withAuth, async (req, res) => {
   // systemReadiness = await recComVer.specCompare(626600, 59);

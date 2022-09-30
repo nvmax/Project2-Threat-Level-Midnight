@@ -140,7 +140,7 @@ footer {
     align-content: space-around;
 }
 
-.footerFlex{
+.footerFlex {
     text-align: center;
     width: 45%;
     flex: 1;
@@ -168,14 +168,14 @@ footer {
 
 .contributor {
     font-family: var(--RobotoFont);
-    font-size: 15px; 
+    font-size: 15px;
     margin: 5px;
     display: inline-block;
 }
 
 /*--- modal / popup with more info about the selected game ---*/
 .modal {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
     top: 0;
     left: 0;
@@ -189,8 +189,9 @@ footer {
     justify-content: center;
     visibility: hidden;
 }
+
 .modCard {
-    background-image:url('https://via.placeholder.com/150');
+    background-image: url('https://via.placeholder.com/150');
     background-color: #fff;
     background-size: cover;
     background-repeat: no-repeat;
@@ -198,6 +199,7 @@ footer {
     border-radius: 5px;
     padding: 15px;
     width: 80%;
+    max-height: 80%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -211,7 +213,7 @@ footer {
 }
 
 .modImg {
-    background-image:url('https://via.placeholder.com/150');
+    background-image: url('https://via.placeholder.com/150');
     width: 80%;
     min-height: 200px;
     background-size: cover;
@@ -271,7 +273,7 @@ footer {
     font-family: var(--AdventFont);
     color: var(--AltColor);
     letter-spacing: 2px;
-    font-weight:900;
+    font-weight: 900;
     font-size: 17px;
     padding: 5px;
     z-index: 999;
@@ -279,7 +281,7 @@ footer {
 
 #profileToggle:hover {
     background-color: var(--Neut1Color);
-    transition: 500ms;  
+    transition: 500ms;
     cursor: pointer;
 }
 
@@ -320,39 +322,43 @@ footer {
     border-bottom: 1px solid var(--MainColor);
 }
 
-#userProfile ul, #userProfile ol {
+#userProfile ul,
+#userProfile ol {
     text-align: left;
     font-size: 17px;
     font-family: var(--RobotoFont);
 }
 
-#userProfile ul li, #userProfile ol li {
+#userProfile ul li,
+#userProfile ol li {
     line-height: 140%;
 }
 
-#userProfile ul li b, #userProfile ol li b {
+#userProfile ul li b,
+#userProfile ol li b {
     font-family: var(--RobotoFont);
     font-weight: bold;
 }
 
 /* --- manage devices form --- */
-#manageDevices1, #manageDevices2 {
+#manageDevices1,
+#manageDevices2 {
     width: 100%;
     font-family: var(--AdventFont);
     color: var(--MainColor);
     font-weight: bold;
-} 
+}
 
 .manageButton {
     font-size: 25px;
-    margin:  10px auto;
+    margin: 10px auto;
     padding: 5px 10px;
     letter-spacing: 1px;
     display: block;
 }
 
 #manageDevices2 {
-   display: none; 
+    display: none;
 }
 
 #manageDevices label {
@@ -360,12 +366,15 @@ footer {
     font-size: 15px;
     margin: 5px 0;
 }
+
 #manageDevices input {
     font-size: 15px;
     margin-bottom: 5px;
 }
 
-#CPU, #GPU, #RAM {
+#CPU,
+#GPU,
+#RAM {
     display: block;
     font-size: 20px;
     width: 100%;
@@ -381,65 +390,84 @@ footer {
 
 /* medium devices */
 @media screen and (max-width: 768px) {
-    .modCard {
-        flex-flow: column;
-        width: 94%;
-        height: 94%;
-        overflow: auto;
-        margin: 2%;
-    }
     .footerFlex {
         width: 80%;
         margin-bottom: 50px;
     }
+
     .footerContent {
         flex-flow: column;
         width: 94%;
         padding: 20px 0;
     }
+
     .footerFlex .footer-logo {
         width: 100%;
     }
+
+    .modCard {
+        flex-flow: column;
+        width: 94%;
+        max-height: 94%;
+        overflow: auto;
+        margin: 2%;
+    }
+
     .modFlex {
         padding: 1%;
         margin: 1%;
         width: 96%;
     }
-    .modImg {
-        display: none;
+
+    .modCard h1 {
+        font-size: 25px;
+    }
+
+    .modCard h3 {
+        font-size: 15px;
     }
 }
 
 /* small devices */
 @media screen and (max-width: 576px) {
-    .modCard {
-        flex-flow: column;
-        width: 94%;
-        height: 94%;
-        overflow: auto;
-        margin: 2%;
-    }
     .footerFlex {
         width: 80%;
         margin-bottom: 50px;
     }
+
     .footerContent {
         flex-flow: column;
         width: 100%;
         padding: 20px 0;
     }
+
     .footerFlex .footer-logo {
         width: 100%;
     }
+
+    .modCard {
+        flex-flow: column;
+        width: 94%;
+        max-height: 94%;
+        overflow: auto;
+        margin: 2%;
+    }
+
     .modFlex {
         padding: 1%;
         margin: 1%;
         width: 96%;
     }
+
     .homepage-logo {
         width: 350px;
     }
-    .modImg {
-        display: none;
+
+    .modCard h1 {
+        font-size: 25px;
+    }
+
+    .modCard h3 {
+        font-size: 15px;
     }
 }
