@@ -78,7 +78,7 @@ const gamesModalHandler = async (event) => {
       const date = gameinfo.release_date.date;
       const description = gameinfo.short_description;
       const background = gameinfo.background;
-      const recommended = gameinfo.pc_requirements.recommended;
+
       const website = gameinfo.website;
       const headerimage = gameinfo.header_image;
 
@@ -97,28 +97,39 @@ const gamesModalHandler = async (event) => {
       modImg.style.backgroundImage = `url('${headerimage}')`;
 
       document.querySelector("#website").innerHTML = website;
-
-      document.querySelector("#recommended").innerHTML = recommended;
+      // console.log(gameinfo.pc_requirements)
+      // if (gameinfo.pc_requirements !== "undefined") {
+      if (gameinfo.pc_requirements.recommended) {
+        const recommended = gameinfo.pc_requirements.recommended;
+        document.querySelector("#recommended").innerHTML = recommended;
+        document.querySelector("#minimum").innerHTML = '';
+      } else {
+        const minimum = gameinfo.pc_requirements.minimum;
+        document.querySelector("#minimum").innerHTML = minimum;
+        document.querySelector("#recommended").innerHTML = '';
+      }
 
       console.log(executioner);
-      ["cpu", "gpu", "ram"].forEach((key) => {
-        const elem = document.getElementById(`${key}Status`);
-        console.log(elem);
-        const hardware = `${key}MeetsRec`;
-        console.log(hardware);
-        let result = executioner[hardware];
+      ["cpu", "gpu", "ram"].forEach((key1) => {
+        ["Rec", "Min"].forEach((key2) => {
+          const elem = document.getElementById(`${key1}Status${key2}`);
+          console.log(elem);
+          const hardware = `${key1}Meets${key2}`;
+          console.log(hardware);
+          let result = executioner[hardware];
 
-        if (result ===true || result === false) {
-          console.log(result);
-          if (result === true) {
-            elem.innerHTML = "✔️";
-          } else if (result === false) {
-            console.log('que pasa');
-            elem.innerHTML = "❌";
+          if (result === true || result === false) {
+            console.log(result);
+            if (result === true) {
+              elem.innerHTML = "✔️";
+            } else if (result === false) {
+              console.log("que pasa");
+              elem.innerHTML = "❌";
+            }
+          } else {
+            elem.innerHTML = "❔";
           }
-        } else {
-          elem.innerHTML = "❔";
-        }
+        });
       });
     } else {
       console.log("Failed to get compare info");
