@@ -4,15 +4,20 @@ require("dotenv").config();
 
 // Parse normally formatted requirements
 function parseNormSpecs(specs) {
-  // console.log(specs);
+  console.log(specs);
   // remove extraneous material and map the relevant data into a useful object
   let dataArray1 = specs
-    .replace(/[®™]/g, "")
-    .match(/([\w ]+:)(<[\/\w]+>)? ?([\w\/,. \-\(\)+]+)</g)
+    .replace(/[®™\(\)@&]/g, "")
+    .replace(/(nvidia):/gi, "$1")
+    .replace(/(amd):/gi, "$1")
+    .replace(/(intel):/gi, "$1")
+    .replace(/(card):/gi, "$1/")
+    .replace(/(drivers):/gi, "$1/")
+    .match(/([\w ]+:)(<[\/\w]+>)? ?([\w\/,. \-\(\)+;\|]+)</g)
     .map((item) => {
       item = item.replace(/<\/?\w+> ?|[<+]/g, "");
       let split = item.split(":");
-      // console.log(split);
+      console.log(split);
       if (split[0] !== "") {
         split[0] = split[0].replace(/ /g, "");
         return { [split[0]]: split[1].trim() };
@@ -89,26 +94,35 @@ function finalizeParse(specs, parsed) {
   for (item of specs) {
     if (item.Processor) {
       // console.log(item.Processor);
-      // we will use the intel example to compare benchmarks
-      if (item.Processor.match(/intel|pentium|core/i)) {
-        parsed[0].push(
-          item.Processor.replace(/ or | ?\/ ?/gi, " / ")
-            .match(/((intel)?[\w- .]+h?z?) ?\/?/i)[1]
-            .replace(/cpu |processor |generation /gi, "")
-            .replace(/\-/, " ")
-            .replace(/(\d\d?)th/i, "$1500")
-            .replace(/(\d\.\d)\d/, "$10")
-            .replace(/(\d.\d\d) ?(ghz) ?(intel) ?(i\d)/, "$3 $4 $1 $2")
-            .match(/\d.\d\d?|[\w-]+|[gm]hz/gi)
-        );
-        // console.log(parsed[0]);
-      } else if (item.Processor.match(/amd|ryzen|threadripper|FX|athlon/i)) {
-        parsed[0].push(
-          item.Processor.replace(/ or | ?\/ ?/gi, " / ")
-            .match(/((amd)?ryzen \w+( \w+)?( \w+)?)\/?/i)[1]
-            .replace(/cpu |processor |generation /gi, "")
-            .match(/\w+/gi)
-        );
+      let cositas = item.Processor.replace(/ or | ?\/ ?|;|,| and |\|/gi, "/").split("/");
+      console.log(cositas);
+      for (cosisita of cositas) {
+        // we will use the intel example to compare benchmarks
+        if (cosisita.match(/intel|pentium|core/i)) {
+          parsed[0].push(
+            cosisita
+              .match(/((intel)?[\w- .]+h?z?) ?\/?/i)[1]
+              .replace(
+                /(\d )?cpus? ?|processor ?|generation ?|first ?|second ?|third ?|fourth ?|fifth ?|sixth ?|seventh ?|eighth ?|ninth ?|tenth ?|eleventh ?|twelfth ?|thirteenth ?/gi,
+                ""
+              )
+              .replace(/\-/, " ")
+              .replace(/(\d\d?)th/i, "$1500")
+              .replace(/(\d\.\d)\d/, "$10")
+              .replace(/(\d.\d\d?) ?(ghz) ?(intel) ?(i\d)/i, "$3 $4 $1 $2")
+              .match(/\d.\d\d?|[\w-]+|[gm]hz/gi)
+          );
+          break;
+          // console.log(parsed[0]);
+        } else if (cosisita.match(/amd|ryzen|threadripper|FX|athlon/i)) {
+          parsed[0].push(
+            cosisita
+              .match(/((amd )?(ryzen )? ?[\w-]+( \w+)?( \w+)?)/i)[1]
+              .replace(/(\d )?cpus? ?|processor ?|generation ?/gi, "")
+              .match(/\w+/gi)
+          );
+          break;
+        }
       }
     } else if (item.Memory) {
       // console.log(item.Memory);
@@ -121,31 +135,33 @@ function finalizeParse(specs, parsed) {
       } else {
         cosa = item.VideoCard;
       }
+      let cositas = cosa.replace(/ or | ?\/ ?|;|,| and |\|/gi, "/").split("/");
+      console.log(cositas);
       // console.log(cosa);
       // console.log(item.VideoCard);
-      // we will use nvidia examples to compare benchmarks
-      if (cosa.match(/nvidia|gtx|rtx/i)) {
-        parsed[2].push(
-          cosa
-            .replace(/ or | ?\/ ?/gi, " / ")
-            .replace(/better ?|equivalent ?/, "")
-            .replace(/ or | ?\/ ?/gi, " / ")
-            .match(
-              /(nvidia)? ?(gpu )?([\w]+ ?[\w]+? [\d]{2,}\w? ?(super)?(\w+)?\+?)/i
-            )[3]
-            .replace(/nvidia |gpu |\d\d?gb?/gi, "")
-            .replace(/(\d\d\d)(ti)/i, "$1 $2")
-            .match(/\w+/gi)
-        );
-        console.log(parsed[2]);
-      } else if (cosa.match(/radeon/i)) {
-        parsed[2].push(
-          cosa
-            .replace(/ or /gi, " / ")
-            .match(/(gpu )?([\w]+ ?[\w]+? [\d]{2,})/i)[3]
-            .replace(/amd |gpu /gi, "")
-            .match(/\w+/gi)
-        );
+      for (cosisita of cositas) {
+        console.log(cosisita);
+        // we will use nvidia examples to compare benchmarks
+        if (cosisita.match(/nvidia|gtx|rtx/i)) {
+          parsed[2].push(
+            cosisita
+              .replace(/nvidia ?|gpu ?|better ?|equivalent ?|ddr4 ?|vram ?/gi, "")
+              // .match(/([\w]+ ?[\w]+? [\d]{2,}\w? ?(super)?(\w+)?\+?)/i)[0]
+              .replace(/\d\d?gb?/gi, "")
+              .replace(/(\d\d\d)(ti)/i, "$1 $2")
+              .match(/\w+/gi)
+          );
+          break;
+          console.log(parsed[2]);
+        } else if (cosisita.match(/radeon/i)) {
+          parsed[2].push(
+            cosisita
+              .replace(/amd ?|gpu ?|better ?|equivalent ?|ddr4 ?|vram ?/gi, "")
+              // .match(/([\w]+ ?[\w]+? ?[\d]{2,})/i)[0]
+              .match(/\w+/gi)
+          );
+          break;
+        }
       }
     } else if (item.Storage) {
       // console.log(item.Storage);
