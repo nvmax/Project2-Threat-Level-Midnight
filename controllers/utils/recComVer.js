@@ -128,6 +128,10 @@ function finalizeParse(specs, parsed) {
 
 // Compare user hardware to game hardware reqs
 async function compareToUser(proc, mem, gpu, storage, userId) {
+  console.log(proc);
+  console.log(mem);
+  console.log(storage);
+  console.log(gpu);
   // Use get user info using id
   const user = await User.findOne({
     attributes: { exclude: ["password"] },
@@ -140,6 +144,7 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
       { model: Steam, Through: SteamUsers, as: "steam_users" },
     ],
   });
+  // console.log(user);
   let verdict = {};
 
   // cpu compare
@@ -245,12 +250,13 @@ async function compareToUser(proc, mem, gpu, storage, userId) {
       verdict.overall = 1;
     }
   }
-
+  // console.log(verdict);
   return verdict;
 }
 
 // Fetch from api, print other general data, pull out requirements section, call parser and sql functions
-async function specCompare(appid, userId) {
+async function specCompare(userId, appid) {
+  console.log("comparing");
   let systemReadiness = {};
   const url = `https://store.steampowered.com/api/appdetails?appids=${appid}&?key=${process.env.ST_KEY}`;
   try {
@@ -283,6 +289,7 @@ async function specCompare(appid, userId) {
             requirements = game.pc_requirements;
             // console.log(`Runs on PC`);
             parseSpecs(requirements, parsed);
+            // console.log(parsed);
           }
           systemReadiness = compareToUser(...parsed, userId);
         }
@@ -294,5 +301,23 @@ async function specCompare(appid, userId) {
   // console.log(systemReadiness);
   return systemReadiness;
 }
+
+// returns json object
+// object will be either in form:
+// verdict: {
+//   {cpuMeetsRec: bool},
+//   {gpuMeetsRec: bool},
+//   {cpuMeetsRec: bool},
+//   {ramMeetsRec: bool},
+//   {hddMeetsRec: bool},
+//   {cpuMeetsMin: bool},
+//   {gpuMeetsMin: bool},
+//   {ramMeetsMin: bool},
+//   {overall: 0-3}              (unknown, doesn't meet, meets min, meets rec)
+// }
+// or form:
+// verdict: {
+//   overall: 0
+// }
 
 module.exports = { specCompare };

@@ -18,6 +18,10 @@ const signupFormHandler = async (event) => {
         headers: { 'Content-Type': 'application/json' }
       });
       if (loginResponse.ok) {
+        let userEmail = await document.getElementById('form-email').value;
+        console.log(userEmail);
+        window.localStorage.setItem('email', JSON.stringify(userEmail));
+
         document.location.replace('/search');
       }
     } else {

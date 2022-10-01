@@ -1,33 +1,36 @@
-const router = require('express').Router();
-const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require('../../models');
-const bcrypt = require('bcrypt');
-
+const router = require("express").Router();
+const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("../../models");
+const bcrypt = require("bcrypt");
 
 // GET /api/users
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   // Access our User model and run .findAll() method)
   User.findAll({
-    attributes: { exclude: ['password'] }
+    attributes: { exclude: ["password"] },
   })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
 // GET /api/users/:id and steam info through steamuser table
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const dbUserData = await User.findOne({
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ["password"] },
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
-      include: [{ model: GpuInfo }, { model: CpuInfo }, { model: Steam, Through: SteamUsers, as: 'steam_users' }]
+      include: [
+        { model: GpuInfo },
+        { model: CpuInfo },
+        { model: Steam, Through: SteamUsers, as: "steam_users" },
+      ],
     });
     if (!dbUserData) {
-      res.status(404).json({ message: 'No user found with this id!' });
+      res.status(404).json({ message: "No user found with this id!" });
       return;
     }
     res.status(200).json(dbUserData);
@@ -37,14 +40,13 @@ router.get('/:id', async (req, res) => {
 });
 
 // post route for new user
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const userData = await User.create(req.body);
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.loggedIn = true;
-
     });
     res.status(200).json(userData);
   } catch (err) {
@@ -54,16 +56,16 @@ router.post('/', async (req, res) => {
 });
 
 // put route for user
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const dbUserData = await User.update(req.body, {
       individualHooks: true,
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
     if (!dbUserData) {
-      res.status(404).json({ message: 'No user found with this id!' });
+      res.status(404).json({ message: "No user found with this id!" });
       return;
     }
     res.status(200).json(dbUserData);
@@ -73,7 +75,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // delete user
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const userData = await User.destroy({
       where: {
@@ -81,7 +83,7 @@ router.delete('/:id', async (req, res) => {
       },
     });
     if (!userData) {
-      res.status(404).json({ message: 'No user found with this id!' });
+      res.status(404).json({ message: "No user found with this id!" });
       return;
     }
     res.status(200).json(userData);
@@ -91,33 +93,36 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
+  // console.log(req.body);
   try {
     const dbUserData = await User.findOne({
       where: {
         email: req.body.email,
       },
     });
-console.log(dbUserData);
+
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
-    
-    const validPassword = dbUserData.checkPassword(req.body.password);
+
+    const validPassword = await dbUserData.checkPassword(req.body.password);
+
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect password. Please try again!' });
+        .json({ message: "Incorrect password. Please try again!" });
       return;
     }
-    req.session.save(() => {
+
+    await req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.logged_in = true;
-
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
+      // console.log(dbUserData);
+      res.json({ user: dbUserData, message: "You are now logged in!" });
     });
   } catch (err) {
     console.log(err);
@@ -125,17 +130,16 @@ console.log(dbUserData);
   }
 });
 
-
-router.get('/email/:email', async (req, res) => {
+router.get("/email/:email", async (req, res) => {
   try {
     const userData = await User.findOne({
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ["password"] },
       where: {
         email: req.params.email,
       },
     });
     if (!userData) {
-      res.status(404).json({ message: 'No user found with this email!' });
+      res.status(404).json({ message: "No user found with this email!" });
       return;
     }
     res.status(200).json(userData);
@@ -145,7 +149,7 @@ router.get('/email/:email', async (req, res) => {
 });
 
 // Logout
-router.post('/logout', async (req, res) => {
+router.post("/logout", async (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -154,12 +158,5 @@ router.post('/logout', async (req, res) => {
     res.status(404).end();
   }
 });
-
-
-
-
-
-
-
 
 module.exports = router;

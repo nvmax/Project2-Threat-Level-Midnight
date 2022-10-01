@@ -4,6 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
+const top20 = require("./controllers/utils/top20save")
 require ("dotenv").config();
 
 
@@ -26,6 +27,9 @@ const sess = {
     db: sequelize
   })
 };
+
+// save top20 to file for reference on server start
+const startTop20 = top20.updateTop20();
 
 // tells the app to use the session
 app.use(session(sess));
