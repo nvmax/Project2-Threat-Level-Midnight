@@ -1,12 +1,12 @@
 const { User, GpuInfo, CpuInfo, SteamUsers, Steam } = require("./models");
 const { Op } = require("sequelize");
 
-const id = 10;
+const id = 1222680;
 // const id = 251570;
 // const id = 626600;
 // const id = 499450;
 // const id = 627530;
-// const id = 105600;
+// const id = 271590;
 
 // const url = 'https://store.steampowered.com/api/appdetails?appids=10';
 // get json from steam api image.png http://store.steampowered.com/api/appdetails?appids=387990 log body
@@ -16,7 +16,7 @@ function parseNormSpecs(specs) {
   // console.log(specs);
   // remove extraneous material and map the relevant data into a useful object
   let dataArray1 = specs
-    .replace(/[®™]/g, "")
+    .replace(/[®™]/g, "").replace(/(nvidia):/gi,'$1').replace(/(amd):/gi,'$1').replace(/(intel):/gi,'$1')
     .match(/([\w ]+:)(<[\/\w]+>)? ?([\w\/,. \-\(\)+]+)</g)
     .map((item) => {
       item = item.replace(/<\/?\w+> ?|[<+]/g, "");
