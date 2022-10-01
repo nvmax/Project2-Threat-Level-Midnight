@@ -209,6 +209,7 @@ footer {
 
 .modFlex {
     width: 45%;
+    height: 90%;
     flex: 1;
 }
 
