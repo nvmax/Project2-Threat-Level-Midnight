@@ -1,3 +1,5 @@
+const selectize = require('selectize')
+
 const profileFormHandler = async (event) => {
     event.preventDefault();
     // get user email from local storage
@@ -119,12 +121,26 @@ const cpuLookupHandler = async (event) => {
 
 
 
+$('#select-gpu').selectize({
+    options: [
+{Value: 1, name: "gtx 1060"},
+{Value: 2, name: "rtx 2070"},
+{Value: 3, name: "rtx 3060"},
+{Value: 4, name: "gtx 4060"},
+{Value: 5, name: "gtx 1660"},
+    ],
+    labelField: 'name',
+    searchField: ['name'],
+    placeholder: "Enter GPU Model",
+    delimiter: ",",
+    create: false,
+    openOnFocus: false,
+})
 
 
-
-document.querySelector('#CPU').addEventListener('keyup', cpuHandler);
+// document.querySelector('#CPU').addEventListener('keyup', cpuHandler);
 document.querySelector('#GPU').addEventListener('keyup', gpuHandler);
-document.querySelector('#submitDevice').addEventListener('click', cpuLookupHandler);
+// document.querySelector('#submitDevice').addEventListener('click', cpuLookupHandler);
 document.querySelector('#submitDevice').addEventListener('click', gpuLookupHandler);
 document.querySelector('#submitDevice').addEventListener('click', ProfileUpdateHandler);
 document.querySelector('#ram').addEventListener('change', profileFormHandler);

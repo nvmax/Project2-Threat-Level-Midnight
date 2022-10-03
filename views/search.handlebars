@@ -118,7 +118,7 @@
     <label for="laptop"> Laptop </label>
 
     <select id="RAM" name="ram">
-      <option value="none" selected disabled hidden>select your RAM size</option>
+      <option value="none" selected disabled hidden>Select your RAM size</option>
       <option value="4">4 GB</option>
       <option value="8">8 GB</option>
       <option value="16">16 GB</option>
@@ -130,8 +130,11 @@
     <label for="CPU">CPU:</label><br />
     <input type="text" id="CPU" name="CPU" />
 
-    <label for="GPU">GPU:</label><br />
-    <input type="text" id="GPU" name="GPU" />
+    <label for="select-gpu-selectized">GPU:</label><br />
+<select id="select-gpu" placeholder="Select a GPU model..." tabindex="-1" style="display:none;"><option value="1060" selected="selected">Nvidia GTX 1060</option></select>
+    <
+
+    {{!-- <input type="select-one" autofill="no" tabindex id="GPU" placeholder="Select your GPU model..." name="GPU" /> --}}
 
     <button type="button" class="manageButton" id="submitDevice">submit</button>
   </form>
