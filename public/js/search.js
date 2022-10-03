@@ -44,98 +44,84 @@ const gamesModalHandler = async (event) => {
   // https://cdn.akamai.steamstatic.com/steam/apps/1188540/header.jpg
   // get id after apps/
   const appid = image.split("/")[5];
+  const uid = await JSON.parse(localStorage.getItem("id"));
+  console.log(appid, uid);
+  console.log(JSON.stringify(uid));
+  // use user id and game id to get game info and run comparison
   const response = await fetch(
-    `https://intense-inlet-78981.herokuapp.com/https://store.steampowered.com/api/appdetails?appids=${appid}&l=en`,
+    `/api/steamuser/compare/uid/${JSON.stringify(uid)}/appid/${appid.replace(
+      /"/g,
+      ""
+    )}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
   );
-  // return data to console.log
+  // return appid and name to console.log
   if (response.ok) {
-    const game = await response.json();
-    const uid = await JSON.parse(localStorage.getItem("id"));
-    console.log(appid, uid);
-    console.log(JSON.stringify(uid));
-    // use user id and game id to run comparison
-    const response2 = await fetch(
-      `/api/steamuser/compare/uid/${JSON.stringify(uid)}/appid/${appid.replace(
-        /"/g,
-        ""
-      )}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    // return appid and name to console.log
-    if (response2.ok) {
-      const executioner = await response2.json();
-      // break out data to be used
-      const gameinfo = game[appid].data;
-      // console.log(gameinfo);
-      const name = gameinfo.name;
-      const date = gameinfo.release_date.date;
-      const description = gameinfo.short_description;
-      const background = gameinfo.background;
+    const executioner = await response.json();
+    // break out data to be used
+    const gameinfo = executioner.gameInfo;
+    // console.log(gameinfo);
+    const name = gameinfo.name;
+    const date = gameinfo.release_date.date;
+    const description = gameinfo.short_description;
+    const background = gameinfo.background;
 
-      const website = gameinfo.website;
-      const headerimage = gameinfo.header_image;
+    const website = gameinfo.website;
+    const headerimage = gameinfo.header_image;
 
-      // console.log(headerimage);
+    // console.log(headerimage);
 
-      document.querySelector("#modName").textContent = name;
+    document.querySelector("#modName").textContent = name;
 
-      document.querySelector("#modDate").textContent = date;
+    document.querySelector("#modDate").textContent = date;
 
-      document.querySelector("#description").textContent = description;
+    document.querySelector("#description").textContent = description;
 
-      const backgroundEl = document.querySelector(".modCard");
-      backgroundEl.style.backgroundImage = `url('${background}')`;
+    const backgroundEl = document.querySelector(".modCard");
+    backgroundEl.style.backgroundImage = `url('${background}')`;
 
-      const modImg = document.querySelector(".modImg");
-      modImg.style.backgroundImage = `url('${headerimage}')`;
+    const modImg = document.querySelector(".modImg");
+    modImg.style.backgroundImage = `url('${headerimage}')`;
 
-      document.querySelector("#website").innerHTML = website;
-      // console.log(gameinfo.pc_requirements)
-      // if (gameinfo.pc_requirements !== "undefined") {
-      if (gameinfo.pc_requirements.recommended) {
-        const recommended = gameinfo.pc_requirements.recommended;
-        document.querySelector("#recommended").innerHTML = recommended;
-        document.querySelector("#minimum").innerHTML = '';
-      } else {
-        const minimum = gameinfo.pc_requirements.minimum;
-        document.querySelector("#minimum").innerHTML = minimum;
-        document.querySelector("#recommended").innerHTML = '';
-      }
-
-      console.log(executioner);
-      ["cpu", "gpu", "ram"].forEach((key1) => {
-        ["Rec", "Min"].forEach((key2) => {
-          const elem = document.getElementById(`${key1}Status${key2}`);
-          console.log(elem);
-          const hardware = `${key1}Meets${key2}`;
-          console.log(hardware);
-          let result = executioner[hardware];
-
-          if (result === true || result === false) {
-            console.log(result);
-            if (result === true) {
-              elem.innerHTML = "✔️";
-            } else if (result === false) {
-              console.log("que pasa");
-              elem.innerHTML = "❌";
-            }
-          } else {
-            elem.innerHTML = "❔";
-          }
-        });
-      });
+    document.querySelector("#website").innerHTML = website;
+    if (gameinfo.pc_requirements.recommended) {
+      const recommended = gameinfo.pc_requirements.recommended;
+      document.querySelector("#recommended").innerHTML = recommended;
+      document.querySelector("#minimum").innerHTML = "";
     } else {
-      console.log("Failed to get compare info");
+      const minimum = gameinfo.pc_requirements.minimum;
+      document.querySelector("#minimum").innerHTML = minimum;
+      document.querySelector("#recommended").innerHTML = "";
     }
+
+    // go through returned worthiness data and update page elements based on results
+    console.log(executioner.worthy);
+    ["cpu", "gpu", "ram"].forEach((key1) => {
+      ["Rec", "Min"].forEach((key2) => {
+        const elem = document.getElementById(`${key1}Status${key2}`);
+        console.log(elem);
+        const hardware = `${key1}Meets${key2}`;
+        console.log(hardware);
+        let result = executioner.worthy[hardware];
+
+        if (result === true || result === false) {
+          console.log(result);
+          if (result === true) {
+            elem.innerHTML = "✔️";
+          } else if (result === false) {
+            console.log("que pasa");
+            elem.innerHTML = "❌";
+          }
+        } else {
+          elem.innerHTML = "❔";
+        }
+      });
+    });
   } else {
-    console.log("Failed to get game info");
+    console.log("Failed to get comparison info for game");
   }
   document.querySelector(".modal").style.visibility = "visible";
   // get appid from click on modal
